@@ -2,15 +2,27 @@ import urllib.request
 import re
 import random
 import spacy
-from bs4 import BeautifulSoup 
+from bs4 import BeautifulSoup
+import google.generativeai as genai
+
+genai.configure(api_key="AIzaSyAgJK_XqImu5ulw2raEasMllxiCSC-MsiY")
+
+defaults = {
+    'model': 'models/text-bison-001',
+    'temperature': 0.7,
+    'candidate_count': 1,
+    'top_k': 40,
+    'top_p': 0.95,
+    'max_output_tokens': 1024,
+    'stop_sequences': [],
+    'safety_settings': [{"category":"HARM_CATEGORY_DEROGATORY","threshold":"BLOCK_LOW_AND_ABOVE"},  {"category":"HARM_CATEGORY_TOXICITY","threshold":"BLOCK_LOW_AND_ABOVE"},{"category":"HARM_CATEGORY_VIOLENCE",  "threshold":"BLOCK_MEDIUM_AND_ABOVE"},{"category":"HARM_CATEGORY_SEXUAL","threshold":"BLOCK_MEDIUM_AND_ABOVE"},  {"category":"HARM_CATEGORY_MEDICAL","threshold":"BLOCK_MEDIUM_AND_ABOVE"},  {"category":"HARM_CATEGORY_DANGEROUS","threshold":"BLOCK_MEDIUM_AND_ABOVE"}],
+}
 
 # url = "https://www.foxnews.com/world/hamas-releases-more-israeli-hostages-6th-day-cease-fire"
 # url = "https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/"
 # url = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
 
-nlp = spacy.load("en_core_web_sm")
-
-omitted_paragraph_keywords = ["all rights reserved", "subscribe", "newsletter", "@", "©", "(c)"]
+omitted_paragraph_keywords = ["all rights reserved", "subscribe", "newsletter", "@", "©", "(c)", "advertis", "cookie", "newsmax", "registered trademark"]
 
 margin = 2
 
@@ -34,65 +46,23 @@ def extractText(url):
         text += para_text + "[NEWPARA]"
     
     # Remove excess newlines
-    text = text.replace("\n", "")
+    text = text.replace("\n", "").replace("[NEWPARA]", "\n\n")
+    # print(text)
 
     return text
 
-# ==========================================================================
 
-def processData(text):
-    paragraphs = text.split("[NEWPARA]")
-    paragraph_data = []
+def corroborate(url1, url2):
+    prompt = f"summarize these two passages into a single news report:\n\"{extractText(url1)}\"\n\"{extractText(url2)}\""
+    print(prompt)
+    # print(f"{prompt}\n=============\n\n")
+    response = genai.generate_text(
+        **defaults,
+        prompt=prompt
+    )
 
-
-    paragraph_index = 0
-    for paragraph in paragraphs:
-        document = nlp(paragraph)
-        paragraph_data.append({
-            "subjects": [],
-            "subject_vectors": spacy.vectors.Vectors(shape=(10000, 300))
-        })
-
-        for token in document:
-            if token.is_space: continue
-            if token.dep_ == "nsubj": # if subject
-                paragraph_data[paragraph_index]["subjects"].append(token)
-                paragraph_data[paragraph_index]["subject_vectors"].add(token.text)
-        paragraph_index += 1
-
-    # document = nlp(text)
-    # vectors = spacy.vectors.Vectors(shape=(10000, 300))
-
-    # for token in document:
-    #     vectors.add(token.text)
-        # print(token.text)
-    # for token in document:
-    #     if token.is_space: continue
-    #     print(f"{token}: {token.dep_}", end="")
-    #     if token.is_sent_end:
-    #         print(" [yes end sentence wopooo]")
-    #     else:
-    #         print("")
-
-    return data
-
-# ==========================================================================
+    # print(response.result)
 
 
-
-def identifyPhrases(text):
-    phrases = []
-
-def plugAndPlay(text):
-    pass
-
-def corroborate(text1, text2):
-    return generateSequence("the", 10, text1 + text2, "balls")
-    # impleeemtnt laterrrrrr
-
-# print(corroborate(
-#     extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"),
-#     extractText("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/")
-# ))
-
-processData("I love oily black men. I like hurling bricks at children, which is an illegal crime. Please kill yourself now. Etc. is shorthand for etcetera!")
+# print(extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"))
+corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
