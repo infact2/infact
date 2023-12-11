@@ -1,4 +1,5 @@
 bs4
 urllib
 spacy
-google-generativeai
+openai
+python-dotenv
