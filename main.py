@@ -55,6 +55,8 @@ def extractText(url):
 
     return text
 
+def textToHTML(text):
+    return text.replace("\n", "<br>")
 
 def corroborate(url1, url2):
     prompt = f"summarize these two passages into a single news report:\n\"{extractText(url1)}\"\n\"{extractText(url2)}\""
