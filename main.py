@@ -68,7 +68,7 @@ def corroborate(url1, url2):
         ]
     )
 
-    print(completion.choices[0].message)
+    print(completion.choices[0].message.content)
 
 
 # print(extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"))
