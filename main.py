@@ -2,6 +2,8 @@ import urllib.request
 import re
 import random
 import spacy
+import requests
+from flask import Flask, request, send_file
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
@@ -74,4 +76,26 @@ def corroborate(url1, url2):
 
 
 # print(extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"))
-corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
+# corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
+
+
+
+
+# ==========================================================
+
+# ROUTING SHENANIGANS
+
+app = Flask("I like oilyn black men")
+
+@app.route("/<path>")
+def eroughwoerug(path):
+    return send_file(f"public/{path}")
+
+@app.route("/")
+def index():
+    return send_file("public/index.html")
+
+if __name__ == '__main__':
+#    app.run(debug = True)
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=8080)

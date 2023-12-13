@@ -4,3 +4,5 @@ spacy
 openai
 python-dotenv
 requests
+Flask
+waitress
