@@ -3,3 +3,4 @@ urllib
 spacy
 openai
 python-dotenv
+requests
