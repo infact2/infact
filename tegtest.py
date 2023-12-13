@@ -1,7 +1,14 @@
 import requests
-url = ('https://newsapi.org/v2/top-headlines?'
-       'country=us&'
+
+prompt = "q=trump impeachment"
+
+url = ('https://newsapi.org/v2/everything?' 
+       'q=impeachment&'
+       'sortBy=popularity&' 
        'apiKey=b9193754d63340e68e587962b953d3ac')
+
 response = requests.get(url)
-print(response.json())
-#testing Tanush
+
+for article in response.json()["articles"]:
+    article_url = article["url"]
+    print(f"{article_url}")
