@@ -108,3 +108,15 @@ a:hover {
     pointer-events: none;
     user-select: none;
 }
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.spinning {
+    display: inline-block;
+    animation: spinning 1s infinite;
+}

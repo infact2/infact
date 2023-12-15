@@ -1,7 +1,7 @@
 function article(_article) {
     return `
         <div class="row article-thumbnail lighter">
-            <div class="col-3" style="background: url(${_article.urlToImage});"></div>
+            <div class="col-3" style="background-color: var(--background-3); background-image: url(${_article.urlToImage});"></div>
             <div class="col" style="padding-left: 50px;">
                 <h3>${_article.title}</h3>
                 <button class="accent">View</button>&nbsp;&nbsp;&nbsp;
@@ -16,7 +16,7 @@ function getTrendingArticles() {
     $.post("/gimme", (data) => {
         if (data.status == "ok") {
             const articles = data.articles;
-            alert(JSON.stringify(articles));
+            // alert(JSON.stringify(articles));
             const _articles = document.querySelector("#articles");
 
             for (let i = 0; i < articles.length; i++) {
