@@ -87,15 +87,28 @@ def corroborate(url1, url2):
 
 app = Flask("I like oilyn black men")
 
-@app.route("/<path>")
-def eroughwoerug(path):
-    return send_file(f"public/{path}")
-
 @app.route("/")
 def index():
     return send_file("public/index.html")
 
+@app.route("/gimme", methods=["POST", "GET"])
+def gimme():
+    print("\n\n\n\n\n\n\nGet top headlines\n\n\n\n\n\n\n");
+    url = ('https://newsapi.org/v2/top-headlines?'
+    'country=us&'
+    'apiKey=b9193754d63340e68e587962b953d3ac')
+    response = requests.get(url)
+    print("==============\n\n\n")
+    print(response.json())
+    print("==============\n\n\n")
+
+    return response.json()
+
+@app.route("/<path>")
+def eroughwoerug(path):
+    return send_file(f"public/{path}")
+
 if __name__ == '__main__':
 #    app.run(debug = True)
     from waitress import serve
-    serve(app, host="0.0.0.0", port=8080)
+    serve(app, host="0.0.0.0", port=8000)
