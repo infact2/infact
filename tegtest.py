@@ -1,9 +1,9 @@
 import requests
 
-prompt = "q=trump impeachment"
+prompt = 'q=trump impeachment&'
 
 url = ('https://newsapi.org/v2/everything?' 
-       'q=impeachment&'
+       'q=&'
        'sortBy=popularity&' 
        'apiKey=b9193754d63340e68e587962b953d3ac')
 
