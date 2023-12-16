@@ -81,7 +81,21 @@ a:hover {
     background: var(--accent);
     color: var(--text-color-2);
 }
-
+.social-media-btn {
+    padding: 10px 20px 10px 20px;
+}
+.x {
+    background: #333;
+}
+.instagram {
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+}
+.facebook {
+    background: #6b53ce;
+}
+.reddit {
+    background: #ff7b00;
+}
 
 
 .article-thumbnail {
