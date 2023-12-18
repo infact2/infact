@@ -1,5 +1,4 @@
 bs4
-urllib
 openai
 python-dotenv
 requests
