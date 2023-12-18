@@ -1,7 +1,6 @@
 import urllib.request
 import re
 import random
-import spacy
 import requests
 from flask import Flask, request, send_file
 from dotenv import load_dotenv
