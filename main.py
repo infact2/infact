@@ -92,20 +92,24 @@ def index():
 
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():
-    print("\n\n\n\n\n\n\nGet top headlines\n\n\n\n\n\n\n");
+    # print("\n\n\n\n\n\n\nGet top headlines\n\n\n\n\n\n\n");
     url = ('https://newsapi.org/v2/top-headlines?'
     'country=us&'
     'apiKey=b9193754d63340e68e587962b953d3ac')
     response = requests.get(url)
-    print("==============\n\n\n")
-    print(response.json())
-    print("==============\n\n\n")
+    # print("==============\n\n\n")
+    # print(response.json())
+    # print("==============\n\n\n")
 
     return response.json()
 
 @app.route("/<path>")
 def eroughwoerug(path):
-    return send_file(f"public/{path}")
+    try:
+        return send_file(f"public/{path}")
+    except:
+        pass
+    return ("lmao imagine")
 
 if __name__ == '__main__':
 #    app.run(debug = True)
