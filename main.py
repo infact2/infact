@@ -84,7 +84,7 @@ def corroborate(url1, url2):
 
 # ROUTING SHENANIGANS
 
-app = Flask("I like oilyn black men")
+app = Flask("ihoeryg0uwrihgupiwrhgiup")
 
 @app.route("/")
 def index():
