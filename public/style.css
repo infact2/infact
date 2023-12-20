@@ -41,12 +41,13 @@ input, button {
     color: var(--text-color);
     border: none;
     outline: 0;
-    padding: 10px 50px 10px 50px;
+    padding: 10px 30px 10px 30px;
     margin: 5px !important;
     border-radius: 100px !important;
     font-family: inherit;
     font-size: inherit;
     transition: 180ms;
+    box-sizing: border-box;
 }
 input:focus, button:focus {
     filter: brightness(120%);
