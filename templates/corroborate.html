@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
+    <title>{{title}}</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 
-    <script src="main.js"></script>
+    <script src="/static/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
@@ -18,14 +18,24 @@
             testingngngin
         </div>
         <div class="col padding">
-            <h1>Biden Hecking Dies</h1><hr>
-            <span id="source" class="grey-text">Sources: </span><br>
-            <span id="author" class="grey-text">By </span><br><br>
-            <button class="accent"><i class="bi bi-link-45deg"></i> Copy URL</button>
-            <button class="social-media-btn x"><i class="bi bi-twitter-x"></i></button>
-            <button class="social-media-btn instagram"><i class="bi bi-instagram"></i></button>
-            <button class="social-media-btn facebook"><i class="bi bi-facebook"></i></button>
-            <button class="social-media-btn reddit"><i class="bi bi-reddit"></i></button>
+            <h1>{{title}}</h1><hr>
+            <span id="source" class="grey-text">Sources: {{sources}}</span><br>
+            <span id="author" class="grey-text">By {{authors}}</span><br><br>
+            <button class="accent">
+                <i class="bi bi-link-45deg"></i> Copy URL
+            </button>
+            <button class="social-media-btn x" onclick="">
+                <i class="bi bi-twitter-x"></i>
+            </button>
+            <button class="social-media-btn instagram" onclick="">
+                <i class="bi bi-instagram"></i>
+            </button>
+            <button class="social-media-btn facebook" onclick="shareFacebook()">
+                <i class="bi bi-facebook"></i>
+            </button>
+            <button class="social-media-btn reddit" onclick="">
+                <i class="bi bi-reddit"></i>
+            </button>
             <br><hr>
             <center>
                 <img src="https://www.icegif.com/wp-content/uploads/2022/06/icegif-340.gif" style="width: calc(100% - 200px);">

@@ -2,13 +2,15 @@ import urllib.request
 import re
 import random
 import requests
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
+import base64
 
 load_dotenv()
 client = OpenAI()
+hdr = {'User-Agent': 'Mozilla/5.0'}
 
 # genai.configure(api_key="AIzaSyAgJK_XqImu5ulw2raEasMllxiCSC-MsiY")
 
@@ -32,7 +34,7 @@ omitted_paragraph_keywords = ["all rights reserved", "subscribe", "newsletter", 
 margin = 2
 
 def extractText(url):
-    html = urllib.request.urlopen(url) 
+    html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr))
     html_parse = BeautifulSoup(html, "html.parser")
     
     text = ""
@@ -88,14 +90,27 @@ app = Flask("ihoeryg0uwrihgupiwrhgiup")
 
 @app.route("/")
 def index():
-    return send_file("public/index.html")
+    return send_file("static/index.html")
+
+@app.route("/corroborate/<url_encoded>")
+def corroborate(url_encoded):
+    url = base64.b64decode(url_encoded.encode("ascii")).decode("ascii")
+    html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr)) 
+    html_parse = BeautifulSoup(html, "html.parser")
+    
+    return render_template("corroborate.html",
+        title=html_parse.title.string, sources=f"${url} and jhguwehrgwui")
+
+@app.route("/ping")
+def ping():
+    return "pong"
 
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():
     # print("\n\n\n\n\n\n\nGet top headlines\n\n\n\n\n\n\n");
     url = ('https://newsapi.org/v2/top-headlines?'
-    'country=us&'
-    'apiKey=b9193754d63340e68e587962b953d3ac')
+        'country=us&'
+        'apiKey=b9193754d63340e68e587962b953d3ac')
     response = requests.get(url)
     # print("==============\n\n\n")
     # print(response.json())
@@ -106,7 +121,7 @@ def gimme():
 @app.route("/<path>")
 def eroughwoerug(path):
     try:
-        return send_file(f"public/{path}")
+        return send_file(f"static/{path}")
     except:
         pass
     return ("lmao imagine")

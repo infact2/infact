@@ -27,6 +27,7 @@ function getTrendingArticles() {
             const _articles = document.querySelector("#articles");
 
             for (let i = 0; i < articles.length; i++) {
+                if (articles[i].title == "[Removed]") continue;
                 _articles.innerHTML += article(articles[i]);
             }
         }
@@ -34,4 +35,10 @@ function getTrendingArticles() {
             alert(data.statu)
         }
     });
+}
+
+//=====================
+
+function shareFacebook() {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'popup');
 }
