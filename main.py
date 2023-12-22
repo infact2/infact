@@ -62,21 +62,27 @@ def textToHTML(text):
     return text.replace("\n", "<br>")
 
 def corroborate(url1, url2):
-    prompt = f"summarize these two passages into a single news report:\n\"{extractText(url1)}\"\n\"{extractText(url2)}\""
+    print("extracting content...")
+    text1 = extractText(url1)
+    print("text 1 extracted.")
+    text2 = extractText(url2)
+    print("text 2 extracted.")
+    prompt = f"summarize these two passages into a single news report:\n\"{text1}\"\n\"{text2}\""
+    print("content extracted.\ncorroborating...")
     # print(prompt)
     # print(f"{prompt}\n=============\n\n")
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You need to talk like you are a news article."},
+            {"role": "system", "content": "You need to talk like you are a news article. Additionally, you need to avoid as much bias as possible and omit extreme opinions."},
             {"role": "user", "content": prompt}
         ]
     )
 
-    print(completion.choices[0].message.content)
+    return completion.choices[0].message.content
 
 
-# print(extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"))
+print(extractText("https://abcnews.go.com/US/fbi-investigating-south-carolina-couple-accused-harassing-neighbors/story?id=105825286"))
 # corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
 
 
@@ -93,17 +99,24 @@ def index():
     return send_file("static/index.html")
 
 @app.route("/corroborate/<url_encoded>")
-def corroborate(url_encoded):
-    url = base64.b64decode(url_encoded.encode("ascii")).decode("ascii")
-    html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr)) 
+def _corroborate(url_encoded):
+    url1 = base64.b64decode(url_encoded.encode("ascii")).decode("ascii")
+    html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr)) 
     html_parse = BeautifulSoup(html, "html.parser")
+
+    # implementt a way to get the second link
+    url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
+
+
+    content = corroborate(url1, url2)
+    print("done corroborating.")
     
     return render_template("corroborate.html",
-        title=html_parse.title.string, sources=f"${url} and jhguwehrgwui")
+        title=html_parse.title.string, source1=url1, source2=url2, content=content)
 
-@app.route("/ping")
+@app.route("/isitdown")
 def ping():
-    return "pong"
+    return "no it fucking isn't"
 
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():
