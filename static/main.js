@@ -40,5 +40,6 @@ function getTrendingArticles() {
 //=====================
 
 function shareFacebook() {
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'popup');
+    // window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'popup');
+    window.open("https://www.google.com", "popup");
 }
