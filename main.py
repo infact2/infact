@@ -104,7 +104,7 @@ def signup(redirect):
 
 @app.route("/login/<redirect>")
 def login(redirect):
-    return render_template("signup.html", redirect=redirect)
+    return render_template("login.html", redirect=redirect)
 
 @app.route("/dashboard")
 def dashboard():
