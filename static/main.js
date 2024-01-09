@@ -1,7 +1,7 @@
 function createSidebar() {
     const sidebar = `
     <center>
-        <a href="/" class="no-href-decoration"><img src="logo.png" class="w-50"></a><br><br>
+        <a href="/" class="no-href-decoration"><img src="/static/logo.png" class="w-50"></a><br><br>
         <h5>Minimize Bias, Maximize Truth</h5>
         <hr class="w-50">
         <br>
