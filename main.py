@@ -98,6 +98,14 @@ app = Flask("ihoeryg0uwrihgupiwrhgiup")
 def index():
     return send_file("static/index.html")
 
+@app.route("/signup/<redirect>")
+def signup(redirect):
+    return render_template("signup.html", redirect=redirect);
+
+p.route("/login/<redirect>")
+def login(redirect):
+    return render_template("signup.html", redirect=redirect);
+
 @app.route("/corroborate/<url_encoded>")
 def _corroborate(url_encoded):
     url1 = base64.b64decode(url_encoded.encode("ascii")).decode("ascii")
