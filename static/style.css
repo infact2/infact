@@ -91,6 +91,10 @@ a:hover {
     height: 5px;
     top: 0px;
 }
+.align-block-middle {
+    margin-top: 50vh;
+    transform: translateY(-50%);
+}
 .lighter {
     background: var(--background-2);
 }
