@@ -1,5 +1,27 @@
+function createSidebar() {
+    const sidebar = `
+    <center>
+        <a href="/" class="no-href-decoration"><img src="logo.png" class="w-50"></a><br><br>
+        <h5>Minimize Bias, Maximize Truth</h5>
+        <hr class="w-50">
+        <br>
+        <p class="dimmed-text">You are not logged in.</p>
+        <button class="w-100 accent">Log In</button>
+        <button class="w-100">Sign Up</button>
+        <hr><br>
+    </center>
+    <h3>Trending topics</h3>
+    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Israel Hamas</button>
+    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Jay Thapar doing cocaine</button>`;
+
+    document.getElementById("sidebar").innerHTML = sidebar;
+    document.getElementById("sidebar").classList.add("col-3", "lighter", "padding");
+}
 function closeWindow() {
-    document.getElementsByClassName('notice-bg')[0].classList.toggle('hidden');
+    document.getElementsByClassName("notice-bg")[0].classList.toggle("hidden");
+}
+function displayLoadingBar() {
+    document.getElementsByClassName("big-ass-loading-bar")[0].classList.remove("hidden");
 }
 
 function article(_article) {
@@ -8,8 +30,8 @@ function article(_article) {
             <div class="col-3" style="background-color: var(--background-3); background-image: url(${_article.urlToImage});"></div>
             <div class="col" style="padding-left: 50px;">
                 <h3>${_article.title}</h3>
-                <a href="/corroborate/${btoa(_article.url)}">
-                    <button class="accent">View</button>
+                <a href="/corroborate/${btoa(_article.url)}" class="no-href-decoration">
+                    <button onclick="displayLoadingBar()" class="accent">View corroborated</button>
                 </a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="${_article.url}">View original</a><br/><br/>
