@@ -100,11 +100,15 @@ def index():
 
 @app.route("/signup/<redirect>")
 def signup(redirect):
-    return render_template("signup.html", redirect=redirect);
+    return render_template("signup.html", redirect=redirect)
 
-p.route("/login/<redirect>")
+@app.route("/login/<redirect>")
 def login(redirect):
-    return render_template("signup.html", redirect=redirect);
+    return render_template("signup.html", redirect=redirect)
+
+@app.route("/dashboard")
+def dashboard():
+    return send_file("static/dashboard.html")
 
 @app.route("/corroborate/<url_encoded>")
 def _corroborate(url_encoded):
