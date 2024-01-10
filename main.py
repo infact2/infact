@@ -149,7 +149,7 @@ def eroughwoerug(path):
         return send_file(f"static/{path}")
     except:
         pass
-    return ("lmao imagine")
+    return send_file(f"static/404.html")
 
 if __name__ == '__main__':
 #    app.run(debug = True)
