@@ -81,8 +81,10 @@ def corroborate(url1, url2):
 
     return completion.choices[0].message.content
 
+def decode(encoded):
+    return base64.b64decode(encoded.encode("ascii")).decode("ascii")
 
-print(extractText("https://abcnews.go.com/US/fbi-investigating-south-carolina-couple-accused-harassing-neighbors/story?id=105825286"))
+#print(extractText("https://abcnews.go.com/US/fbi-investigating-south-carolina-couple-accused-harassing-neighbors/story?id=105825286"))
 # corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
 
 
@@ -100,11 +102,11 @@ def index():
 
 @app.route("/signup/<redirect>")
 def signup(redirect):
-    return render_template("signup.html", redirect=redirect)
+    return render_template("signup.html", redirect=decode(redirect), redirect_raw=redirect)
 
 @app.route("/login/<redirect>")
 def login(redirect):
-    return render_template("login.html", redirect=redirect)
+    return render_template("login.html", redirect=decode(redirect), redirect_raw=redirect)
 
 @app.route("/dashboard")
 def dashboard():
@@ -112,7 +114,7 @@ def dashboard():
 
 @app.route("/corroborate/<url_encoded>")
 def _corroborate(url_encoded):
-    url1 = base64.b64decode(url_encoded.encode("ascii")).decode("ascii")
+    url1 = decode(url_encoded)
     html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr)) 
     html_parse = BeautifulSoup(html, "html.parser")
 

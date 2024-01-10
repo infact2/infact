@@ -6,8 +6,8 @@ function createSidebar() {
         <hr class="w-50">
         <br>
         <p class="dimmed-text">You are not logged in.</p>
-        <button class="w-100 accent">Log In</button>
-        <button class="w-100">Sign Up</button>
+        <a href="/login/L2Rhc2hib2FyZA==" class="no-href-decoration"><button class="w-100 accent">Log In</button></a>
+        <a href="/signup/L2Rhc2hib2FyZA==" class="no-href-decoration"><button class="w-100">Sign Up</button></a>
         <hr><br>
     </center>
     <h3>Trending topics</h3>

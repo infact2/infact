@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InFact | HOME</title>
+    <title>InFact | SIGN UP</title>
 
     <link rel="stylesheet" href="/static/style.css">
 
@@ -22,13 +22,16 @@
         </div>
         <div class="col padding">
             <center>
-                <form class="w-25 align-block-middle" style="height: fit-content;">
+                <form class="w-25 align-block-middle" style="height: fit-content;"
+                    onsubmit="window.location = '{{redirect}}';">
                     <h2>Sign up</h2>
                     <input class="w-100" placeholder="Username" required>
                     <input class="w-100" placeholder="Password" type="password" required>
                     <input class="w-100" placeholder="Confirm password" type="password" required>
-                    <button type="submit" class="accent w-100">Create account</button><br><br>
-                    <a href="/login">Already have an account?</a>
+                    <button type="submit" class="accent w-100">
+                        Create account
+                    </button><br><br>
+                    <a href="/login/{{redirect_raw}}">Already have an account?</a>
                 </form>
             </center>
         </div>
