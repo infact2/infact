@@ -1,3 +1,7 @@
+const months = [
+    "January", "Febuary", "March", "April", "June", "July", "August", "September", "October", "November", "December"
+];
+
 function createSidebar() {
     const sidebar = `
     <center>
@@ -26,10 +30,11 @@ function displayLoadingBar() {
 
 function article(_article) {
     const urlToImage = _article.urlToImage;
+    const date = new Date(_article.publishedAt);
     unscrapable = urlToImage == null;
     let unscrapableWarning = "";
     if (unscrapable) {
-        unscrapableWarning = "<i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
+        unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
     }
 
     return `
@@ -43,6 +48,9 @@ function article(_article) {
                 &nbsp;&nbsp;&nbsp;
                 <a href="${_article.url}">View original</a><br/><br/>
                 <p>
+                    Published <b>
+                        ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}
+                    </b><br/>
                     Source: ${_article.source.name}<br/>By ${_article.author}
                     &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
                 </p>

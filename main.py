@@ -59,7 +59,7 @@ def extractText(url):
     return text
 
 def textToHTML(text):
-    return text.replace("\n", "<br>")
+    return text.replace("\n", "<br/>")
 
 def corroborate(url1, url2):
     print("extracting content...")
@@ -74,7 +74,7 @@ def corroborate(url1, url2):
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You need to talk like you are a news article. Additionally, you need to avoid as much bias as possible and omit extreme opinions."},
+            {"role": "system", "content": "You need to talk like you are a news article. Additionally, you need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. Note that every paragraph has to be started with \"<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\" without the quotes and end with \"</p>\" without the quotes."},
             {"role": "user", "content": prompt}
         ]
     )
