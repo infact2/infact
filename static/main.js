@@ -29,7 +29,7 @@ function article(_article) {
     unscrapable = urlToImage == null;
     let unscrapableWarning = "";
     if (unscrapable) {
-        unscrapableWarning = "<i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='#'>Learn more.</a>";
+        unscrapableWarning = "<i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
     }
 
     return `
