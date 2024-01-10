@@ -25,9 +25,16 @@ function displayLoadingBar() {
 }
 
 function article(_article) {
+    const urlToImage = _article.urlToImage;
+    unscrapable = urlToImage == null;
+    let unscrapableWarning = "";
+    if (unscrapable) {
+        unscrapableWarning = "<i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='#'>Learn more.</a>";
+    }
+
     return `
         <div class="row article-thumbnail lighter">
-            <div class="col-3" style="background-color: var(--background-3); background-image: url(${_article.urlToImage});"></div>
+            <div class="col-3" style="background-color: var(--background-3); background-image: url(${urlToImage});"></div>
             <div class="col" style="padding-left: 50px;">
                 <h3>${_article.title}</h3>
                 <a href="/corroborate/${btoa(_article.url)}" class="no-href-decoration">
@@ -35,7 +42,10 @@ function article(_article) {
                 </a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="${_article.url}">View original</a><br/><br/>
-                <p>Source: ${_article.source.name}<br/>By ${_article.author}</p>
+                <p>
+                    Source: ${_article.source.name}<br/>By ${_article.author}
+                    &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
+                </p>
             </div>
         </div>
     `;
