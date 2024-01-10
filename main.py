@@ -112,6 +112,10 @@ def login(redirect):
 def dashboard():
     return send_file("static/dashboard.html")
 
+@app.route("/information")
+def information():
+    return send_file("static/information.html")
+
 @app.route("/corroborate/<url_encoded>")
 def _corroborate(url_encoded):
     url1 = decode(url_encoded)
