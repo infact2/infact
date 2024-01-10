@@ -1,19 +1,25 @@
 import requests
 
-prompt = "hamas" + "&"
 
-url = 'https://newsapi.org/v2/everything?' 
+def get_links(prompt):
+       print("Given Promt: " + prompt)
 
-parameters = {
-       'q': prompt,
-       'sortBy': 'popularity&',
-       'pageSize': 20,
-       'apiKey': 'b9193754d63340e68e587962b953d3ac'
-}
+       poop = prompt + "&"
 
-response = requests.get(url, params = parameters)
+       url = 'https://newsapi.org/v2/everything?' 
 
-response_json = response.json()
-for article in response_json['articles']:
-    article_url = article["url"]
-    print(f"{article_url}")
+       parameters = {
+              'q': poop,
+              'sortBy': 'popularity&',
+              'pageSize': 20,
+              'apiKey': 'b9193754d63340e68e587962b953d3ac'
+       }
+
+       response = requests.get(url, params = parameters)
+
+       response_json = response.json()
+       for article in response_json['articles']:
+              article_url = article["url"]
+              print(f"{article_url}")
+
+get_links("harvard fired")
