@@ -1,0 +1,5 @@
+In case the Flask server is still up, but you cant Ctrl+C out of it, please follow the instructions or you will die.
+
+1. Run "sudo ps -a"
+2. Find the PID of python
+3. "kill {that PID}"

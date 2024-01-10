@@ -2,13 +2,15 @@ import urllib.request
 import re
 import random
 import requests
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
+import base64
 
 load_dotenv()
 client = OpenAI()
+hdr = {'User-Agent': 'Mozilla/5.0'}
 
 # genai.configure(api_key="AIzaSyAgJK_XqImu5ulw2raEasMllxiCSC-MsiY")
 
@@ -32,7 +34,7 @@ omitted_paragraph_keywords = ["all rights reserved", "subscribe", "newsletter", 
 margin = 2
 
 def extractText(url):
-    html = urllib.request.urlopen(url) 
+    html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr))
     html_parse = BeautifulSoup(html, "html.parser")
     
     text = ""
@@ -60,22 +62,30 @@ def textToHTML(text):
     return text.replace("\n", "<br>")
 
 def corroborate(url1, url2):
-    prompt = f"summarize these two passages into a single news report:\n\"{extractText(url1)}\"\n\"{extractText(url2)}\""
+    print("extracting content...")
+    text1 = extractText(url1)
+    print("text 1 extracted.")
+    text2 = extractText(url2)
+    print("text 2 extracted.")
+    prompt = f"summarize these two passages into a single news report:\n\"{text1}\"\n\"{text2}\""
+    print("content extracted.\ncorroborating...")
     # print(prompt)
     # print(f"{prompt}\n=============\n\n")
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You need to talk like you are a news article."},
+            {"role": "system", "content": "You need to talk like you are a news article. Additionally, you need to avoid as much bias as possible and omit extreme opinions."},
             {"role": "user", "content": prompt}
         ]
     )
 
-    print(completion.choices[0].message.content)
+    return completion.choices[0].message.content
 
+def decode(encoded):
+    return base64.b64decode(encoded.encode("ascii")).decode("ascii")
 
-# print(extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"))
-corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
+#print(extractText("https://abcnews.go.com/US/fbi-investigating-south-carolina-couple-accused-harassing-neighbors/story?id=105825286"))
+# corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
 
 
 
@@ -88,14 +98,46 @@ app = Flask("ihoeryg0uwrihgupiwrhgiup")
 
 @app.route("/")
 def index():
-    return send_file("public/index.html")
+    return send_file("static/index.html")
+
+@app.route("/signup/<redirect>")
+def signup(redirect):
+    return render_template("signup.html", redirect=decode(redirect), redirect_raw=redirect)
+
+@app.route("/login/<redirect>")
+def login(redirect):
+    return render_template("login.html", redirect=decode(redirect), redirect_raw=redirect)
+
+@app.route("/dashboard")
+def dashboard():
+    return send_file("static/dashboard.html")
+
+@app.route("/corroborate/<url_encoded>")
+def _corroborate(url_encoded):
+    url1 = decode(url_encoded)
+    html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr)) 
+    html_parse = BeautifulSoup(html, "html.parser")
+
+    # implementt a way to get the second link
+    url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
+
+
+    content = corroborate(url1, url2)
+    print("done corroborating.")
+    
+    return render_template("corroborate.html",
+        title=html_parse.title.string, source1=url1, source2=url2, content=content)
+
+@app.route("/isitdown")
+def ping():
+    return "no it fucking isn't"
 
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():
     # print("\n\n\n\n\n\n\nGet top headlines\n\n\n\n\n\n\n");
     url = ('https://newsapi.org/v2/top-headlines?'
-    'country=us&'
-    'apiKey=b9193754d63340e68e587962b953d3ac')
+        'country=us&'
+        'apiKey=b9193754d63340e68e587962b953d3ac')
     response = requests.get(url)
     # print("==============\n\n\n")
     # print(response.json())
@@ -106,10 +148,10 @@ def gimme():
 @app.route("/<path>")
 def eroughwoerug(path):
     try:
-        return send_file(f"public/{path}")
+        return send_file(f"static/{path}")
     except:
         pass
-    return ("lmao imagine")
+    return send_file(f"static/404.html")
 
 if __name__ == '__main__':
 #    app.run(debug = True)

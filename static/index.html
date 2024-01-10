@@ -12,11 +12,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
-<body onload="getTrendingArticles()" onerror="alert(event)">
+<body onload="getTrendingArticles(); createSidebar();" onerror="alert(event)">
+    <div class="big-ass-loading-bar hidden"></div>
     <div class="row">
-        <div class="col-3 lighter padding">
-            <button class="w-50 accent">Log In</button>
-            <button class="w-50">Sign Up</button>
+        <div id="sidebar"></div>
+        
+        <div class="col-3">
+            Navbar not loaded...
         </div>
         <div class="col padding">
             <form onsubmit="return false;">

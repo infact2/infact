@@ -2,9 +2,16 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css");
 
 :root {
+    /*
     --background: #1e293b;
     --background-2: #334155;
     --background-3: #475569;
+    */
+
+    
+    --background: #111;
+    --background-2: #222;
+    --background-3: #333;
 
     --text-color: #eee;
 
@@ -41,7 +48,7 @@ input, button {
     color: var(--text-color);
     border: none;
     outline: 0;
-    padding: 10px 30px 10px 30px;
+    padding: 5px 30px 5px 30px;
     margin: 5px !important;
     border-radius: 100px !important;
     font-family: inherit;
@@ -63,12 +70,31 @@ a {
     transition: 200ms;
 }
 a:hover {
-    border-bottom: 5px solid #27d4ff !important;
+    border-bottom: 5px solid #27d4ff;
     margin-bottom: -5px !important;
 }
 
-
-
+@keyframes loading-bar {
+    from {
+        left: -30vw;
+    }
+    to {
+        left: 130vw;
+    }
+}
+.big-ass-loading-bar {
+    background: var(--accent);
+    animation: loading-bar 1s infinite;
+    position: fixed;
+    z-index: 500;
+    width: 60vw;
+    height: 5px;
+    top: 0px;
+}
+.align-block-middle {
+    margin-top: 50vh;
+    transform: translateY(-50%);
+}
 .lighter {
     background: var(--background-2);
 }
@@ -99,9 +125,12 @@ a:hover {
 }
 
 
+.topic {
+    text-align: left;
+}
 .article-thumbnail {
-    padding: 30px;
-    border-radius: 20px;
+    padding: 23px;
+    border-radius: 10px;
     margin: 10px;
     transition: 180ms;
 }
@@ -109,9 +138,9 @@ a:hover {
     background-size: cover;
     background-position: center;
     height: 175px;
-    border-radius: 15px;
+    border-radius: 7.5px;
 }
-.article-thumbnail p {
+.article-thumbnail p, .dimmed-text {
     color: var(--text-color-dim);
 }
 .article-thumbnail:hover {
@@ -119,7 +148,7 @@ a:hover {
 }
 #filters {
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     margin: 10px;
     transition: 200ms;
     height: 250px;
@@ -162,5 +191,13 @@ a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 20px;
+    border-radius: 10px;
+}
+.no-href-decoration {
+    border-bottom: none !important;
+}
+
+#sidebar {
+    position: fixed;
+    height: 100vh;
 }
