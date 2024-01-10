@@ -1,15 +1,19 @@
 import requests
 
 
-def get_links(prompt):
-       print("Given Promt: " + prompt)
+def get_links(keywords):
+       #print("Given Promt: " + prompt)
+       
+       prompt = ""
 
-       poop = prompt + "&"
+       for word in keywords:
+              prompt = prompt + "\"" + word + "\""
+       prompt += "&"
 
        url = 'https://newsapi.org/v2/everything?' 
 
        parameters = {
-              'q': poop,
+              'q': prompt,
               'sortBy': 'popularity&',
               'language': 'en',
               'from': '2023-01-01&',
@@ -24,4 +28,5 @@ def get_links(prompt):
               article_url = article["url"]
               print(f"{article_url}")
 
-get_links("hamas")
+keywords = ["hamas", "hospital", "Israel"]
+get_links(keywords)
