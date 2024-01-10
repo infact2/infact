@@ -11,6 +11,8 @@ def get_links(prompt):
        parameters = {
               'q': poop,
               'sortBy': 'popularity&',
+              'language': 'en',
+              'from': '2023-01-01&',
               'pageSize': 20,
               'apiKey': 'b9193754d63340e68e587962b953d3ac'
        }
@@ -22,4 +24,4 @@ def get_links(prompt):
               article_url = article["url"]
               print(f"{article_url}")
 
-get_links("harvard fired")
+get_links("hamas")
