@@ -59,6 +59,11 @@ input, button {
 input:focus, button:focus {
     filter: brightness(120%);
 }
+input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+}
 button:hover {
     transform: scale(101%);
     filter: brightness(140%);

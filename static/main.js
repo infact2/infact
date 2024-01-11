@@ -16,7 +16,9 @@ function createSidebar() {
     </center>
     <h3>Trending topics</h3>
     <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Israel Hamas</button>
-    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Jay Thapar doing cocaine</button>`;
+    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Jay Thapar doing cocaine</button>
+    <hr><br><p>temporary links will remove ths later lmao</p>
+    <a href="/dashboard">dashboard</a>`;
 
     document.getElementById("sidebar").innerHTML = sidebar;
     document.getElementById("sidebar").classList.add("col-3", "lighter", "padding");
