@@ -196,6 +196,9 @@ a:hover {
 .no-href-decoration {
     border-bottom: none !important;
 }
+.indented, .article-content p {
+    text-indent: 50px;
+}
 
 #sidebar {
     position: fixed;
