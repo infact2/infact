@@ -79,7 +79,15 @@ function getTrendingArticles() {
 
 //=====================
 
+function shareTwitter() {
+    window.open(`https://twitter.com/intent/tweet?text=${window.location.href}`, "popup");
+}
+function shareInstagram() {
+    window.open(`https://www.instagram.com/?url=${window.location.href}`, "popup");
+}
 function shareFacebook() {
-    // window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, 'popup');
-    window.open("https://www.google.com", "popup");
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, "popup");
+}
+function shareReddit() {
+    window.open(`https://reddit.com/submit?url=${window.location.href}&title=${document.title}`, "popup");
 }

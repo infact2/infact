@@ -26,19 +26,19 @@
                 <a href="{{source2}}">Source 2</a>
             </span><br>
             <span id="author" class="grey-text">By {{authors}}</span><br><br>
-            <button class="accent">
+            <button class="accent" onclick="navigator.clipboard.writeText(window.location.href);">
                 <i class="bi bi-link-45deg"></i> Copy URL
             </button>
-            <button class="social-media-btn x" onclick="">
+            <button class="social-media-btn x" onclick="shareTwitter()">
                 <i class="bi bi-twitter-x"></i>
             </button>
-            <button class="social-media-btn instagram" onclick="">
+            <button class="social-media-btn instagram" onclick="shareInstagram()">
                 <i class="bi bi-instagram"></i>
             </button>
             <button class="social-media-btn facebook" onclick="shareFacebook()">
                 <i class="bi bi-facebook"></i>
             </button>
-            <button class="social-media-btn reddit" onclick="">
+            <button class="social-media-btn reddit" onclick="shareReddit()">
                 <i class="bi bi-reddit"></i>
             </button>
             <br><hr>
