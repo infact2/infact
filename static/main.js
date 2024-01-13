@@ -79,6 +79,14 @@ function getTrendingArticles() {
     });
 }
 
+function load() {
+    $("a").click(function() {
+        alert("llll")
+        displayLoadingBar();
+    });
+    createSidebar();
+}
+
 //=====================
 
 function shareTwitter() {
