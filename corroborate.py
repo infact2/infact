@@ -34,6 +34,7 @@ def extractText(url):
 
     return text
 
+#Retrieves list of articles from tegtest and converts all of it to html
 def corroborate(prompt):
     counter = 1
     paras = ""
@@ -45,5 +46,5 @@ def corroborate(prompt):
               counter += 1
     print(paras)
 
-corroborate("israel palestine")
+corroborate(["israel", "palestine"])
 
