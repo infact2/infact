@@ -9,6 +9,7 @@ hdr = {'User-Agent': 'Mozilla/5.0'}
 omitted_paragraph_keywords = ["all rights reserved", "subscribe", "newsletter", "@", "©", "(c)", "advertis", "cookie", "newsmax", "registered trademark"]
 
 def extractText(url):
+    #
     html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr))
     html_parse = BeautifulSoup(html, "html.parser")
     

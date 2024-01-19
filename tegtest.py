@@ -1,7 +1,7 @@
 import requests
 
 
-def get_links(keywords):
+def getLinks(keywords):
        #print("Given Promt: " + prompt)
        
        prompt = ""
@@ -29,4 +29,4 @@ def get_links(keywords):
               print(f"{article_url}")
 
 keywords = ["hamas", "hospital", "Israel"]
-get_links(keywords)
+getLinks(keywords)
