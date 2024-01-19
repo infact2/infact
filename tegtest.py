@@ -29,7 +29,7 @@ def getLinks(keywords):
 
        return response_json
 
-keywords = ["hamas", "hospital", "Israel"]
+keywords = ["San", "Francisco", "homeless"]
 getLinks(keywords)
 
 #getLinks(["Israel", "Palestine"])
