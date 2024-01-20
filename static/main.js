@@ -87,7 +87,7 @@ function load() {
     createSidebar();
 }
 
-//=====================
+// =====================
 
 function shareTwitter() {
     window.open(`https://twitter.com/intent/tweet?text=${window.location.href}`, "popup");
@@ -100,4 +100,20 @@ function shareFacebook() {
 }
 function shareReddit() {
     window.open(`https://reddit.com/submit?url=${window.location.href}&title=${document.title}`, "popup");
+}
+
+// ======================
+
+function loadDashboard() {
+    $.post(`/getuserdata/${btoa("saddam_hussein_555")}/${btoa("password1234567890")}`, (data) => {
+        const success = data && data.success;
+        
+        if (!success) {
+            window.location.href = "/login";
+            return;
+        }
+
+        alert("kys lol")
+        
+    });
 }

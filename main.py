@@ -2,11 +2,13 @@ import urllib.request
 import re
 import random
 import requests
-from flask import Flask, request, send_file, render_template
+from flask import Flask, request, send_file, render_template, jsonify
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
 import base64
+
+import users
 
 load_dotenv()
 client = OpenAI()
@@ -148,6 +150,13 @@ def gimme():
     # print("==============\n\n\n")
 
     return response.json()
+
+@app.route("/getuserdata/<username_encoded>/<password_encoded>", methods=["POST", "GET"])
+def getUserData(username_encoded, password_encoded):
+    data = users.authenticate(decode(username_encoded), decode(password_encoded))
+    print(data)
+    return jsonify(data)
+
 
 @app.route("/<path>")
 def eroughwoerug(path):
