@@ -132,6 +132,11 @@ a:hover {
 
 .topic {
     text-align: left;
+    width: 100px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .article-thumbnail {
     padding: 23px;
@@ -208,4 +213,5 @@ a:hover {
 #sidebar {
     position: fixed;
     height: 100vh;
+    overflow-y: scroll;
 }

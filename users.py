@@ -60,7 +60,7 @@ def saveArticle(username, password, id, title):
     authentication = authenticate(username, password)
     
     if not authentication["success"]:
-        return authenticationStatus(False, "Unable to log in")
+        return authenticationStatus(False, "Authentication error, please log in again")
     
     _id = authentication["message"]["id"]
     saved_articles = authentication["message"]["saved_articles"]
@@ -68,6 +68,22 @@ def saveArticle(username, password, id, title):
         "id": id,
         "title": title
     })
+
+    data, count = supabase.table("users").update({ 
+        "saved_articles": saved_articles
+    }).eq("id", _id).execute();
+
+    return authenticationStatus(True, data[1][0])
+
+def unsaveArticle(username, password, index):
+    authentication = authenticate(username, password)
+
+    if not authentication["success"]:
+        return authenticationStatus(False, "Authentication error, please log in again")
+    
+    _id = authentication["message"]["id"]
+    saved_articles = authentication["message"]["saved_articles"]
+    del saved_articles[index]
 
     data, count = supabase.table("users").update({ 
         "saved_articles": saved_articles
