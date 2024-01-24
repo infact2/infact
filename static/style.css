@@ -30,6 +30,11 @@ body {
     line-height: 2em !important;
     overflow-x: hidden;
 }
+code {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 5px;
+    padding: 3px;
+}
 .hidden {
     display: none;
 }
@@ -39,6 +44,10 @@ body {
 .padding-2 {
     padding: 20px !important;
 }
+.danger {
+    color: #f33;
+}
+
 h1, h2, h3, h4, h5, h6 {
     /* font-weight: 700 !important; */
     font-family: "DM Serif Display" !important;
@@ -113,6 +122,13 @@ a:hover {
 .accent {
     background: var(--accent);
     color: var(--text-color-2);
+}
+.tab {
+    margin-bottom: 0px !important;
+    border-radius: 10px 10px 0px 0px !important;
+}
+.active-tab {
+    font-weight: bold;
 }
 .social-media-btn {
     padding: 10px 20px 10px 20px;
@@ -209,6 +225,10 @@ a:hover {
 }
 .indented, .article-content p {
     text-indent: 50px;
+}
+.loading {
+    margin: 10px;
+    width: 70px;
 }
 
 #sidebar {

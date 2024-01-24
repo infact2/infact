@@ -31,16 +31,16 @@ function displayLoadingBar() {
 }
 
 function savedArticle(_article) {
-    return `<div class="article-thumbnail lighter">
+    return `<div class="article-thumbnail lightest">
             <h5>${_article.title}</h5>
             <br>
             <a href="/corroborate/${_article.id}" class="no-href-decoration">
                 <button class="accent">View corroborated</button>
             </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;<a href="${atob(_article.id)}">View original</a>
             <button onclick="this.parentElement.remove()" style="color: #f54242;">
                 <i class="bi bi-trash3-fill"></i>
             </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="${atob(_article.id)}">View original</a>
         </div>`;
 }
 
@@ -119,7 +119,8 @@ function shareReddit() {
 // ======================
 
 function loadSavedArticles(saved_articles) {
-    const saved = document.querySelector("#saved");
+    const saved = document.querySelector("#saved-content");
+    saved.innerHTML = "";
     if (!saved_articles || saved_articles.length == 0) {
         saved.innerHTML = "You don't have any saved articles...<br><a href="/">Find some!</a>";
         return;
@@ -130,8 +131,12 @@ function loadSavedArticles(saved_articles) {
     }
 }
 
+function getUserDataRequestString() {
+    return `/getuserdata/${btoa("saddam_hussein_555")}/${btoa("password1234567890")}`;
+}
+
 function loadDashboard() {
-    $.post(`/getuserdata/${btoa("saddam_hussein_555")}/${btoa("password1234567890")}`, (data) => {
+    $.post(getUserDataRequestString(), (data) => {
         const success = data && data.success;
         
         if (!success) {
@@ -143,4 +148,18 @@ function loadDashboard() {
 
         loadSavedArticles(data.message.saved_articles);
     });
+}
+
+function switchTab(button, id) {
+    const tab_contents = document.querySelectorAll(".tab-content");
+    const tabs = document.querySelectorAll(".tab");
+
+    // alert(JSON.stringify(Object.keys(tabs)));
+
+    for (let i = 0; i < tab_contents.length; i++) { // Assume there are equal amounts of tab contents and tab buttons
+        tab_contents[i].classList.add("hidden");
+        tabs[i].classList.remove("accent");
+    }
+    document.getElementById(id).classList.remove("hidden");
+    button.classList.add("accent");
 }

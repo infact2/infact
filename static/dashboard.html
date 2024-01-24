@@ -22,28 +22,59 @@
         </div>
 
         <div class="col padding">
-            <h1>Dqasghbaord</h1>
+            <h1>Dashbaord</h1>
             <br>
-            <h3>Account Settings</h3>
-            <input placeholder="New username"><br>
-            <input placeholder="New password (leave blank for no change)"><br>
-            <input placeholder="Current password"><br>
-            <button class="accent">Apply changes</button>
-            <button>Clear changes</button><br><br><hr>
-            <h3>Saved Articles</h3>
-            <button>
-                <i class="bi bi-arrow-clockwise"></i>
-            </button><br>
-            <div id="saved">
-                <!-- <div class="article-thumbnail lighter">
-                    <h5>Saddam Hussein Comes Back to Life</h5>
+            <div class="lightest w-100" style="padding: 25px 50px 0 50px; border-radius: 10px 10px 0 0;">
+                <button class="tab accent" onclick="switchTab(this, 'saved');">Saved Articles</button>
+                <button class="tab" onclick="switchTab(this, 'account');">Account</button>
+            </div>
+            <div class="lighter w-100 padding" style="border-radius: 0 0 10px 10px;">
+                <div id="account" class="tab-content hidden">
+                    <h3>Account Settings</h3>
+                    <input placeholder="New username" class="lightest"><br>
+                    <input placeholder="New password" class="lightest"><br>
+                    <input placeholder="Current password" class="lightest"><br>
+                    <p class="grey-text">Note: you do not need enter a new password if you don't want a password change</p>
+                    <button class="accent">Apply changes</button>
+                    <button>Clear changes</button>
                     <br>
-                    <a href="#" class="no-href-decoration"><button class="accent">View corroborated</button></a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#">View original</a>
-                    <button onclick="this.parentElement.remove()" style="color: #f54242;">
-                        <i class="bi bi-trash3-fill"></i>
+                    <hr>
+                    <button class="accent">Log out</button>
+                    <br>
+                    <hr>
+                    <h3>Danger Zone</h3>
+                    <p>
+                        These are settings you only touch when you have to. THESE CANNOT BE UNDONE.
+                    </p>
+                    <div class="padding-2 lightest w-100" style="border-radius: 10px;">
+                        <button class="danger">Delete account</button>
+                        <p>Permenantly delete accountg</p>
+                        <button class="danger">Reset data</button>
+                        <p>Resets all user data but login information. You probably won't need this anyways.</p>
+                        <button onclick="$.post(getUserDataRequestString(), (data) => {
+                            document.getElementById('user-json-debug').innerHTML = JSON.stringify(data.message);
+                        })">
+                            Retrieve user JSON
+                        </button>
+                        <p>
+                            Returns user JSON, you literally will not need this.
+                            <br>
+                            <code id="user-json-debug">JSON will appear here</code>
+                        </p>
+                    </div>
+                </div>
+                
+                <div id="saved" class="tab-content">
+                    <h3>Saved Articles</h3>
+                    <button>
+                    <i class="bi bi-arrow-clockwise"></i>
                     </button>
-                </div> -->
+                    <div id="saved-content">
+                        <center>
+                            <img src="loading.gif" class="loading">
+                        </center>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
