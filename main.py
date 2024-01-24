@@ -74,7 +74,7 @@ def corroborate(url1, url2):
     #print("content extracted.\ncorroborating...")
     # print(prompt)
     # print(f"{prompt}\n=============\n\n")
-    text = corroborate.getText()
+    text = texter.getText()
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
