@@ -30,6 +30,20 @@ function displayLoadingBar() {
     document.getElementsByClassName("big-ass-loading-bar")[0].classList.remove("hidden");
 }
 
+function savedArticle(_article) {
+    return `<div class="article-thumbnail lighter">
+            <h5>${_article.title}</h5>
+            <br>
+            <a href="/corroborate/${_article.id}" class="no-href-decoration">
+                <button class="accent">View corroborated</button>
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;<a href="${atob(_article.id)}">View original</a>
+            <button onclick="this.parentElement.remove()" style="color: #f54242;">
+                <i class="bi bi-trash3-fill"></i>
+            </button>
+        </div>`;
+}
+
 function article(_article) {
     const urlToImage = _article.urlToImage;
     const date = new Date(_article.publishedAt);
@@ -57,8 +71,7 @@ function article(_article) {
                     &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
                 </p>
             </div>
-        </div>
-    `;
+        </div>`;
 }
 
 function getTrendingArticles() {
@@ -84,10 +97,11 @@ function load() {
         alert("llll")
         displayLoadingBar();
     });
+
     createSidebar();
 }
 
-//=====================
+// =====================
 
 function shareTwitter() {
     window.open(`https://twitter.com/intent/tweet?text=${window.location.href}`, "popup");
@@ -100,4 +114,33 @@ function shareFacebook() {
 }
 function shareReddit() {
     window.open(`https://reddit.com/submit?url=${window.location.href}&title=${document.title}`, "popup");
+}
+
+// ======================
+
+function loadSavedArticles(saved_articles) {
+    const saved = document.querySelector("#saved");
+    if (!saved_articles || saved_articles.length == 0) {
+        saved.innerHTML = "You don't have any saved articles...<br><a href="/">Find some!</a>";
+        return;
+    }
+
+    for (let i = 0; i < saved_articles.length; i++) {
+        saved.innerHTML += savedArticle(saved_articles[i]);
+    }
+}
+
+function loadDashboard() {
+    $.post(`/getuserdata/${btoa("saddam_hussein_555")}/${btoa("password1234567890")}`, (data) => {
+        const success = data && data.success;
+        
+        if (!success) {
+            window.location.href = "/login";
+            return;
+        }
+
+        // alert(JSON.stringify(data.message.saved_articles))
+
+        loadSavedArticles(data.message.saved_articles);
+    });
 }
