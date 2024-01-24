@@ -35,7 +35,7 @@ def extractText(url):
     return text
 
 #Retrieves list of articles from tegtest and converts all of it to html
-def corroborate(prompt):
+def getText(prompt):
     counter = 1
     paras = ""
     response = getLinks(prompt)
@@ -44,7 +44,10 @@ def corroborate(prompt):
               text = extractText(article_url)
               paras = paras + "," + " article " + str(counter) + ": " + text
               counter += 1
-    print(paras)
+    #print(paras)
+    return paras
 
-corroborate(["israel", "palestine"])
+getText(["trump"])
+
+
 

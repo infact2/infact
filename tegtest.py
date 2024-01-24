@@ -16,7 +16,7 @@ def getLinks(keywords):
               'sortBy': 'popularity&',
               'language': 'en',
               'from': '2023-01-01&',
-              'pageSize': 20,
+              'pageSize': 5,
               'apiKey': 'b9193754d63340e68e587962b953d3ac'
        }
 
@@ -29,7 +29,7 @@ def getLinks(keywords):
 
        return response_json
 
-keywords = ["San", "Francisco", "homeless"]
+keywords = ["San", "Francisco", "homeless", "China"]
 getLinks(keywords)
 
-#getLinks(["Israel", "Palestine"])
+#getLinks(["San", "Diego", "homeless"])

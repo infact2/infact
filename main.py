@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
 import base64
+import corroborate
 
 load_dotenv()
 client = OpenAI()
@@ -62,20 +63,21 @@ def textToHTML(text):
     return text.replace("\n", "<br/>")
 
 def corroborate(url1, url2):
-    print("extracting content...")
-    text1 = extractText(url1)
-    print("text 1 extracted.")
-    text2 = extractText(url2)
-    print("text 2 extracted.")
-    prompt = f"summarize these two passages into a single news report:\n\"{text1}\"\n\"{text2}\""
-    print("content extracted.\ncorroborating...")
+    #print("extracting content...")
+    #text1 = extractText(url1)
+    #print("text 1 extracted.")
+    #text2 = extractText(url2)
+    #print("text 2 extracted.")
+    #prompt = f"summarize these two passages into a single news report:\n\"{text1}\"\n\"{text2}\""
+    #print("content extracted.\ncorroborating...")
     # print(prompt)
     # print(f"{prompt}\n=============\n\n")
+    text = corroborate.getText()
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You need to talk like you are a news article. Additionally, you need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. Note that every paragraph has to be started with \"<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\" without the quotes and end with \"</p>\" without the quotes."},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": text}
         ]
     )
 
