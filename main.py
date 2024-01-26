@@ -64,7 +64,7 @@ def extractText(url):
 def textToHTML(text):
     return text.replace("\n", "<br/>")
 
-def corroborate(url1, url2):
+def corroborate(orig_url):
     #print("extracting content...")
     #text1 = extractText(url1)
     #print("text 1 extracted.")
@@ -127,10 +127,10 @@ def _corroborate(url_encoded):
     html_parse = BeautifulSoup(html, "html.parser")
 
     # implementt a way to get the second link
-    url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
+    #url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
 
 
-    content = corroborate(url1, url2)
+    content = corroborate(url1)
     print("done corroborating.")
     
     return render_template("corroborate.html",
