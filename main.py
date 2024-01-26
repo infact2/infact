@@ -160,7 +160,7 @@ def getUserData(username_encoded, password_encoded):
     return jsonify(data)
 
 @app.route("/createaccount/<username_encoded>/<password_encoded>", methods=["POST", "GET"])
-def getUserData(username_encoded, password_encoded):
+def createAccount(username_encoded, password_encoded):
     data = users.createAccount(decode(username_encoded), decode(password_encoded))
     print(data)
     return jsonify(data)

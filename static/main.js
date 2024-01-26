@@ -201,12 +201,29 @@ function login(redirect) {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     displayLoadingBar();
+    
     authenticate(() => {
         storeUserData(username, password);
         window.location.href = redirect;
     }, (data) => {
         //
     }, username, password);
+}
+function signup(redirect) {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    displayLoadingBar();
+
+    $.post(createAccountRequestString(username, password), (data) => {
+        const success = data && data.success;
+
+        if (!success) {
+            //
+            return;
+        }
+        storeUserData(username, password);
+        window.location.href = redirect;
+    });
 }
 
 // ======================
@@ -231,6 +248,9 @@ function getUserDataRequestString(username = null, password = null) {
 
     const user_cookies = getUserCookies();
     return `/getuserdata/${btoa(user_cookies.username)}/${btoa(user_cookies.password)}`;
+}
+function createAccountRequestString(username, password) {
+    return `/createaccount/${btoa(username)}/${btoa(password)}`;
 }
 
 function loadDashboard() {
