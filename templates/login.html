@@ -23,10 +23,10 @@
         <div class="col padding">
             <center>
                 <form class="w-25 align-block-middle" style="height: fit-content;"
-                    onsubmit="window.location = '{{redirect}}'; return false;">
+                    onsubmit="login('{{redirect}}'); return false;">
                     <h2>Log in</h2>
-                    <input class="w-100" placeholder="Username" required>
-                    <input class="w-100" placeholder="Password" type="password" required>
+                    <input class="w-100" placeholder="Username" id="username" required>
+                    <input class="w-100" placeholder="Password" type="password" id="password" required>
                     <button type="submit" class="accent w-100">
                         Log in
                     </button><br><br>

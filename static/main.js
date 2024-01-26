@@ -9,19 +9,32 @@ function createSidebar() {
         <h5>Minimize Bias, Maximize Truth</h5>
         <hr class="w-50">
         <br>
-        <p class="dimmed-text">You are not logged in.</p>
-        <a href="/login/${btoa("/dashboard")}" class="no-href-decoration"><button class="w-100 accent">Log In</button></a>
-        <a href="/signup/${btoa("/dashboard")}" class="no-href-decoration"><button class="w-100">Sign Up</button></a>
+        <div id="sidebar-user">
+            <center>
+                <img src="loading.gif" class="loading">
+            </center>
+        </div>
         <hr><br>
     </center>
     <h3>Trending topics</h3>
     <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Israel Hamas</button>
-    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Jay Thapar doing cocaine</button>
-    <hr><br><p>temporary links will remove ths later lmao</p>
-    <a href="/dashboard">dashboard</a>`;
+    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Jay Thapar doing cocaine</button>`;
 
     document.getElementById("sidebar").innerHTML = sidebar;
     document.getElementById("sidebar").classList.add("col-3", "lighter", "padding");
+
+    authenticate((data) => {
+        document.getElementById("sidebar-user").innerHTML = `
+            <p class="dimmed-text">Welcome, <b>${data.message.username}</b></p>
+            <a href="/dashboard" class="no-href-decoration"><button class="w-100 accent">Dashboard</button></a>
+            <button class="w-100" onclick="logout()">Log out</button>`;
+    },
+    () => {
+        document.getElementById("sidebar-user").innerHTML = `
+            <p class="dimmed-text">You are not logged in.</p>
+            <a href="/login/${btoa("/dashboard")}" class="no-href-decoration"><button class="w-100 accent">Log in</button></a>
+            <a href="/signup/${btoa("/dashboard")}" class="no-href-decoration"><button class="w-100">Sign up</button></a>`;
+    });
 }
 function closeWindow() {
     document.getElementsByClassName("notice-bg")[0].classList.toggle("hidden");
@@ -87,14 +100,13 @@ function getTrendingArticles() {
             }
         }
         else {
-            alert(data.statu)
+            alert(data.status)
         }
     });
 }
 
 function load() {
     $("a").click(function() {
-        alert("llll")
         displayLoadingBar();
     });
 
@@ -118,6 +130,87 @@ function shareReddit() {
 
 // ======================
 
+function authenticate(_success, failure = null, username = null, password = null) {
+    if (!username) {
+        const cookies = getUserCookies();
+        username = cookies.username;
+        password = cookies.password;
+
+        if (username.length == 0) {
+            if (!failure) {
+                window.location.href = `/login/${btoa("/dashboard")}`;
+            }
+            else {
+                failure();
+            }
+            return;
+        }
+    }
+
+    $.post(getUserDataRequestString(username, password), (data) => {
+        const success = data && data.success;
+
+        if (!success) {
+            if (!failure) {
+                window.location.href = `/login/${btoa("/dashboard")}`;
+            }
+            else {
+                failure(data);
+            }
+            return;
+        }
+        _success(data);
+    });
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function storeUserData(username, password) {
+    document.cookie = `username=${username};path=/`;
+    document.cookie = `password=${password};path=/`;
+}
+function getUserCookies() {
+    return {
+        username: getCookie("username"),
+        password: getCookie("password")
+    };
+}
+function removeUserData() {
+    document.cookie = `username=;expires=Thu, 18 Dec 2013 12:00:00 UTC;path=/`;
+    document.cookie = `password=;expires=Thu, 18 Dec 2013 12:00:00 UTC;path=/`;
+}
+function logout() {
+    removeUserData();
+    window.location.href = "/";
+}
+function login(redirect) {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    displayLoadingBar();
+    authenticate(() => {
+        storeUserData(username, password);
+        window.location.href = redirect;
+    }, (data) => {
+        //
+    }, username, password);
+}
+
+// ======================
+
 function loadSavedArticles(saved_articles) {
     const saved = document.querySelector("#saved-content");
     saved.innerHTML = "";
@@ -131,20 +224,28 @@ function loadSavedArticles(saved_articles) {
     }
 }
 
-function getUserDataRequestString() {
-    return `/getuserdata/${btoa("saddam_hussein_555")}/${btoa("password1234567890")}`;
+function getUserDataRequestString(username = null, password = null) {
+    if (username && password) {
+        return `/getuserdata/${btoa(username)}/${btoa(password)}`;
+    }
+
+    const user_cookies = getUserCookies();
+    return `/getuserdata/${btoa(user_cookies.username)}/${btoa(user_cookies.password)}`;
 }
 
 function loadDashboard() {
+    if (!getUserCookies().username) {
+        window.location.href = `/login/${btoa("/dashboard")}`;
+        return;
+    }
+
     $.post(getUserDataRequestString(), (data) => {
         const success = data && data.success;
         
         if (!success) {
-            window.location.href = "/login";
+            window.location.href = `/login/${btoa("/dashboard")}`;
             return;
         }
-
-        // alert(JSON.stringify(data.message.saved_articles))
 
         loadSavedArticles(data.message.saved_articles);
     });
