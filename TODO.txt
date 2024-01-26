@@ -10,6 +10,4 @@ BACKEND
     - extract title from initial headline website in main.py
     - give that to google api to get links in tantest.py
     - extract text from them texter.py
-- add a route for creating accounts ("/createaccount/<username_encoded>/<password_encoded>")
-    - use functions from users.py module
 - media bias json
