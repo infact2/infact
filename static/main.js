@@ -11,7 +11,7 @@ function createSidebar() {
         <br>
         <div id="sidebar-user">
             <center>
-                <img src="loading.gif" class="loading">
+                <img src="/static/loading.gif" class="loading">
             </center>
         </div>
         <hr><br>
@@ -43,6 +43,10 @@ function displayLoadingBar() {
     document.getElementsByClassName("big-ass-loading-bar")[0].classList.remove("hidden");
 }
 
+function removeLoadingBar() {
+    document.getElementsByClassName("big-ass-loading-bar")[0].classList.add("hidden");
+}
+
 function savedArticle(_article) {
     return `<div class="article-thumbnail lightest">
             <h5>${_article.title}</h5>
@@ -57,13 +61,17 @@ function savedArticle(_article) {
         </div>`;
 }
 
-function article(_article) {
+function article(_article, authenticated = false) {
     const urlToImage = _article.urlToImage;
     const date = new Date(_article.publishedAt);
     unscrapable = urlToImage == null;
     let unscrapableWarning = "";
+    let saveButton = "";
     if (unscrapable) {
         unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
+    }
+    if (authenticated) {
+        saveButton = `<button><i class="bi bi-bookmark"></i></button>`;
     }
 
     return `
@@ -73,7 +81,7 @@ function article(_article) {
                 <h3>${_article.title}</h3>
                 <a href="/corroborate/${btoa(_article.url)}" class="no-href-decoration">
                     <button onclick="displayLoadingBar()" class="accent">View corroborated</button>
-                </a>
+                </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;
                 <a href="${_article.url}">View original</a><br/><br/>
                 <p>
@@ -87,21 +95,29 @@ function article(_article) {
         </div>`;
 }
 
+function displayTrendingArticles(data, authenticated = false) {
+    if (data.status == "ok") {
+        const articles = data.articles;
+        // alert(JSON.stringify(articles));
+        const _articles = document.querySelector("#articles");
+
+        for (let i = 0; i < articles.length; i++) {
+            if (articles[i].title == "[Removed]") continue;
+            _articles.innerHTML += article(articles[i], authenticated);
+        }
+    }
+    else {
+        alert(data.status)
+    }
+}
+
 function getTrendingArticles() {
     $.post("/gimme", (data) => {
-        if (data.status == "ok") {
-            const articles = data.articles;
-            // alert(JSON.stringify(articles));
-            const _articles = document.querySelector("#articles");
-
-            for (let i = 0; i < articles.length; i++) {
-                if (articles[i].title == "[Removed]") continue;
-                _articles.innerHTML += article(articles[i]);
-            }
-        }
-        else {
-            alert(data.status)
-        }
+        authenticate((_data) => {
+            displayTrendingArticles(data, true);
+        }, (_data) => {
+            displayTrendingArticles(data, false);
+        })
     });
 }
 
@@ -141,7 +157,10 @@ function authenticate(_success, failure = null, username = null, password = null
                 window.location.href = `/login/${btoa("/dashboard")}`;
             }
             else {
-                failure();
+                failure({
+                    "success": false,
+                    "message": "Error fetching user cookies"
+                });
             }
             return;
         }
@@ -206,7 +225,8 @@ function login(redirect) {
         storeUserData(username, password);
         window.location.href = redirect;
     }, (data) => {
-        //
+        document.getElementById("error").innerText = data.message;
+        removeLoadingBar();
     }, username, password);
 }
 function signup(redirect) {
@@ -218,7 +238,8 @@ function signup(redirect) {
         const success = data && data.success;
 
         if (!success) {
-            //
+            document.getElementById("error").innerText = data.message;
+            removeLoadingBar();
             return;
         }
         storeUserData(username, password);
