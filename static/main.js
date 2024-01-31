@@ -25,7 +25,10 @@ function createSidebar() {
 
     authenticate((data) => {
         document.getElementById("sidebar-user").innerHTML = `
-            <p class="dimmed-text">Welcome, <b>${data.message.username}</b></p>
+            <p>
+                <img src="https://media.tenor.com/dp2xCMlfb4kAAAAi/nerd-emoji.gif" class="lightest" style="border-radius: 100%; width: 40px; height: 40px;">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>${data.message.username}</b>
+            </p>
             <a href="/dashboard" class="no-href-decoration"><button class="w-100 accent">Dashboard</button></a>
             <button class="w-100" onclick="logout()">Log out</button>`;
     },
@@ -107,7 +110,7 @@ function displayTrendingArticles(data, authenticated = false) {
         }
     }
     else {
-        alert(data.status)
+        alert("There was an error loading top headlines")
     }
 }
 

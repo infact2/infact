@@ -104,15 +104,5 @@ def deleteAccount(username, password):
 
     return authenticationStatus(True, "Successfully deleted")
 
-def resetAccount(username, password):
-    authentication = authenticate(username, password)
-
-    if not authentication["success"]:
-        return authenticationStatus(False, "Authentication error");
-    
-    _id = authentication["message"]["id"]
-    
-    # implement later lmao
-
 # print(saveArticle("saddam_hussein_555", "password1234567890", "generic", "generic"))
 # print(saveArticle("saddam_hussein_555", "password1234567890", "generic2", "generic2"))

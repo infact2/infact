@@ -44,13 +44,11 @@
                     <hr>
                     <h3>Danger Zone</h3>
                     <p>
-                        These are settings you only touch when you have to. THESE CANNOT BE UNDONE.
+                        These are settings you only touch when you have to. <span class="danger">MOST CANNOT BE UNDONE, BE ADVISED.</span>.
                     </p>
                     <div class="padding-2 lightest w-100" style="border-radius: 10px;">
                         <button class="danger">Delete account</button>
-                        <p>Permenantly delete accountg</p>
-                        <button class="danger">Reset data</button>
-                        <p>Resets all user data but login information. You probably won't need this anyways.</p>
+                        <p>Permanantly delete account.</p>
                         <button onclick="$.post(getUserDataRequestString(), (data) => {
                             document.getElementById('user-json-debug').innerHTML = JSON.stringify(data.message);
                         })">
