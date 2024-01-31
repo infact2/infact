@@ -32,12 +32,13 @@ def authenticate(username, password):
     if single_data["password"] != encrypted_password:
         return authenticationStatus(False, "Invalid password")
 
+    del single_data["password"]; # Remove password from sent data
+
     return authenticationStatus(True, single_data)
 
 
 def createAccount(username, password): 
     same_username_count = len(supabase.table("users").select("*").eq("username", username).execute().data)
-    print(same_username_count)
     already_exists = same_username_count > 0
 
     if already_exists:
@@ -51,6 +52,7 @@ def createAccount(username, password):
     }).execute()
 
     single_data = data[1][0]
+    del single_data["password"]; # Remove password from sent data
 
     return authenticationStatus(True, single_data)
 
