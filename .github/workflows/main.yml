@@ -1,9 +1,6 @@
 name: Upload Website
 
-on:
-  push:
-    branches:
-    - master
+on: [push]
 
 jobs:
   deploy:
