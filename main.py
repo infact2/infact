@@ -142,11 +142,12 @@ def ping():
 
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():
-    # print("\n\n\n\n\n\n\nGet top headlines\n\n\n\n\n\n\n");
+    print("GETTING TOP HEADLINES\n\n")
     url = ('https://newsapi.org/v2/top-headlines?'
         'country=us&'
         'apiKey=b9193754d63340e68e587962b953d3ac')
     response = requests.get(url)
+    print(response.json())
     # print("==============\n\n\n")
     # print(response.json())
     # print("==============\n\n\n")
