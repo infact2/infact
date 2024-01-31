@@ -15,6 +15,7 @@ load_dotenv()
 client = OpenAI()
 hdr = {'User-Agent': 'Mozilla/5.0'}
 
+
 # genai.configure(api_key="AIzaSyAgJK_XqImu5ulw2raEasMllxiCSC-MsiY")
 
 # defaults = {
@@ -79,9 +80,15 @@ def corroborate(orig_url):
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You need to talk like you are a news article. Additionally, you need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. Note that every paragraph has to be started with \"<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\" without the quotes and end with \"</p>\" without the quotes."},
+
             {"role": "user", "content": text}
-        ]
+
+
+        ],
+        temperature = 0,
     )
+
+    print(completion.choices[0].message['content'])
 
     return completion.choices[0].message.content
 
