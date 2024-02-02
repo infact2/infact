@@ -1,6 +1,6 @@
 name: Upload Website
 
-on: [push]
+on: [release]
 
 jobs:
   deploy:
