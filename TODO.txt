@@ -10,4 +10,6 @@ BACKEND
     - extract title from initial headline website in main.py
     - give that to google api to get links in tantest.py
     - extract text from them texter.py
+- figure out what chatgpt api prompt is best
 - media bias json
+    - might not be necessary - figure out what we're actually trying to do
