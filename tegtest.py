@@ -30,6 +30,6 @@ def getLinks(keywords):
        return response_json
 
 keywords = ["San", "Francisco", "homeless", "China"]
-getLinks(keywords)
+#getLinks(keywords)
 
 #getLinks(["San", "Diego", "homeless"])
