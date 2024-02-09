@@ -2,6 +2,7 @@ import os
 import json
 import urllib.request
 from dotenv import load_dotenv
+from politicalindex import isPolitical
 
 load_dotenv()
 
@@ -59,10 +60,5 @@ def getRelatedHeadlines(original_title, original_source_name):
 #    * Avoid picking outdated content
 #    * For example: war, polit..., gov..., conflict, etc.
 #  * Ask chatgpt because fuck it
-def isPolitical(original_title):
-    return True
-
-def getPoliticalIndex(original_title):
-    filtered_title = original_title.lower()
 
 getRelatedHeadlines("Chile’s wildfires kill at least 112, as Boric warns death toll to rise - Al Jazeera English", "Al Jazeera English")
