@@ -28,7 +28,7 @@ def getDaLinks(prompt):
        return response_json
 
 keywords = ["San", "Francisco", "homeless", "China"]
-getDaLinks(keywords)
+#getDaLinks(keywords)
 
 #getLinks(["San", "Diego", "homeless"])
 #test push 3

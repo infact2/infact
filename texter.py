@@ -30,7 +30,7 @@ def extractText(url): #takes in link (string) and returns filtered text
     
     # Remove excess newlines
     text = text.replace("\n", "").replace("[NEWPARA]", "\n\n")
-    print(text)
+    #print(text)
 
     return text
 
