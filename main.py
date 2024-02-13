@@ -10,6 +10,7 @@ import base64
 import texter
 
 import users
+from jessetest import getTopHeadlines
 
 load_dotenv()
 client = OpenAI()
@@ -150,16 +151,16 @@ def ping():
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():
     print("GETTING TOP HEADLINES\n\n")
-    url = ('https://newsapi.org/v2/top-headlines?'
-        'country=us&'
-        'apiKey=b9193754d63340e68e587962b953d3ac')
-    response = requests.get(url)
-    print(response.json())
+
+    data = getTopHeadlines()["entries"]
+
+    print(data)
+
     # print("==============\n\n\n")
     # print(response.json())
     # print("==============\n\n\n")
 
-    return response.json()
+    return data
 
 @app.route("/getuserdata/<username_encoded>/<password_encoded>", methods=["POST", "GET"])
 def getUserData(username_encoded, password_encoded):
