@@ -43,11 +43,11 @@ function closeWindow() {
     document.getElementsByClassName("notice-bg")[0].classList.toggle("hidden");
 }
 function displayLoadingBar() {
-    document.getElementsByClassName("big-ass-loading-bar")[0].classList.remove("hidden");
+    document.getElementsByClassName("big-loading-bar")[0].classList.remove("hidden");
 }
 
 function removeLoadingBar() {
-    document.getElementsByClassName("big-ass-loading-bar")[0].classList.add("hidden");
+    document.getElementsByClassName("big-loading-bar")[0].classList.add("hidden");
 }
 
 function savedArticle(_article) {
