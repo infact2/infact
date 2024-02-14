@@ -5,3 +5,7 @@ requests
 Flask
 waitress
 supabase
+pattern
+feedparser
+dateparser
+spacy
