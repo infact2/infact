@@ -1,14 +1,14 @@
 from openai import OpenAI
 from dotenv import load_dotenv
-import texter
+import articletextmanager
 
 load_dotenv()
 
 client = OpenAI()
 
 
-article1 = texter.extractText("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
-article2 = texter.extractText("https://www.aljazeera.com/news/2024/2/7/ukraines-zaluzhny-touts-drones-as-path-to-victory-russia-suffers-strikes")
+article1 = articletextmanager.extractText("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
+article2 = articletextmanager.extractText("https://www.aljazeera.com/news/2024/2/7/ukraines-zaluzhny-touts-drones-as-path-to-victory-russia-suffers-strikes")
 text = "Article 1: " + article1 + " Article 2:" + article2
 #print(text)
 #text = "poopy monkey fart"

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
 import base64
-import texter
+import articletextmanager
 
 import users
 from jessetest import getTopHeadlines
@@ -76,7 +76,7 @@ def corroborate(orig_url):
     #print("content extracted.\ncorroborating...")
     # print(prompt)
     # print(f"{prompt}\n=============\n\n")
-    text = texter.getText()
+    text = articletextmanager.getText()
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[

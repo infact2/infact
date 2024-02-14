@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from openai import OpenAI
-from tegtest import *
+from newsapi import *
 import json
 import requests
 import urllib.request
