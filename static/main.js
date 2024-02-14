@@ -65,9 +65,11 @@ function savedArticle(_article) {
 }
 
 function article(_article, authenticated = false) {
+    // alert(JSON.stringify(Object.keys(_article)))
+    // alert(JSON.stringify(_article.link))
     const urlToImage = _article.urlToImage;
-    const date = new Date(_article.publishedAt);
-    unscrapable = urlToImage == null;
+    const date = new Date(_article.published);
+    const unscrapable = urlToImage == null;
     let unscrapableWarning = "";
     let saveButton = "";
     if (unscrapable) {
@@ -82,35 +84,30 @@ function article(_article, authenticated = false) {
             <div class="col-3" style="background-color: var(--background-3); background-image: url(${urlToImage});"></div>
             <div class="col" style="padding-left: 50px;">
                 <h3>${_article.title}</h3>
-                <a href="/corroborate/${btoa(_article.url)}" class="no-href-decoration">
+                <a href="/corroborate/${btoa(_article.link)}" class="no-href-decoration">
                     <button onclick="displayLoadingBar()" class="accent">View corroborated</button>
                 </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;
-                <a href="${_article.url}">View original</a><br/><br/>
+                <a href="${_article.link}">View original</a><br/><br/>
                 <p>
                     Published <b>
                         ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}
                     </b><br/>
-                    Source: ${_article.source.name}<br/>By ${_article.author}
+                    Source: ${_article.source.title}<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
                 </p>
             </div>
-        </div>`;
+        </div>`; // ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}
 }
 
 function displayTrendingArticles(data, authenticated = false) {
-    if (data.status == "ok") {
-        const articles = data.articles;
-        // alert(JSON.stringify(articles));
-        const _articles = document.querySelector("#articles");
+    const articles = data;
+    // alert(JSON.stringify(articles));
+    const _articles = document.querySelector("#articles");
 
-        for (let i = 0; i < articles.length; i++) {
-            if (articles[i].title == "[Removed]") continue;
-            _articles.innerHTML += article(articles[i], authenticated);
-        }
-    }
-    else {
-        alert("There was an error loading top headlines")
+    for (let i = 0; i < articles.length; i++) {
+        if (articles[i].title == "[Removed]") continue;
+        _articles.innerHTML += article(articles[i], authenticated);
     }
 }
 

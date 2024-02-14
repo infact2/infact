@@ -44,7 +44,7 @@ def processData():
     return filtered_political_terms
 
 political_terms = processData()
-#print(political_terms)
+# print(political_terms)
 
 def politicalIndex(original_title):
     document = nlp(original_title)
@@ -98,6 +98,6 @@ test_headlines = [
     "Senator accidentally sleeps with 93 men" # should be marked political but isn't
 ]
 
-for headline in test_headlines:
-    if isPolitical(headline):
-        print(headline)
+# for headline in test_headlines:
+#     if isPolitical(headline):
+#         print(headline)

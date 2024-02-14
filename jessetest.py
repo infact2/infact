@@ -3,8 +3,11 @@ import json
 import urllib.request
 from dotenv import load_dotenv
 from politicalindex import isPolitical
+from pygooglenews import GoogleNews
 
 load_dotenv()
+
+gn = GoogleNews()
 
 # =============================================
 
@@ -12,16 +15,16 @@ key = os.environ.get("GNEWS_KEY")
 only_contain = "qwertyuiopasdfghjklzxcvbnmm1234567890% "
 
 def getTopHeadlines():
-    category = "world"
-    url = f"https://gnews.io/api/v4/top-headlines?category={category}&lang=en&country=us&max=10&apikey={key}"
+    category = "WORLD"
+    # url = f"https://gnews.io/api/v4/top-headlines?category={category}&lang=en&country=us&max=10&apikey={key}"
 
-    response = urllib.request.urlopen(url)
-    data = json.loads(response.read().decode("utf-8"))
+    # response = urllib.request.urlopen(url)
+    # data = json.loads(response.read().decode("utf-8"))
 
     # for article in data["articles"]:
     #     print(article["title"])
 
-    return data
+    return gn.topic_headlines(category)
 
 def getRelatedHeadlines(original_title, original_source_name):
     filtered_title = ""
@@ -53,12 +56,10 @@ def getRelatedHeadlines(original_title, original_source_name):
 
     return data
 
-# POSSIBLE METHODS:
-#  * Chinese child labor :)
-#  * Check most frequently occurring non-proper nouns
-#    * Proper nouns change with changing "big scoops" (eg. Niger famine and BLM riots is not very much covered now, but Israel-Hamas conflict is very much covered now)
-#    * Avoid picking outdated content
-#    * For example: war, polit..., gov..., conflict, etc.
-#  * Ask chatgpt because fuck it
 
-getRelatedHeadlines("Chile’s wildfires kill at least 112, as Boric warns death toll to rise - Al Jazeera English", "Al Jazeera English")
+#getRelatedHeadlines("Chile’s wildfires kill at least 112, as Boric warns death toll to rise - Al Jazeera English", "Al Jazeera English")
+
+me_when_the = getTopHeadlines()
+
+print(me_when_the.keys())
+# print(*[i["title"] for i in me_when_the["entries"]], sep="\n")
