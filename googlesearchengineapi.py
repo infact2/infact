@@ -1,7 +1,7 @@
 import requests
 
 def getDaLinks(prompt):
-       print("Given Promt: " + prompt + "\n")
+       print("Given Prompt: " + prompt + "\n")
        
        
        prompt += "&"
@@ -11,18 +11,8 @@ def getDaLinks(prompt):
        start = (page - 1) * 10 + 1 # calculating start, (page=2) => (start=11), (page=3) => (start=21)
 
 
-       url = 'https://www.googleapis.com/customsearch/v1?key=' + apiKey + '&cx=' + searchEngineID +'&q=' +prompt + '&start=' + str(start)
-
-       parameters = {
-              'cx': "d6c2539d1fec44866",
-              'q': prompt,
-              'sortBy': 'popularity&',
-              'language': 'en',
-              'from': '2023-01-01&',
-              'pageSize': 5,
-              'apiKey': 'AIzaSyDqabrP5CbkUciLP9nr4o_9XKDtNiwp5hs'
-       }
-
+       url = f'https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={searchEngineID}&q={prompt}&start={str(start)}&tbm=news'
+       print(url)
        response = requests.get(url).json()
        #print(response)
        # get the result items
@@ -51,6 +41,11 @@ def getDaLinks(prompt):
        else:  
               print("provide a different prompt, this had no results")
 
+
+def googleSearchBasic(prompt):
+       getDaLinks(prompt)
+def googleSearchAdvanced(prompt):
+       getDaLinks(prompt)
 getDaLinks("trump")
 
 #getLinks(["San", "Diego", "homeless"])
