@@ -62,13 +62,13 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Ubuntu Condensed" !important;
 }
 
-input, button {
+input, button, select {
     background: var(--background-2);
     color: var(--text-color);
     text-align: left;
     border: none;
     outline: 0;
-    padding: 3px 30px 3px 30px;
+    padding: 5px 30px 5px 30px !important;
     margin: 5px !important;
     font-family: inherit;
     font-size: inherit;
