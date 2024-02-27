@@ -17,6 +17,7 @@
     --text-color: #eee;
 
     --accent: #5637c4;
+    --accent-2: #7ad926;
 
     --text-color-dim: #fff;
     --text-color-2: #222;
@@ -89,7 +90,8 @@ input[type="checkbox"] {
 button:hover {
     transform: translate(3px, 3px);
     box-shadow: none;
-    filter: brightness(140%);
+    background: var(--accent-2);
+    color: var(--text-color-2);
 }
 button:active {
     transform: translate(4px, 4px);
