@@ -76,7 +76,7 @@ function article(_article, authenticated = false) {
         unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
     }
     if (authenticated) {
-        saveButton = `<button><i class="bi bi-bookmark"></i></button>`;
+        saveButton = `<button onclick="saveArticle('${btoa(_article.link)}', \'${_article.title.replaceAll("'", "\\'")}\')"><i class="bi bi-bookmark"></i></button>`;
     }
 
     return `
@@ -248,6 +248,18 @@ function signup(redirect) {
 }
 
 // ======================
+
+function saveArticle(id, title) {
+    const user_cookies = getUserCookies();
+    $.post(`/savearticle/${btoa(user_cookies.username)}/${btoa(user_cookies.password)}/${id}/${btoa(title)}`, (data) => {
+        const success = data && data.success;
+        if (!success) {
+            alert("Unable to save your article")
+            return;
+        }
+        alert(JSON.stringify(data))
+    })
+}
 
 function loadSavedArticles(saved_articles) {
     const saved = document.querySelector("#saved-content");

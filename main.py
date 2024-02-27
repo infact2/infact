@@ -174,6 +174,13 @@ def createAccount(username_encoded, password_encoded):
     print(data)
     return jsonify(data)
 
+@app.route("/savearticle/<username_encoded>/<password_encoded>/<id>/<title_encoded>", methods=["POST", "GET"])
+def saveArticle(username_encoded, password_encoded, id, title_encoded):
+    data = users.saveArticle(decode(username_encoded), decode(password_encoded), id, decode(title_encoded))
+    print("ARTIFCLE SAVED")
+    print(data)
+    return jsonify(data)
+
 @app.route("/<path>")
 def eroughwoerug(path):
     try:
