@@ -13,6 +13,3 @@ BACKEND
 - figure out what chatgpt api prompt is best
 - media bias json
     - might not be necessary - figure out what we're actually trying to do
-
-INTERESTING (do this after we finsihed like everything lmao)
-- random article from top headlines
