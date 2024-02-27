@@ -16,9 +16,16 @@ function createSidebar() {
         </div>
         <hr><br>
     </center>
-    <h3>Trending topics</h3>
-    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Israel Hamas</button>
-    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Jay Thapar doing cocaine</button>`;
+    <h3>Categories</h3>
+    <a href="#">
+        <button class="w-100 topic"><i class="bi bi-globe-americas"></i>&nbsp;&nbsp;&nbsp;World</button>
+    </a>
+    <a href="#">
+        <button class="w-100 topic"><i class="bi bi-flag"></i>&nbsp;&nbsp;&nbsp;Nation</button>
+    </a>
+    <a href="#">
+        <button class="w-100 topic"><i class="bi bi-bank"></i>&nbsp;&nbsp;&nbsp;Business</button>
+    </a>`;
 
     document.getElementById("sidebar").innerHTML = sidebar;
     document.getElementById("sidebar").classList.add("col-3", "lighter", "padding");
