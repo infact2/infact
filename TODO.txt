@@ -1,15 +1,15 @@
 FRONTEND
 - host on aws (S3)
-- finish account creation page
-
-
-
+- revamp front page layout?
+    - clear categories (just use stuff like world, nation, business or smth)
+    - should allow as much info to be displayed in an area without being too cluttered
 
 BACKEND
 - use google api instead of news api   
     - extract title from initial headline website in main.py
     - give that to google api to get links in tantest.py
     - extract text from them texter.py
+    - also extract images
 - figure out what chatgpt api prompt is best
 - media bias json
     - might not be necessary - figure out what we're actually trying to do

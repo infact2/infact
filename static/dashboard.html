@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InFact | HOME</title>
+    <title>InFact | DASHBOARD</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -24,11 +24,11 @@
         <div class="col padding">
             <h1>Dashboard</h1>
             <br>
-            <div class="lightest w-100" style="padding: 25px 50px 0 50px; border-radius: 10px 10px 0 0;">
+            <div class="lightest w-100" style="padding: 25px 50px 0 50px;">
                 <button class="tab accent" onclick="switchTab(this, 'saved');">Saved Articles</button>
                 <button class="tab" onclick="switchTab(this, 'account');">Account</button>
             </div>
-            <div class="lighter w-100 padding" style="border-radius: 0 0 10px 10px;">
+            <div class="lighter w-100 padding">
                 <div id="account" class="tab-content hidden">
                     <h3>Account Settings</h3>
                     <input placeholder="New username" class="lightest"><br>
@@ -44,9 +44,9 @@
                     <hr>
                     <h3>Danger Zone</h3>
                     <p>
-                        These are settings you only touch when you have to. <span class="danger">MOST CANNOT BE UNDONE, BE ADVISED.</span>.
+                        These are settings you only touch when you have to. <span class="danger">MOST CANNOT BE UNDONE, BE ADVISED</span>.
                     </p>
-                    <div class="padding-2 lightest w-100" style="border-radius: 10px;">
+                    <div class="padding-2 lightest w-100">
                         <button class="danger">Delete account</button>
                         <p>Permanantly delete account.</p>
                         <button onclick="$.post(getUserDataRequestString(), (data) => {

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css");
 
 :root {
@@ -9,16 +10,19 @@
     */
 
     
-    --background: #111;
-    --background-2: #222;
-    --background-3: #333;
+    --background: #222;
+    --background-2: #333;
+    --background-3: #444;
 
     --text-color: #eee;
 
-    --accent: #f59e0b;
+    --accent: #5637c4;
+    --accent-2: #7ad926;
 
-    --text-color-dim: #aaa;
+    --text-color-dim: #fff;
     --text-color-2: #222;
+
+    --drop-shadow: 3px 3px rgba(0, 0, 0, 0.3);
 
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -32,8 +36,8 @@ body {
     color: var(--text-color) !important;
     line-height: 2em !important;
     overflow-x: hidden;
-    font-family: "Times New Roman" !important;
-    font-size: 13px;
+    font-family: "Courier New" !important;
+    font-size: 13px !important;
 }
 code {
     background: rgba(255, 255, 255, 0.03);
@@ -54,25 +58,29 @@ code {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    /* font-weight: 700 !important; */
-    font-family: "DM Serif Display" !important;
+    font-weight: 700 !important;
+    font-family: "Ubuntu Condensed" !important;
 }
 
-input, button {
+input, button, select {
     background: var(--background-2);
     color: var(--text-color);
+    text-align: left;
     border: none;
     outline: 0;
-    padding: 5px 30px 5px 30px;
+    padding: 5px 30px 5px 30px !important;
     margin: 5px !important;
-    border-radius: 100px !important;
     font-family: inherit;
     font-size: inherit;
-    transition: 180ms;
+    transition: 50ms;
     box-sizing: border-box;
+    box-shadow: var(--drop-shadow);
+    filter: brightness(110%);
 }
 input:focus, button:focus {
     filter: brightness(120%);
+    border: 1px solid #111;
+    outline: 1px solid #aaa;
 }
 input[type="checkbox"] {
     width: 15px;
@@ -80,8 +88,15 @@ input[type="checkbox"] {
     vertical-align: middle;
 }
 button:hover {
-    transform: scale(101%);
-    filter: brightness(140%);
+    transform: translate(3px, 3px);
+    box-shadow: none;
+    background: var(--accent-2);
+    color: var(--text-color-2);
+}
+button:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+    filter: brightness(180%);
 }
 a {
     color: #27d4ff !important;
@@ -126,11 +141,14 @@ a:hover {
 }
 .accent {
     background: var(--accent);
-    color: var(--text-color-2);
+    /* color: var(--text-color-2); */
 }
 .tab {
     margin-bottom: 0px !important;
-    border-radius: 10px 10px 0px 0px !important;
+    box-shadow: none;
+}
+.tab:hover, .tab:active {
+    transform: none;
 }
 .active-tab {
     font-weight: bold;
@@ -162,7 +180,6 @@ a:hover {
 }
 .article-thumbnail {
     padding: 23px;
-    border-radius: 10px;
     margin: 10px;
     transition: 180ms;
 }
@@ -170,7 +187,6 @@ a:hover {
     background-size: cover;
     background-position: center;
     height: 175px;
-    border-radius: 7.5px;
 }
 .article-thumbnail p, .dimmed-text {
     color: var(--text-color-dim);
@@ -180,7 +196,6 @@ a:hover {
 }
 #filters {
     padding: 40px;
-    border-radius: 10px;
     margin: 10px;
     transition: 200ms;
     height: 250px;
@@ -223,7 +238,6 @@ a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
 }
 .no-href-decoration {
     border-bottom: none !important;

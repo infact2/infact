@@ -6,7 +6,7 @@ function createSidebar() {
     const sidebar = `
     <center>
         <a href="index.html" class="no-href-decoration"><img src="/static/logo.png" class="w-50"></a><br><br>
-        <h5>Minimize Bias, Maximize Truth</h5>
+        <b>Minimize Bias, Maximize Truth</b>
         <hr class="w-50">
         <br>
         <div id="sidebar-user">
@@ -16,9 +16,16 @@ function createSidebar() {
         </div>
         <hr><br>
     </center>
-    <h3>Trending topics</h3>
-    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Israel Hamas</button>
-    <button class="w-100 topic"><i class="bi bi-newspaper"></i>&nbsp;&nbsp;&nbsp;Jay Thapar doing cocaine</button>`;
+    <h3>Categories</h3>
+    <a href="#">
+        <button class="w-100 topic"><i class="bi bi-globe-americas"></i>&nbsp;&nbsp;&nbsp;World</button>
+    </a>
+    <a href="#">
+        <button class="w-100 topic"><i class="bi bi-flag"></i>&nbsp;&nbsp;&nbsp;Nation</button>
+    </a>
+    <a href="#">
+        <button class="w-100 topic"><i class="bi bi-bank"></i>&nbsp;&nbsp;&nbsp;Business</button>
+    </a>`;
 
     document.getElementById("sidebar").innerHTML = sidebar;
     document.getElementById("sidebar").classList.add("col-3", "lighter", "padding");
@@ -76,7 +83,7 @@ function article(_article, authenticated = false) {
         unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
     }
     if (authenticated) {
-        saveButton = `<button><i class="bi bi-bookmark"></i></button>`;
+        saveButton = `<button onclick="saveArticle('${btoa(_article.link)}', \'${_article.title.replaceAll("'", "\\'")}\')"><i class="bi bi-bookmark"></i></button>`;
     }
 
     return `
@@ -248,6 +255,18 @@ function signup(redirect) {
 }
 
 // ======================
+
+function saveArticle(id, title) {
+    const user_cookies = getUserCookies();
+    $.post(`/savearticle/${btoa(user_cookies.username)}/${btoa(user_cookies.password)}/${id}/${btoa(title)}`, (data) => {
+        const success = data && data.success;
+        if (!success) {
+            alert("Unable to save your article")
+            return;
+        }
+        alert(JSON.stringify(data))
+    })
+}
 
 function loadSavedArticles(saved_articles) {
     const saved = document.querySelector("#saved-content");
