@@ -47,7 +47,23 @@ def getText(prompt):
     #print(paras)
     return paras
 
+def getTextCse(prompt): #WIP
+    counter = 1
+    paras = ""
+    response = getDaLinks(prompt)
+    for article_url in response:
+              text = extractText(article_url)
+              paras = paras + "," + " article " + str(counter) + ": " + text
+              counter += 1
+    #print(paras)
+    return paras
+
+def getFullHTML(url):
+    html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr))
+    html_parse = BeautifulSoup(html, "html.parser")
+    return html_parse
+
 #getText(["trump"])
-#extractText("https://www.foxnews.com/politics/biden-admin-confirms-terms-maga-trump-kamala-private-bank-transaction-searches#&_intcmp=fnhpbt1,hp1bt")
+extractText("https://news.google.com/__i/rss/rd/articles/CBMiZ2h0dHBzOi8vd3d3LmRlZmVuc2UuZ292L05ld3MvTmV3cy1TdG9yaWVzL0FydGljbGUvQXJ0aWNsZS8zMjc2NDc3L3VzLWlzcmFlbC1iZWdpbi1qdW5pcGVyLW9hay1leGVyY2lzZS_SAQA?oc=5")
 
 

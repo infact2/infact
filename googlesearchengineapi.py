@@ -1,21 +1,20 @@
 import requests
+import json
 
 def getDaLinks(prompt):
-       print("Given Prompt: " + prompt + "\n")
+       #print("Given Prompt: " + prompt + "\n")
        prompt += ' news articles'
 
        #parameters
        apiKey = 'AIzaSyDqabrP5CbkUciLP9nr4o_9XKDtNiwp5hs'
        searchEngineID = "d6c2539d1fec44866" #cx
-       page = 1 # using the first page
-       start = (page - 1) * 10 + 1 # calculating start, (page=2) => (start=11), (page=3) => (start=21)
-
-       url = f'https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={searchEngineID}&q={prompt}&start={str(start)}'
+       start = 1
+       numPages = 1
+       url = f'https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={searchEngineID}&q={prompt}&siteSearch=news.google.com&time_period=last_year&max_page={numPages}'
+       #print(url)
        
-       #maybe add &siteSearch = news.google.com
+       requestedUrls = [0] * numPages * 10
 
-       print(url)
-       
        response = requests.get(url).json()
        #print(response)
        
@@ -31,17 +30,24 @@ def getDaLinks(prompt):
                      # get the page title
                      title = search_item.get("title")
                      # page snippet
-                     #snippet = search_item.get("snippet")
+                     snippet = search_item.get("snippet")
                      # alternatively, you can get the HTML snippet (bolded keywords)
-                     #html_snippet = search_item.get("htmlSnippet")
+                     html_snippet = search_item.get("htmlSnippet")
                      # extract the page url
                      link = search_item.get("link")
                      # print the results
-                     print("="*10, f"Result #{i+start-1}", "="*10)
-                     print("Title:", title)
+                     #print("="*10, f"Result #{i+start-1}", "="*10)
+                     #print("Title:", title)
                      #print("Description:", snippet)
                      #print("Long description:", long_description)
-                     print("URL:", link, "\n")
+                     #print("URL:", link, "\n")
+                     #og_url = search_item["pagemap"]["metatags"][0]["og:url"]
+                     #print(og_url, "\n")
+                     #search_item_formatted = json.dumps(search_item, indent = 2)
+                     #print(search_item_formatted, "\n")
+                     requestedUrls[i-1] = link
+              return requestedUrls
+
        else:  
               print("provide a different prompt, this had no results")
 
@@ -50,7 +56,7 @@ def googleSearchBasic(prompt):
        getDaLinks(prompt)
 def googleSearchAdvanced(prompt):
        getDaLinks(prompt)
-getDaLinks("israel")
+getDaLinks("ivf")
 
 #getLinks(["San", "Diego", "homeless"])
 #test push 3
