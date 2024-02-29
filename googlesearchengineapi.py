@@ -1,8 +1,15 @@
 import requests
 import json
 from urllib.parse import urlparse
+from collections import deque
+from politicalindex import isPolitical
 
-def getDaLinks(prompt, as_array = True):
+def appendToStart(original, item):
+    resultant = deque(original)
+    resultant.appendleft(item)
+    return list(resultant)
+
+def getDaLinks(prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
     prompt += ' news articles'
 
@@ -20,9 +27,9 @@ def getDaLinks(prompt, as_array = True):
     requested_urls = None
 
     if as_array:
-        requested_urls = [0] * numPages * 10
+        requested_urls = []
     else:
-        requested_urls = {"count": 0, "entries": [0] * numPages * 10}
+        requested_urls = {"count": 0, "entries": []}
     
     # get the result items
     search_items = response.get("items")
@@ -52,22 +59,23 @@ def getDaLinks(prompt, as_array = True):
             #print(og_url, "\n")
             #search_item_formatted = json.dumps(search_item, indent = 2)
             #print(search_item_formatted, "\n")
+
+            if restrict_political and not isPolitical(title): continue
+            
             if as_array:
-                requested_urls[i - 1] = link
+                requested_urls = appendToStart(requested_urls, link)
             else:
                 parsed_url = urlparse(link)
-                requested_urls["entries"][i - 1] = {
+                requested_urls["entries"] = appendToStart(requested_urls["entries"], {
                     "title": title, 
                     "link": link,
                     "source": {
                         "title": parsed_url.hostname.split(".")[1].upper(), # eg. FOX NEWS
                         "link": f"{parsed_url.scheme}://{parsed_url.hostname}" # source homepage
                     }
-                }
+                })
                 requested_urls["count"] += 1
         
-        if not as_array and requested_urls["entries"][0] == 0:
-            requested_urls["entries"].pop(0)
         return requested_urls
     else:  
         print("provide a different prompt, this had no results")
