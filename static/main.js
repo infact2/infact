@@ -33,7 +33,7 @@ function createSidebar() {
     authenticate((data) => {
         document.getElementById("sidebar-user").innerHTML = `
             <p>
-                <img src="https://media.tenor.com/dp2xCMlfb4kAAAAi/nerd-emoji.gif" class="lightest" style="border-radius: 100%; width: 40px; height: 40px;">
+                <img src="/static/profile.png" class="lightest" style="border-radius: 100%; width: 40px; height: 40px;">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>${data.message.username}</b>
             </p>
             <a href="/dashboard" class="no-href-decoration"><button class="w-100 accent">Dashboard</button></a>
@@ -97,9 +97,6 @@ function article(_article, authenticated = false) {
                 &nbsp;&nbsp;&nbsp;
                 <a href="${_article.link}">View original</a><br/><br/>
                 <p>
-                    Published <b>
-                        ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}
-                    </b><br/>
                     Source: ${_article.source.title}<br/>
                     &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
                 </p>
