@@ -10,7 +10,7 @@ import base64
 import articletextmanager
 
 import users
-from googlesearchengineapi import getTopHeadlines
+from headlines import getTopHeadlines
 
 load_dotenv()
 client = OpenAI()
