@@ -11,7 +11,7 @@ def appendToStart(original, item):
 
 def getDaLinks(prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
-    prompt += ' news articles'
+    prompt += ' articles'
 
     #parameters
     apiKey = 'AIzaSyDqabrP5CbkUciLP9nr4o_9XKDtNiwp5hs'
@@ -48,7 +48,8 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
             # alternatively, you can get the HTML snippet (bolded keywords)
             html_snippet = search_item.get("htmlSnippet")
             # extract the page url
-            link = search_item.get("link")
+            unredirected_link = search_item.get("link")
+            link = requests.get(unredirected_link).url 
             # print the results
             #print("="*10, f"Result #{i+start-1}", "="*10)
             #print("Title:", title)
@@ -83,7 +84,7 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
         return {"count": 0, "entries": []}
 
 def getTopHeadlines(category = "world"):
-    return getDaLinks(category, False)
+    return getDaLinks(category, False, True)
 def googleSearchBasic(prompt):
     getDaLinks(prompt)
 def googleSearchAdvanced(prompt):
