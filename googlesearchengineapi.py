@@ -86,7 +86,7 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
 def getTopHeadlines(category = "world"):
     return getDaLinks(category, False, True)
 def googleSearchBasic(prompt):
-    getDaLinks(prompt)
+    getDaLinks(prompt, True, True)
 def googleSearchAdvanced(prompt):
     getDaLinks(prompt)
 getDaLinks("ivf")
