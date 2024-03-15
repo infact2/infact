@@ -5,7 +5,7 @@ const months = [
 function createSidebar() {
     const sidebar = `
     <center>
-        <a href="index.html" class="no-href-decoration"><img src="/static/logo.png" class="w-50"></a><br><br>
+        <a href="/" class="no-href-decoration"><img src="/static/logo.png" class="w-50"></a><br><br>
         <b>Minimize Bias, Maximize Truth</b>
         <hr class="w-50">
         <br>

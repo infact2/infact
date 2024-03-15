@@ -5,6 +5,10 @@ FRONTEND
     - should allow as much info to be displayed in an area without being too cluttered
 
 BACKEND
+- could use pygooglenews for top headlines, use tanush's google search api to get other links related to article
+- change of scope: InFact should NOT be a place to search for news, but a way to corroborate news
+    - top headlines should just provide insight on what to related
+
 - use google api instead of news api   
     - extract title from initial headline website in main.py
     - give that to google api to get links in tantest.py

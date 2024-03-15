@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InFact | HOME</title>
+    <title>InFact | SEARCH</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
-<body onload="getTrendingArticles(); load();" onerror="alert(event)">
+<body onload="load();" onerror="alert(event)">
     <div class="big-loading-bar hidden"></div>
     <div class="row">
         <div id="sidebar"></div>
@@ -23,29 +23,25 @@
         <div class="col padding">
             <form onsubmit="return false;">
                 <div class="row">
-                    <h1>Corroborate</h1>
-                    <p>Enter the news article URL in the text input and you will be redirected to a bias-free corroborated version of your article.</p>
                     <div class="col-7">
-                        <input placeholder="Enter aricle URL..." class="w-100">
+                        <input placeholder="Search keywords..." class="w-100">
                     </div>
                     <div class="col">
-                        <button class="w-100" onclick="document.getElementById('settings').classList.toggle('retracted')">
-                            <i class="bi bi-sliders2"></i> Settings
+                        <button class="w-100" onclick="document.getElementById('filters').classList.toggle('retracted')">
+                            <i class="bi bi-sliders2"></i> Filters
                         </button>
                     </div>
-                    <div class="col"><button class="accent w-100"><i class="bi bi-newspaper"></i> Corroborate</button></div>
-                    <div id="settings" class="lightest retracted">
-                        <h3>Corroborator Settings</h3>
-                        <p>Work in progress</p>
-                        <h5>Advanced</h5>
-                        <p>You probably won't have to worry about these...</p>
-                        <span>Temperature:</span> <input type="number" value="0">
+                    <div class="col"><button class="accent w-100"><i class="bi bi-search"></i> Search</button></div>
+                    <div id="filters" class="lightest retracted">
+                        <h3>Search Filters</h3>
+                        <span>Date published:</span> <input type="date"><br>
+                        <span>Source domain:</span> <input placeholder="Enter url..."><br>
                     </div>
                 </div>
             </form>
             <br>
-            <h1>Top Headlines</h1>
-            <p>Trending headlines will appear here. You may search for more articles in the search bar.</p>
+            <h1>Search Results</h1>
+            <p>Search results are shown here. <a href="/">Return to top headlines?</a></p>
             <br>
             <div id="articles">
                 <!-- <div class="row article-thumbnail lighter">

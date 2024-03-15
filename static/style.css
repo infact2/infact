@@ -194,11 +194,11 @@ a:hover {
 .article-thumbnail:hover {
     filter: brightness(105%);
 }
-#filters {
+#settings {
     padding: 40px;
     margin: 10px;
     transition: 200ms;
-    height: 250px;
+    height: fit-content;
 }
 .retracted {
     transform: scaleY(0%);
