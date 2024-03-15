@@ -89,7 +89,8 @@ def googleSearchBasic(prompt):
     getDaLinks(prompt, True, True)
 def googleSearchAdvanced(prompt):
     getDaLinks(prompt)
-getDaLinks("ivf")
+#getDaLinks("ivf")
 
+googleSearchBasic("At least 20 killed awaiting aid in Gaza as new cease-fire offer debated")
 #getLinks(["San", "Diego", "homeless"])
 #test push 3
