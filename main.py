@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
 import base64
+import json
 import articletextmanager
 
 import users
@@ -128,11 +129,13 @@ def dashboard():
 def information():
     return send_file("static/information.html")
 
-@app.route("/corroborate/<url_encoded>")
-def _corroborate(url_encoded):
+@app.route("/corroborate/<url_encoded>/<settings_json_encoded>")
+def _corroborate(url_encoded, settings_json_encoded):
     url1 = decode(url_encoded)
     html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr)) 
     html_parse = BeautifulSoup(html, "html.parser")
+
+    settings = json.loads(decode(settings_json_encoded))
 
     # implementt a way to get the second link
     #url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
