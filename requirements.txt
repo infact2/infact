@@ -9,3 +9,4 @@ pattern
 feedparser
 dateparser
 spacy
+aiohttp

@@ -6,15 +6,19 @@ from flask import Flask, request, send_file, render_template, jsonify
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from openai import OpenAI
+import asyncio
 import base64
 import json
 import articletextmanager
 
 import users
-from headlines import getTopHeadlines
+from headlines import Headlines
+
+print("Starting...")
 
 load_dotenv()
 client = OpenAI()
+_headlines = Headlines()
 hdr = {'User-Agent': 'Mozilla/5.0'}
 
 
@@ -107,7 +111,7 @@ def decode(encoded):
 
 # ROUTING SHENANIGANS
 
-app = Flask("ihoeryg0uwrihgupiwrhgiup")
+app = Flask(__name__)
 
 @app.route("/")
 def index():
@@ -153,9 +157,8 @@ def ping():
 
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():
-    print("GETTING TOP HEADLINES\n\n")
-
-    data = getTopHeadlines()["entries"]
+    data = _headlines.getTopHeadlines()["entries"]
+    print(type(data))
 
     # print(data)
 
@@ -163,7 +166,7 @@ def gimme():
     # print(response.json())
     # print("==============\n\n\n")
 
-    return data
+    return jsonify(data)
 
 @app.route("/getuserdata/<username_encoded>/<password_encoded>", methods=["POST", "GET"])
 def getUserData(username_encoded, password_encoded):
@@ -194,5 +197,10 @@ def eroughwoerug(path):
 
 if __name__ == '__main__':
 #    app.run(debug = True)
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=8000)
+    async def load():
+        from waitress import serve
+        await _headlines.setTopHeadlines()
+        print("Running...")
+        serve(app, host="0.0.0.0", port=8000)
+    asyncio.run(load())
+    _headlines.startInterval()

@@ -1,65 +1,93 @@
 import os
 import json
+import asyncio
+import requests
+import aiohttp
 import urllib.request
+import time
+import base64
 from dotenv import load_dotenv
 from politicalindex import isPolitical
 from pygooglenews import GoogleNews
-
-load_dotenv()
-
-gn = GoogleNews()
+from bs4 import BeautifulSoup
 
 # =============================================
 
-key = os.environ.get("GNEWS_KEY")
-only_contain = "qwertyuiopasdfghjklzxcvbnmm1234567890% "
+# key = os.environ.get("GNEWS_KEY")
+# only_contain = "qwertyuiopasdfghjklzxcvbnmm1234567890% "
 
-def getTopHeadlines():
-    category = "WORLD"
-    # url = f"https://gnews.io/api/v4/top-headlines?category={category}&lang=en&country=us&max=10&apikey={key}"
+class Headlines:
+    cache = {}
+    gn = None
 
-    # response = urllib.request.urlopen(url)
-    # data = json.loads(response.read().decode("utf-8"))
+    def __init__(self):
+        load_dotenv()
+        self.gn = GoogleNews()
 
-    # for article in data["articles"]:
-    #     print(article["title"])
+    def getTopHeadlines(self):
+        return self.cache
 
-    return gn.topic_headlines(category)
+    async def setTopHeadlines(self):
+        print("Resetting headlines...")
+        category = "WORLD"
 
-def getRelatedHeadlines(original_title, original_source_name):
-    filtered_title = ""
+        async with aiohttp.ClientSession() as session:
+            new_headlines = self.gn.topic_headlines(category)
+            entries = new_headlines["entries"]
+            count = len(entries)
 
-    for char in original_title.lower():
-        if char in only_contain: # If one of valid characters
-            filtered_title += char
-    
-    # Remove source name from article since it affects search of similar articles
-    filtered_title = filtered_title.replace(original_source_name.lower(), "")
-    filtered_title = filtered_title.replace(" ", "%20") # Urlify title
+            for i in range(count):
+                print(f"i: {i}; count: {count}")
+                unredirected_link = entries[i]["link"]
+                print("request")
 
-    print(f"FILTERED TITLE: {filtered_title}")
+                response = await session.get(unredirected_link)
+                html = await response.text()
+                html_parse = BeautifulSoup(html, "html.parser")
+                link = html_parse.find("a")["href"]
+                print("response")
 
-    url = f"https://gnews.io/api/v4/search?q=\"{filtered_title}\"&lang=en&country=us&max=10&apikey={key}"
+                # link = redirectFromUrl(unredirected_link)
 
-    print(f"URL: {url}")
+                entries[i]["link"] = link
+                print(f"URL {entries[i]["link"]}")
 
-    response = urllib.request.urlopen(url)
-    data = json.loads(response.read().decode("utf-8"))
-    count = data["totalArticles"]
+                # use redirect response
+                response = await session.get(link)
+                
+                html = await response.text()
+                html_parse = BeautifulSoup(html, "html.parser")
 
+                img = html_parse.find("img")
+                
+                if img:
+                    attrs = img.attrs
 
-    if count > 0:
-        for article in data["articles"]:
-            print(article["title"])
-    else:
-        print("NO ARTICLES FOUND LOL")
+                    if "src" in attrs: entries[i]["urlToImage"] = attrs["src"]
+                    elif "srcset" in attrs:
+                        src_set = attrs["srcset"]
+                        src_item = src_set.split(",")[0]
+                        src = src_item.split()[0]
+                        
+                        entries[i]["urlToImage"] = src
+                    else:
+                        entries[i]["urlToImage"] = "https://i0.wp.com/midpenpost.org/wp-content/uploads/2023/10/DSC_5063-2.png?fit=768%2C509&ssl=1"
+                else:
+                    entries[i]["urlToImage"] = "https://i0.wp.com/midpenpost.org/wp-content/uploads/2023/10/DSC_5063-2.png?fit=768%2C509&ssl=1"
 
-    return data
+                # display progress bar
+                os.system("clear")
+                progress_amt = round((i + 1) / count * 25)
+                print(f"Loading headlines... {int((i + 1) / count * 100)}%\n" + "▓" * progress_amt + "░" * (25 - progress_amt))
+                print("Finished!")
 
+            self.cache = new_headlines
 
-#getRelatedHeadlines("Chile’s wildfires kill at least 112, as Boric warns death toll to rise - Al Jazeera English", "Al Jazeera English")
+    async def interval(self):
+        while True:
+            await asyncio.sleep(60 * 15)
+            await setTopHeadlines(self)
 
-me_when_the = getTopHeadlines()
-
-print(me_when_the.keys())
-# print(*[i["title"] for i in me_when_the["entries"]], sep="\n")
+    def startInterval(self):
+        print("Interval started")
+        asyncio.run(interval())
