@@ -53,27 +53,38 @@ class Headlines:
                 print(f"URL {entries[i]["link"]}")
 
                 # use redirect response
+                print("request redirected")
                 response = await session.get(link)
+                print("respond redirected")
                 
+                print("scraping image")
                 html = await response.text()
                 html_parse = BeautifulSoup(html, "html.parser")
 
-                img = html_parse.find("img")
-                
-                if img:
-                    attrs = img.attrs
+                img_meta = html_parse.find("meta", {"property": "og:image"})
 
-                    if "src" in attrs: entries[i]["urlToImage"] = attrs["src"]
-                    elif "srcset" in attrs:
-                        src_set = attrs["srcset"]
-                        src_item = src_set.split(",")[0]
-                        src = src_item.split()[0]
-                        
-                        entries[i]["urlToImage"] = src
-                    else:
-                        entries[i]["urlToImage"] = "https://i0.wp.com/midpenpost.org/wp-content/uploads/2023/10/DSC_5063-2.png?fit=768%2C509&ssl=1"
+                if img_meta:
+                    entries[i]["urlToImage"] = img_meta["content"]
                 else:
-                    entries[i]["urlToImage"] = "https://i0.wp.com/midpenpost.org/wp-content/uploads/2023/10/DSC_5063-2.png?fit=768%2C509&ssl=1"
+                    entries[i]["urlToImage"] = None
+                print("image scraped")
+
+                # img = html_parse.find("img")
+                
+                # if img:
+                #     attrs = img.attrs
+
+                #     if "src" in attrs: entries[i]["urlToImage"] = attrs["src"]
+                #     elif "srcset" in attrs:
+                #         src_set = attrs["srcset"]
+                #         src_item = src_set.split(",")[0]
+                #         src = src_item.split()[0]
+                        
+                #         entries[i]["urlToImage"] = src
+                #     else:
+                #         entries[i]["urlToImage"] = "https://i0.wp.com/midpenpost.org/wp-content/uploads/2023/10/DSC_5063-2.png?fit=768%2C509&ssl=1"
+                # else:
+                #     entries[i]["urlToImage"] = "https://i0.wp.com/midpenpost.org/wp-content/uploads/2023/10/DSC_5063-2.png?fit=768%2C509&ssl=1"
 
                 # display progress bar
                 os.system("clear")
