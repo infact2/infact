@@ -130,6 +130,9 @@ a:hover {
     margin-top: 50vh;
     transform: translateY(-50%);
 }
+.default {
+    background: var(--background);
+}
 .lighter {
     background: var(--background-2);
 }
@@ -195,17 +198,20 @@ a:hover {
     filter: brightness(105%);
 }
 #settings {
-    padding: 40px;
+    padding: 30px;
     margin: 10px;
     transition: 200ms;
     height: fit-content;
 }
 .retracted {
-    transform: scaleY(0%);
-    filter: opacity(0%);
-    margin-top: -250px !important;
+    /* transform: scaleY(0%); */
+    /* filter: opacity(0%); */
+    /* margin-top: -250px !important; */
+    margin: 0px;
     pointer-events: none;
     user-select: none;
+    max-height: 0px;
+    /* height: 0px; */
 }
 @keyframes spinning {
     from {
@@ -228,6 +234,7 @@ a:hover {
     width: 100vw;
     height: 100vh;
     pointer-events: all;
+    z-index: 400;
 }
 .notice-div {
     background: #bbb;

@@ -17,24 +17,24 @@
     <div class="row">
         <div id="sidebar"></div>
         
-        <div class="col-3">
+        <div class="col-3 mx-0">
             Navbar not loaded...
         </div>
-        <div class="col padding">
-            <form onsubmit="return false;">
+        <div class="col mx-0">
+            <form onsubmit="return false;" class="default row padding">
+                <h1>Corroborate</h1>
+                <p>Enter URL below to corroborate news article.</p>
                 <div class="row">
-                    <h1>Corroborate</h1>
-                    <p>Enter the news article URL in the text input and you will be redirected to a bias-free corroborated version of your article.</p>
-                    <div class="col-7">
+                    <div class="col-6">
                         <input placeholder="Enter aricle URL..." class="w-100">
                     </div>
                     <div class="col">
-                        <button class="w-100" onclick="document.getElementById('settings').classList.toggle('retracted')">
-                            <i class="bi bi-sliders2"></i> Settings
+                        <button class="w-100" onclick="document.getElementById('settings').classList.toggle('hidden');">
+                            <i class="bi bi-gear"></i> Settings
                         </button>
                     </div>
                     <div class="col"><button class="accent w-100"><i class="bi bi-newspaper"></i> Corroborate</button></div>
-                    <div id="settings" class="lightest retracted">
+                    <div id="settings" class="lightest hidden">
                         <h3>Corroborator Settings</h3>
                         <p>Work in progress</p>
                         <h5>Advanced</h5>
@@ -43,31 +43,32 @@
                     </div>
                 </div>
             </form>
-            <br>
-            <h1>Top Headlines</h1>
-            <p>Trending headlines will appear here. You may search for more articles in the search bar.</p>
-            <br>
-            <div id="articles">
-                <!-- <div class="row article-thumbnail lighter">
-                    <div class="col-3" style="background-color: var(--background-3); background-image: url('Screenshot\ 2023-12-13\ 4.50.51\ PM.png');"></div>
-                    <div class="col" style="padding-left: 50px;">
-                        <h3>Jay Thapar is Caught Doing Illegal Drugs</h3>
-                        <button class="accent">View</button>&nbsp;&nbsp;&nbsp;<a href="#">View original</a><br><br>
-                        <p>this is a placeholder...</p>
-                    </div>
-                </div> -->
-                <!-- <div class="row article-thumbnail lighter">
-                    <div class="col-3" style="background-color: var(--background-3); background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQiajwGpXMKJeh2AOqy8qbQjmgDetKtb4M94IdWtq_qQGZsctplU3A7pilBXtS0COYYXQqeAGnMkLMJ3G4');"></div>
-                    <div class="col" style="padding-left: 50px;">
-                        <h3>"I'm doing a nuclear codes giveaway," Says Biden</h3>
-                        <button class="accent">View</button>&nbsp;&nbsp;&nbsp;<a href="#">View original</a><br><br>
-                        <p>this is a placeholder...</p>
-                    </div>
-                </div> -->
+            <div class="padding">
+                <h1>Top Headlines</h1>
+                <p>Trending headlines will appear here. You may search for more articles in the search bar.</p>
+                <br>
+                <div id="articles">
+                    <!-- <div class="row article-thumbnail lighter">
+                        <div class="col-3" style="background-color: var(--background-3); background-image: url('Screenshot\ 2023-12-13\ 4.50.51\ PM.png');"></div>
+                        <div class="col" style="padding-left: 50px;">
+                            <h3>Jay Thapar is Caught Doing Illegal Drugs</h3>
+                            <button class="accent">View</button>&nbsp;&nbsp;&nbsp;<a href="#">View original</a><br><br>
+                            <p>this is a placeholder...</p>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row article-thumbnail lighter">
+                        <div class="col-3" style="background-color: var(--background-3); background-image: url('https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQiajwGpXMKJeh2AOqy8qbQjmgDetKtb4M94IdWtq_qQGZsctplU3A7pilBXtS0COYYXQqeAGnMkLMJ3G4');"></div>
+                        <div class="col" style="padding-left: 50px;">
+                            <h3>"I'm doing a nuclear codes giveaway," Says Biden</h3>
+                            <button class="accent">View</button>&nbsp;&nbsp;&nbsp;<a href="#">View original</a><br><br>
+                            <p>this is a placeholder...</p>
+                        </div>
+                    </div> -->
+                </div>
+                <center>
+                    <img src="loading.gif" class="loading">
+                </center>
             </div>
-            <center>
-                <img src="loading.gif" class="loading">
-            </center>
         </div>
     </div>
 

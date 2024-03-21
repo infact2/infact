@@ -15,17 +15,7 @@ function createSidebar() {
             </center>
         </div>
         <hr><br>
-    </center>
-    <h3>Categories</h3>
-    <a href="#">
-        <button class="w-100 topic"><i class="bi bi-globe-americas"></i>&nbsp;&nbsp;&nbsp;World</button>
-    </a>
-    <a href="#">
-        <button class="w-100 topic"><i class="bi bi-flag"></i>&nbsp;&nbsp;&nbsp;Nation</button>
-    </a>
-    <a href="#">
-        <button class="w-100 topic"><i class="bi bi-bank"></i>&nbsp;&nbsp;&nbsp;Business</button>
-    </a>`;
+    </center>`;
 
     document.getElementById("sidebar").innerHTML = sidebar;
     document.getElementById("sidebar").classList.add("col-3", "lighter", "padding");
