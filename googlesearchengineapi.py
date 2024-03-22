@@ -91,6 +91,6 @@ def googleSearchAdvanced(prompt):
     return getDaLinks(prompt)
 #getDaLinks("ivf")
 
-print(googleSearchBasic("At least 20 killed awaiting aid in Gaza as new cease-fire offer debated"))
+#print(googleSearchBasic("At least 20 killed awaiting aid in Gaza as new cease-fire offer debated"))
 #getLinks(["San", "Diego", "homeless"])
 #test push 3
