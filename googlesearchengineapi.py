@@ -86,11 +86,11 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
 def getTopHeadlines(category = "world"):
     return getDaLinks(category, False, True)
 def googleSearchBasic(prompt):
-    getDaLinks(prompt, True, True)
+    return getDaLinks(prompt, True, True)
 def googleSearchAdvanced(prompt):
-    getDaLinks(prompt)
+    return getDaLinks(prompt)
 #getDaLinks("ivf")
 
-googleSearchBasic("At least 20 killed awaiting aid in Gaza as new cease-fire offer debated")
+print(googleSearchBasic("At least 20 killed awaiting aid in Gaza as new cease-fire offer debated"))
 #getLinks(["San", "Diego", "homeless"])
 #test push 3
