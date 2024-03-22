@@ -51,7 +51,7 @@ function savedArticle(_article) {
     return `<div class="article-thumbnail lightest">
             <h5>${_article.title}</h5>
             <br>
-            <a href="/corroborate/${_article.id}" class="no-href-decoration">
+            <a href="/corroborate/${_article.id}/${btoa('{}')}" class="no-href-decoration">
                 <button class="accent">View corroborated</button>
             </a>
             <button onclick="this.parentElement.remove()" style="color: #f54242;">
