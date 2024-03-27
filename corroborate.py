@@ -54,7 +54,7 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
 
 main_instructions = "First, corroborate the news articles provided. You should sound like you are a news article and print out an unbiased version of the information provided in the 2 articles. You need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. If any recieve article seems to have html in it, ignore the HTML and only take in the text. Cite examples like biased key words or innacurate information. Please do not try to make up new things, and stick to the source material whenver possible."
 
-language = "Please be sure that this new article is 3-5 paragraphs long, and each paragraph may use information from both articles. Please also be sure to avoid phrasing repetition, construct concise, yet coherent sentences, and write like you are a good journalist from the Associated Press."
+language = "Please be sure that this new article is 3-5 paragraphs long, and each paragraph may use information from both articles. Please also be sure to avoid phrasing repetition, construct concise, yet coherent sentences, and write like you are a good journalist from the Associated Press. At the start of a paragraph, please add proper transitions from the previous paragraph (if there is a previous paragraph) to the current."
 
 formatting = "Note that every paragraph has to be started with \"<p>\" without the quotes and end with \"</p>\" without the quotes."
 
