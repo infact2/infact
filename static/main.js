@@ -81,7 +81,7 @@ function article(_article, authenticated = false) {
             <div class="col-3" style="background-color: var(--background-3); background-image: url(${urlToImage});"></div>
             <div class="col" style="padding-left: 50px;">
                 <h3>${_article.title}</h3>
-                <a href="/corroborate/${btoa(_article.link)}" class="no-href-decoration">
+                <a href="/corroborate/${btoa(_article.link)}/${btoa('{}')}" class="no-href-decoration">
                     <button onclick="displayLoadingBar()" class="accent">View corroborated</button>
                 </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;

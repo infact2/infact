@@ -11,6 +11,8 @@ import base64
 import json
 import articletextmanager
 
+from corroborate import corroborate
+
 import users
 from headlines import Headlines
 
@@ -71,33 +73,6 @@ def extractText(url):
 def textToHTML(text):
     return text.replace("\n", "<br/>")
 
-def corroborate(orig_url):
-    #print("extracting content...")
-    #text1 = extractText(url1)
-    #print("text 1 extracted.")
-    #text2 = extractText(url2)
-    #print("text 2 extracted.")
-    #prompt = f"summarize these two passages into a single news report:\n\"{text1}\"\n\"{text2}\""
-    #print("content extracted.\ncorroborating...")
-    # print(prompt)
-    # print(f"{prompt}\n=============\n\n")
-    text = articletextmanager.getText()
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You need to talk like you are a news article. Additionally, you need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. Note that every paragraph has to be started with \"<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\" without the quotes and end with \"</p>\" without the quotes."},
-
-            {"role": "user", "content": text}
-
-
-        ],
-        temperature = 0,
-    )
-
-    print(completion.choices[0].message['content'])
-
-    return completion.choices[0].message.content
-
 def decode(encoded):
     return base64.b64decode(encoded.encode("ascii")).decode("ascii")
 
@@ -135,6 +110,7 @@ def information():
 
 @app.route("/corroborate/<url_encoded>/<settings_json_encoded>")
 def _corroborate(url_encoded, settings_json_encoded):
+    print("Corroborating...")
     url1 = decode(url_encoded)
     html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr)) 
     html_parse = BeautifulSoup(html, "html.parser")
@@ -146,10 +122,10 @@ def _corroborate(url_encoded, settings_json_encoded):
 
 
     content = corroborate(url1)
-    print("done corroborating.")
+    print("Done corroborating.")
     
     return render_template("corroborate.html",
-        title=html_parse.title.string, source1=url1, source2=url2, content=content)
+        title=html_parse.title.string, source1=url1, source2="hi", content=content)
 
 @app.route("/isitdown")
 def ping():

@@ -50,23 +50,29 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
 
     return corroborateHelper(url1, url2)
 
-def corroborateHelper(url1, url2): #feed strings and returns corroborated version of 1st file
+# prompt sections
+
+main_instructions = "First, corroborate the news articles provided. You should sound like you are a news article and print out an unbiased version of the information provided in the 2 articles. You need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. If any recieve article seems to have html in it, ignore the HTML and only take in the text. Cite examples like biased key words or innacurate information. Please do not try to make up new things, and stick to the source material whenver possible."
+
+language = "Please be sure that this new article is 3-5 paragraphs long, and each paragraph may use information from both articles. Please also be sure to avoid phrasing repetition, construct concise, yet coherent sentences, and write like you are a good journalist from the Associated Press."
+
+formatting = "Note that every paragraph has to be started with \"<p>\" without the quotes and end with \"</p>\" without the quotes."
+
+
+def corroborateHelper(url1, url2): # feed strings and returns corroborated version of 1st file
     text1 = articletextmanager.extractText(url1) 
     text2 = articletextmanager.extractText(url2)
-    text = "Article 1: " + text1 + " Article 2: " + text2
+    prompt = "Article 1: \"" + text1 + "\"\n Article 2: \"" + text2 + "\""
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "First, corroborate the news articles provided. You should sound like you are a news article and print out an unbiased version of the information provided in the 2 articles. You need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. If any recieve article seems to have html in it, ignore the HTML and only take in the text. At the end of the resulting paragraphs,please state whether or not the first article is biased and give reasonig behind it. Site examples like biased key words or innacurate information."},
-            #{"role": "system", "content": "ignore all the text provided and print out the word 'ok monkey poo'"},
-            {"role": "user", "content": text}
-
-
+            {"role": "system", "content": main_instructions + language + formatting},
+            {"role": "user", "content": prompt}
         ],
         temperature = 0,
     )
-    print(completion.choices[0].message.content)
+    return completion.choices[0].message.content
 
-corroborate("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
+#corroborate("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
 
 #print(completion.choices[0].message.content)
