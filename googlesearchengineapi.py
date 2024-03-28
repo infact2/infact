@@ -1,5 +1,6 @@
 import requests
 import json
+from dotenv import load_dotenv
 from urllib.parse import urlparse
 from collections import deque
 from politicalindex import isPolitical
@@ -14,7 +15,7 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
     prompt += ' articles'
 
     #parameters
-    apiKey = 'AIzaSyDqabrP5CbkUciLP9nr4o_9XKDtNiwp5hs'
+    apiKey = os.getenv("GOOGLE_API_KEY")
     searchEngineID = "d6c2539d1fec44866" #cx
     start = 1
     numPages = 1
