@@ -27,6 +27,29 @@ run `sudo docker stop --signal SIGKILL infact`
 5. To stop the program run `sudo docker stop --signal SIGKILL infact`
 
 
+=======
+
+### To kill
+run `sudo docker stop --signal SIGKILL infact`
+
+### Prepare files for docker to builf
+1. Obtain the repo `git clone https://github.com/infact2/infact`
+2. Insert your tokens in .env
+
+### Building the image
+3. Build the docker image by using `sudo docker build -t infact . `
+
+### Local debugging instructions
+4. Run the image `sudo docker run --name infact -it -p 8000:8000 infact`
+5. To stop the program run `sudo docker stop --signal SIGKILL infact`
+
+### Server Deployment Instructions
+> [!NOTE]
+> This is only for deploying to a server where the image run in detached mode (ie: no commnad line args).
+4. Run the image `sudo docker run --name infact -d -p 8000:8000 infact`
+5. To stop the program run `sudo docker stop --signal SIGKILL infact`
+
+
 ## Legacy Instructions (Still supported)
 
 ### To Kill
@@ -35,13 +58,11 @@ run `sudo docker stop --signal SIGKILL infact`
 2. Find the PID of python
 3. `sudo kill {the PID you found above}`
 
-### or
-```docker stop --signal SIGKILL infact```
-
-## Install requirements
+### Install requirements
 Have docker and see Deploy Server for instructions
 `pip install -r requirements.txt`
 
+=======
 ## Deploy server
 1. git clone
 2. Use cd to the dir. where the main.py file resides
