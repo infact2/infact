@@ -5,6 +5,8 @@ from urllib.parse import urlparse
 from collections import deque
 from politicalindex import isPolitical
 
+load_dotenv()
+
 def appendToStart(original, item):
     resultant = deque(original)
     resultant.appendleft(item)
