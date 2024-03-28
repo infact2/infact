@@ -129,7 +129,7 @@ def _corroborate(url_encoded, settings_json_encoded):
 
 @app.route("/isitdown")
 def ping():
-    return "no it fucking isn't"
+    return "<h1>No.</h1>"
 
 @app.route("/gimme", methods=["POST", "GET"])
 def gimme():

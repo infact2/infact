@@ -3,19 +3,18 @@ import threading
 import asyncio
 import aiohttp
 import base64
+from bs4 import BeautifulSoup
 
 
-async def hehe():
+async def test():
     async with aiohttp.ClientSession() as session:
-        response = await session.get("https://news.google.com/rss/articles/CBMiLWh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy91ay1wb2xpdGljcy02ODYxODU3MNIBMWh0dHBzOi8vd3d3LmJiYy5jb20vbmV3cy91ay1wb2xpdGljcy02ODYxODU3MC5hbXA?oc=5&hl=en-US&gl=US&ceid=US:en", allow_redirects=True)        
+        response = await session.get("https://www.aljazeera.com/news/2024/3/27/most-americans-disapprove-of-israels-actions-in-gaza-poll", allow_redirects=True)
 
-#asyncio.run(hehe())
+        html = await response.text()
+        html_parse = BeautifulSoup(html, "html.parser")
 
-unredirected_link = "https://www.reuters.com/world/middle-east/israeli-military-says-it-killed-90-gunmen-gazas-al-shifa-hospital-2024-03-20/"
-hash = unredirected_link.split("/")[5].split("?")[0] + "=="
-print(hash)
-print(type(hash))
-print(base64.b64decode(hash).split(b"\x011")[1].decode())
-#.split("")
+        # print(html_parse.find("meta", {"property": "content"}))
+        print([i["content"] for i in html_parse.findAll("meta")])
 
-print("test")
+asyncio.run(test())
+
