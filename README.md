@@ -11,7 +11,7 @@ Repo to get news from NewsAPI and corroborate it using openai API
 3. `sudo kill {the PID you found above}`
 
 ### or
-```bash docker stop --signal SIGKILL newsSite```
+```docker stop --signal SIGKILL newsSite```
 
 ## Install requirements
 Have docker and see Deploy Server for instructions
@@ -20,9 +20,9 @@ Have docker and see Deploy Server for instructions
 ## Deploy server
 1. git clone
 2. Use cd to the dir. where the main.py file resides
-3. run ```bash docker build -t newsSite . ```
-4. run ```bash docker run --name newsSite -d newsSite```
-5. To stop the program run ```bash docker stop --signal SIGKILL newsSite```
+3. run ```docker build -t newsSite . ```
+4. run ```docker run --name newsSite -d newsSite```
+5. To stop the program run ```docker stop --signal SIGKILL newsSite```
 
 ## Documentation
 
