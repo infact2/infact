@@ -10,12 +10,19 @@ Repo to get news from NewsAPI and corroborate it using openai API
 2. Find the PID of python
 3. `sudo kill {the PID you found above}`
 
-## Install requirements
+### or
+```docker stop --signal SIGKILL newssite```
 
+## Install requirements
+Have docker and see Deploy Server for instructions
 `pip install -r requirements.txt`
 
 ## Deploy server
-Simply do `python main.py` you dumbass
+1. git clone
+2. Use cd to the dir. where the main.py file resides
+3. run ```docker build -t newssite . ```
+4. run ```docker run --name newsSite -d newssite```
+5. To stop the program run ```docker stop --signal SIGKILL newssite```
 
 ## Documentation
 
