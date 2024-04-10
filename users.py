@@ -12,7 +12,7 @@ key = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
 def encrypt(s):
-    return hashlib.sha256(f"racism_{s}_isbad".encode(), usedforsecurity=True).hexdigest()
+    return hashlib.sha3_256(f"racism_{s}_isbad".encode(), usedforsecurity=True).hexdigest()
 
 def authenticationStatus(success, message):
     return {
