@@ -35,7 +35,19 @@
                         <option value="c">Crossiant</option>
                         <option value="o">Other/Prefer not to say</option>
                     </select><br>
-                    <input type="checkbox" required> I agree with the <a href="#">Terms of Service</a><br>
+                    <script>
+                        const fs = require('fs')
+                        const terms = ""
+                        fs.readFile('Conditions.txt', (err, conditions) => {
+                            if (err) throw err;
+                                terms = conditions.toString();
+                        })
+                        function termsOfService(){
+                            document.getElementById("termsOfService").innerHTML = terms
+                        }
+                    </script>
+                    <input type="checkbox" required> I agree with the <a onclick="termsOfService">Terms of Service</a><br>
+                    <p id="termsOfService"></p>
                     <button type="submit" class="accent w-100">
                         Create account
                     </button><br><br>
