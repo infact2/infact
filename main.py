@@ -23,9 +23,6 @@ client = OpenAI()
 _headlines = Headlines()
 hdr = {'User-Agent': 'Mozilla/5.0'}
 
-
-# genai.configure(api_key="AIzaSyAgJK_XqImu5ulw2raEasMllxiCSC-MsiY")
-
 # defaults = {
 #     'model': 'models/text-bison-001',
 #     'temperature': 0.7,
