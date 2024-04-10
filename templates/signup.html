@@ -36,15 +36,15 @@
                         <option value="o">Other/Prefer not to say</option>
                     </select><br>
                     <script>
-                        const fs = require('fs')
-                        const terms = ""
-                        fs.readFile('Conditions.txt', (err, conditions) => {
-                            if (err) throw err;
-                                terms = conditions.toString();
-                        })
-                        function termsOfService(){
-                            document.getElementById("termsOfService").innerHTML = terms
-                        }
+                        // const fs = require('fs')
+                        // const terms = ""
+                        // fs.readFile('Conditions.txt', (err, conditions) => {
+                        //     if (err) throw err;
+                        //         terms = conditions.toString();
+                        // })
+                        // function termsOfService(){
+                        //     document.getElementById("termsOfService").innerHTML = "test"
+                        // }
                     </script>
                     <input type="checkbox" required> I agree with the <a onclick="termsOfService">Terms of Service</a><br>
                     <p id="termsOfService"></p>
