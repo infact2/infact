@@ -61,7 +61,7 @@ function savedArticle(_article) {
         </div>`;
 }
 
-function article(_article, authenticated = false) {
+function article(_article, fid, authenticated = false) {
     // alert(JSON.stringify(Object.keys(_article)))
     // alert(JSON.stringify(_article.link))
     const urlToImage = _article.urlToImage;
@@ -69,7 +69,32 @@ function article(_article, authenticated = false) {
     const unscrapable = urlToImage == null;
     let saveButton = "";
     if (unscrapable) {
-        unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
+        const unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
+        return `
+            <hr>
+            <p class="grey-text">
+                <i class="bi bi-eye-slash-fill"></i>&nbsp;&nbsp;&nbsp;
+                This news article has been hidden. You may
+                <a href="#${fid}" onclick="document.getElementById('${fid}').classList.toggle('collapse')" role="button">click here</a>
+                to show article
+            </p>
+            <div class="collapse" id="${fid}">
+                <div class="row article-thumbnail lighter">
+                    <div class="col" style="padding-left: 50px;">
+                        <h3>${_article.title}</h3>
+                        <a href="/corroborate/${btoa(_article.link)}/${btoa('{}')}" class="no-href-decoration">
+                            <button onclick="displayLoadingBar()" class="accent">View corroborated</button>
+                        </a>${saveButton}
+                        &nbsp;&nbsp;&nbsp;
+                        <a href="${_article.link}">View original</a><br/><br/>
+                        <p>
+                            Source: ${_article.source.title}<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr>`;
     }
 
     return `
@@ -96,7 +121,7 @@ function displayTrendingArticles(data, authenticated = false) {
 
     for (let i = 0; i < articles.length; i++) {
         if (articles[i].title == "[Removed]") continue;
-        _articles.innerHTML += article(articles[i], authenticated);
+        _articles.innerHTML += article(articles[i], i, authenticated);
     }
 }
 
