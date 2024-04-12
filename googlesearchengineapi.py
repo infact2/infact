@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from urllib.parse import urlparse
 from collections import deque
 from politicalindex import isPolitical
+import os
 
 load_dotenv()
 

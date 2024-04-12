@@ -117,7 +117,7 @@ a:hover {
         left: 130vw;
     }
 }
-.big-ass-loading-bar {
+.big-loading-bar {
     background: var(--accent);
     animation: loading-bar 1s infinite;
     position: fixed;

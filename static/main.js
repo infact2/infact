@@ -36,7 +36,7 @@ function createSidebar() {
             <a href="/signup/${btoa("/dashboard")}" class="no-href-decoration"><button class="w-100">Sign up</button></a>`;
     });
 }
-function closeWindow() {
+function toggleWindow() {
     document.getElementsByClassName("notice-bg")[0].classList.toggle("hidden");
 }
 function displayLoadingBar() {
@@ -67,13 +67,9 @@ function article(_article, authenticated = false) {
     const urlToImage = _article.urlToImage;
     const date = new Date(_article.published);
     const unscrapable = urlToImage == null;
-    let unscrapableWarning = "";
     let saveButton = "";
     if (unscrapable) {
         unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
-    }
-    if (authenticated) {
-        saveButton = `<button onclick="saveArticle('${btoa(_article.link)}', \'${_article.title.replaceAll("'", "\\'")}\')"><i class="bi bi-bookmark"></i></button>`;
     }
 
     return `
@@ -88,7 +84,6 @@ function article(_article, authenticated = false) {
                 <a href="${_article.link}">View original</a><br/><br/>
                 <p>
                     Source: ${_article.source.title}<br/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
                 </p>
             </div>
         </div>`; // ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}

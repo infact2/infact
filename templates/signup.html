@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
-<body onload="load();" onerror="alert(event)">
+<body onload="load(); toggleWindow();" onerror="alert(event)">
     <div class="big-loading-bar hidden"></div>
     <div class="row">
         <div id="sidebar"></div>
@@ -35,18 +35,7 @@
                         <option value="c">Crossiant</option>
                         <option value="o">Other/Prefer not to say</option>
                     </select><br>
-                    <script>
-                        // const fs = require('fs')
-                        // const terms = ""
-                        // fs.readFile('Conditions.txt', (err, conditions) => {
-                        //     if (err) throw err;
-                        //         terms = conditions.toString();
-                        // })
-                        function termsOfService(){
-                            document.getElementById("termsOfService").innerHTML = "1. No terrorism \n2. No homophobia \n3. Praise the lord Skibidi every day \n4. Sigma Gyat Livvy Dunne \n    a.  Must send proof of Gyat to register \n5. No KKK \n6. Level 5 rizz required \n7. Follow number 8 \n9. Proof of anual penis inspection required"
-                        }
-                    </script>
-                    <input type="checkbox" required> I agree with the <a onclick="termsOfService()">Terms of Service</a><br>
+                    <input type="checkbox" required> I agree with the <a onclick="toggleWindow()">Terms of Service</a><br>
                     <p id="termsOfService"></p>
                     <button type="submit" class="accent w-100">
                         Create account
@@ -55,6 +44,25 @@
                     <p class="danger" id="error"></p>
                 </form>
             </center>
+        </div>
+    </div>
+
+    <div class="notice-bg">
+        <div style="width: 100vw; height: 100vh; top: 0px; bottom: 0px; position: fixed;" onclick="toggleWindow()"></div>
+        <div class="notice-div">
+            <h2>Terms of Service</h2>
+            <ol>
+                <li>No terrorism</li>
+                <li>No homophobia</li>
+                <li>Praise the lord Skibidi every day</li>
+                <li>Sigma Gyat Livvy Dunne</li>
+                <li>No KKK</li>
+                <li>Level 5 rizz required</li>
+                <li>Follow number 8</li>
+                <li>Proof of annual penis inspection required</li>
+                <li>No pedophillia</li>
+            </ol>
+            <button onclick="toggleWindow()">Close</button>
         </div>
     </div>
 </body>
