@@ -36,8 +36,15 @@ function createSidebar() {
             <a href="/signup/${btoa("/dashboard")}" class="no-href-decoration"><button class="w-100">Sign up</button></a>`;
     });
 }
-function toggleWindow() {
-    document.getElementsByClassName("notice-bg")[0].classList.toggle("hidden");
+function toggleWindow(id = null) {
+    let window_element;
+    if (id) {
+        window_element = document.querySelector(`#${id}`);
+    }
+    else {
+        window_element = document.querySelector(".notice-bg");
+    }
+    window_element.classList.toggle("hidden");
 }
 function displayLoadingBar() {
     document.getElementsByClassName("big-loading-bar")[0].classList.remove("hidden");
@@ -83,7 +90,7 @@ function article(_article, fid, authenticated = false) {
                     <div class="col" style="padding-left: 50px;">
                         <h3>${_article.title}</h3>
                         <a href="/corroborate/${btoa(_article.link)}/${btoa('{}')}" class="no-href-decoration">
-                            <button onclick="displayLoadingBar()" class="accent">View corroborated</button>
+                            <button onclick="displayLoadingBar(); toggleWindow('loading')" class="accent">View corroborated</button>
                         </a>${saveButton}
                         &nbsp;&nbsp;&nbsp;
                         <a href="${_article.link}">View original</a><br/><br/>
@@ -103,7 +110,7 @@ function article(_article, fid, authenticated = false) {
             <div class="col" style="padding-left: 50px;">
                 <h3>${_article.title}</h3>
                 <a href="/corroborate/${btoa(_article.link)}/${btoa('{}')}" class="no-href-decoration">
-                    <button onclick="displayLoadingBar()" class="accent">View corroborated</button>
+                    <button onclick="displayLoadingBar(); toggleWindow('loading')" class="accent">View corroborated</button>
                 </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;
                 <a href="${_article.link}">View original</a><br/><br/>

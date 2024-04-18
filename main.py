@@ -119,11 +119,11 @@ def _corroborate(url_encoded, settings_json_encoded):
     #url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
 
 
-    content = corroborate(url1)
+    raw_content = corroborate(url1)
     print("Done corroborating.")
     
     return render_template("corroborate.html",
-        title=html_parse.title.string, source1=url1, source2="hi", content=content)
+        title=html_parse.title.string, source1=url1, source2=raw_content["url2"], content=raw_content["content"])
 
 @app.route("/isitdown")
 def ping():

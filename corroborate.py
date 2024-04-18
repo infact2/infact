@@ -4,6 +4,7 @@ import articletextmanager
 import googlesearchengineapi
 import urllib.parse
 from urllib.parse import urlparse
+from urllib.error import *
 
 from bs4 import BeautifulSoup
 
@@ -39,16 +40,24 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
     urls = googlesearchengineapi.googleSearchAdvanced(title)
     url2 = urls[0]
     i = 1
-    if not sameDomain(url1, url2):
-        return corroborateHelper(url1, url2)
-    else:
-        print("cycle 1 sigma balls")
-        url2 = urls[i]
-        print("article 1: " + url1 + " article 2: " + url2)
-        i += i
+    
+    for url in urls:
+        if sameDomain(url1, url):
+            continue
+        try:
+            print("scrape test...")
+            urllib.request.urlopen(url)
+            print("success!")
+            url2 = url
+            break
+        except:
+            print("unscrapable")
+            continue
 
-
-    return corroborateHelper(url1, url2)
+    return {
+        "url2": url2,
+        "content": corroborateHelper(url1, url2)
+    };
 
 # prompt sections
 
