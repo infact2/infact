@@ -80,5 +80,16 @@
             <button onclick="toggleWindow()">I dare to proceed</button>
         </div>
     </div>
+
+    <div class="notice-bg hidden" id="loading">
+        <div style="width: 100vw; height: 100vh; top: 0px; bottom: 0px; position: fixed;" onclick="toggleWindow('loading')"></div>
+        <div class="notice-div">
+            <center>
+                <img src="loading.gif" class="loading">
+                <p>Generating article (may take a while)...</p>
+                <button onclick="toggleWindow('loading')">Close</button>
+            </center>
+        </div>
+    </div>
 </body>
 </html>
