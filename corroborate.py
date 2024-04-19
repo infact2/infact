@@ -37,25 +37,36 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
     html = urllib.request.urlopen(urllib.request.Request(url1))
     html_parse = BeautifulSoup(html, "html.parser")
     title = html_parse.title.string
+    source_meta = html_parse.find("meta", {"property": "og:site_name"})
     urls = googlesearchengineapi.googleSearchAdvanced(title)
     url2 = urls[0]
     i = 1
+
+    source1 = "Source 1"
+    source2 = "Source 2"
+
+    if source_meta:
+        source1 = source_meta["content"]
     
     for url in urls:
         if sameDomain(url1, url):
             continue
         try:
             print("scrape test...")
-            urllib.request.urlopen(url)
+            html = urllib.request.urlopen(url)
+            html_parse = BeautifulSoup(html, "html.parse")
+            source_meta2 = html_parse.find("meta", {"property": "og:site_name"})
             print("success!")
             url2 = url
+            source2 = source_meta2["content"]
             break
         except:
             print("unscrapable")
             continue
 
     return {
-        "url2": url2,
+        "source1": source1,
+        "url2": url2, "source2": source2,
         "content": corroborateHelper(url1, url2)
     };
 

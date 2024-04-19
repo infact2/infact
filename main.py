@@ -117,13 +117,12 @@ def _corroborate(url_encoded, settings_json_encoded):
 
     # implementt a way to get the second link
     #url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
-
-
+    
     raw_content = corroborate(url1)
     print("Done corroborating.")
-    
+
     return render_template("corroborate.html",
-        title=html_parse.title.string, source1=url1, source2=raw_content["url2"], content=raw_content["content"])
+        title=html_parse.title.string, url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"])
 
 @app.route("/isitdown")
 def ping():
@@ -168,6 +167,14 @@ def eroughwoerug(path):
     except:
         pass
     return send_file(f"static/404.html")
+
+@app.errorhandler(404)
+def error404(event):
+    return send_file("static/404.html")
+
+@app.errorhandler(500)
+def error500(event):
+    return send_file("static/500.html")
 
 if __name__ == '__main__':
 #    app.run(debug = True)
