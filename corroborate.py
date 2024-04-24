@@ -12,6 +12,12 @@ load_dotenv()
 
 client = OpenAI()
 
+hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
+       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
+       'Accept-Encoding': 'none',
+       'Accept-Language': 'en-US,en;q=0.8',
+       'Connection': 'keep-alive'}
 
 article1 = articletextmanager.extractText("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
 article2 = articletextmanager.extractText("https://www.aljazeera.com/news/2024/2/7/ukraines-zaluzhny-touts-drones-as-path-to-victory-russia-suffers-strikes")
@@ -34,7 +40,7 @@ def sameDomain(url1, url2): #checks if urls are the same
 
 def corroborate(url1): #feed 1 string and find a similar website to corroborate
     print("sigma balls")
-    html = urllib.request.urlopen(urllib.request.Request(url1))
+    html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr))
     html_parse = BeautifulSoup(html, "html.parser")
     title = html_parse.title.string
     source_meta = html_parse.find("meta", {"property": "og:site_name"})
@@ -53,7 +59,7 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
             continue
         try:
             print("scrape test...")
-            html = urllib.request.urlopen(url)
+            html = urllib.request.urlopen(url, headers=hdr)
             html_parse = BeautifulSoup(html, "html.parse")
             source_meta2 = html_parse.find("meta", {"property": "og:site_name"})
             print("success!")
