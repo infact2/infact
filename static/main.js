@@ -1,6 +1,9 @@
 const months = [
     "January", "Febuary", "March", "April", "June", "July", "August", "September", "October", "November", "December"
 ];
+let settings = {
+    temp: 0
+};
 
 function createSidebar() {
     const sidebar = `
@@ -58,9 +61,7 @@ function savedArticle(_article) {
     return `<div class="article-thumbnail lightest">
             <h5>${_article.title}</h5>
             <br>
-            <a href="/corroborate/${_article.id}/${btoa('{}')}" class="no-href-decoration">
-                <button class="accent">View corroborated</button>
-            </a>
+            <button class="accent">View corroborated (don click for now)</button>
             <button onclick="this.parentElement.remove()" style="color: #f54242;">
                 <i class="bi bi-trash3-fill"></i>
             </button>
@@ -89,9 +90,7 @@ function article(_article, fid, authenticated = false) {
                 <div class="row article-thumbnail lighter">
                     <div class="col" style="padding-left: 50px;">
                         <h3>${_article.title}</h3>
-                        <a href="/corroborate/${btoa(_article.link)}/${btoa('{}')}" class="no-href-decoration">
-                            <button onclick="displayLoadingBar(); toggleWindow('loading')" class="accent">View corroborated</button>
-                        </a>${saveButton}
+                        <button onclick="displayLoadingBar(); toggleWindow('loading'); openCorroborated(${_article.link}, ${settings})" class="accent">View corroborated</button>
                         &nbsp;&nbsp;&nbsp;
                         <a href="${_article.link}">View original</a><br/><br/>
                         <p>
