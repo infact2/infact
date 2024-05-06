@@ -22,8 +22,8 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
     searchEngineID = "d6c2539d1fec44866" #cx
     start = 1
     numPages = 1
-    url = f'https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={searchEngineID}&q={prompt}&siteSearch=news.google.com&time_period=last_year&max_page={numPages}'
-    #print(url)
+    url = f'https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={searchEngineID}&q={prompt}&time_period=last_year&max_page={numPages}'
+    print(url)
 
     response = requests.get(url).json()
     #print(response)
@@ -37,6 +37,8 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
     
     # get the result items
     search_items = response.get("items")
+    #print(search_items)
+
     # iterate over 10 results found
     if search_items is not None:
         for i, search_item in enumerate(search_items, start=1):
@@ -55,13 +57,13 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
             unredirected_link = search_item.get("link")
             link = requests.get(unredirected_link).url 
             # print the results
-            #print("="*10, f"Result #{i+start-1}", "="*10)
-            #print("Title:", title)
+            print("="*10, f"Result #{i+start-1}", "="*10)
+            print("Title:", title)
             #print("Description:", snippet)
             #print("Long description:", long_description)
-            #print("URL:", link, "\n")
-            #og_url = search_item["pagemap"]["metatags"][0]["og:url"]
-            #print(og_url, "\n")
+            print("URL:", unredirected_link, "\n")
+            # og_url = search_item["pagemap"]["metatags"][0]["og:url"]
+            # print(og_url, "\n")
             #search_item_formatted = json.dumps(search_item, indent = 2)
             #print(search_item_formatted, "\n")
 
@@ -95,6 +97,6 @@ def googleSearchAdvanced(prompt):
     return getDaLinks(prompt)
 #getDaLinks("ivf")
 
-#print(googleSearchBasic("At least 20 killed awaiting aid in Gaza as new cease-fire offer debated"))
+googleSearchBasic("The new TikTok ban bill, explained: When it could take effect, why lawmakers want to pass it and more")
 #getLinks(["San", "Diego", "homeless"])
 #test push 3
