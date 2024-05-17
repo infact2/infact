@@ -23,7 +23,7 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
     start = 1
     numPages = 1
     url = f'https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={searchEngineID}&q={prompt}&time_period=last_year&max_page={numPages}'
-    print(url)
+    #print(url)
 
     response = requests.get(url).json()
     #print(response)
@@ -57,11 +57,11 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
             unredirected_link = search_item.get("link")
             link = requests.get(unredirected_link).url 
             # print the results
-            print("="*10, f"Result #{i+start-1}", "="*10)
-            print("Title:", title)
+            #print("="*10, f"Result #{i+start-1}", "="*10)
+            #print("Title:", title)
             #print("Description:", snippet)
             #print("Long description:", long_description)
-            print("URL:", unredirected_link, "\n")
+            #print("URL:", unredirected_link, "\n")
             # og_url = search_item["pagemap"]["metatags"][0]["og:url"]
             # print(og_url, "\n")
             #search_item_formatted = json.dumps(search_item, indent = 2)
@@ -97,6 +97,6 @@ def googleSearchAdvanced(prompt):
     return getDaLinks(prompt)
 #getDaLinks("ivf")
 
-googleSearchBasic("The new TikTok ban bill, explained: When it could take effect, why lawmakers want to pass it and more")
+#googleSearchBasic("The new TikTok ban bill, explained: When it could take effect, why lawmakers want to pass it and more")
 #getLinks(["San", "Diego", "homeless"])
 #test push 3
