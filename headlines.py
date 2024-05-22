@@ -50,6 +50,7 @@ class Headlines:
                 # link = redirectFromUrl(unredirected_link)
 
                 entries[i]["link"] = link
+                if "miamiherald" in link: continue
                 print(f"URL {entries[i]["link"]}")
 
                 # use redirect response

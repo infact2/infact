@@ -72,6 +72,7 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
             if as_array:
                 requested_urls = appendToStart(requested_urls, link)
             else:
+                
                 parsed_url = urlparse(link)
                 requested_urls["entries"] = appendToStart(requested_urls["entries"], {
                     "title": title, 
