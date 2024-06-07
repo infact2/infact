@@ -161,7 +161,7 @@ def saveArticle(username_encoded, password_encoded, id, title_encoded):
     return jsonify(data)
 
 @app.route("/<path>")
-def eroughwoerug(path):
+def _path(path):
     try:
         return send_file(f"static/{path}")
     except:
