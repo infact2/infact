@@ -50,8 +50,11 @@ code {
 .hidden {
     display: none;
 }
+.padding-big {
+    padding: 80px !important;
+}
 .padding {
-    padding: 40px !important;
+    padding: 50px !important;
 }
 .padding-2 {
     padding: 20px !important;
@@ -285,4 +288,12 @@ a:hover {
     height: 100vh;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+#navbar-filler {
+    height: calc(20px * 2 + 45px);
+}
+nav {
+    position: fixed;
+    z-index: 300;
+    backdrop-filter: blur(8px);
 }

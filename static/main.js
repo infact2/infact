@@ -5,6 +5,42 @@ let settings = {
     temp: 0
 };
 
+function createNavbar() {
+    const navbar = `
+        <nav class="w-100 padding-2 lighter-gradient-fill-right">
+            <center>
+                <div class="row" style="width: 90vw;">
+                    <div class="col text-start">
+                        <a href="/" class="no-href-decoration"><img src="/static/logo.png" style="height: 45px;"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <b>Minimize Bias, Maximize Truth.</b>
+                    </div>
+                    <div class="col text-end" id="navbar-user">
+                        <img src="/static/loading.gif" class="loading" style="margin: 0px; height: 45px;">
+                    </div>
+                </div>
+            </center>
+        </nav>
+        <div id="navbar-filler"></div>`;
+    
+    document.body.innerHTML = navbar + document.body.innerHTML;
+
+    authenticate((data) => {
+        document.getElementById("navbar-user").innerHTML = `
+            <a href="/dashboard" class="no-href-decoration"><button class="accent">Dashboard</button></a>
+            <button onclick="logout()">Log out</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <b>${data.message.username}</b>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img src="/static/profile.png" class="lightest" style="border-radius: 100%; width: 40px; height: 40px;">`;
+    },
+    () => {
+        document.getElementById("navbar-user").innerHTML = `
+            <a href="/login/${btoa("/dashboard")}" class="no-href-decoration"><button class="accent">Log in</button></a>
+            <a href="/signup/${btoa("/dashboard")}" class="no-href-decoration"><button>Sign up</button></a>`;
+    });
+}
+
 function createSidebar() {
     const sidebar = `
     <center>
@@ -77,7 +113,7 @@ function article(_article, fid, authenticated = false) {
     const unscrapable = urlToImage == null;
     let saveButton = "";
     if (unscrapable) {
-        const unscrapableWarning = "<i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
+        const unscrapableWarning = "<i class='bi bi-exclamation-circle-fill danger'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
         return `
             <hr>
             <p class="grey-text">
@@ -147,7 +183,8 @@ function load() {
         displayLoadingBar();
     });
 
-    createSidebar();
+    createNavbar();
+    // createSidebar();
 }
 
 // =====================
