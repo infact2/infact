@@ -77,7 +77,7 @@ function article(_article, fid, authenticated = false) {
     const unscrapable = urlToImage == null;
     let saveButton = "";
     if (unscrapable) {
-        const unscrapableWarning = "<br/><i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
+        const unscrapableWarning = "<i class='bi bi-exclamation-circle-fill' style='color: #f54242;'></i>&nbsp;&nbsp;&nbsp;You may have issues viewing this source. <a href='/information#unscrapable'>Learn more.</a>";
         return `
             <hr>
             <p class="grey-text">
@@ -87,15 +87,14 @@ function article(_article, fid, authenticated = false) {
                 to show article
             </p>
             <div class="collapse" id="${fid}">
-                <div class="row article-thumbnail lighter">
+                <div class="row article-thumbnail lighter padding-2">
                     <div class="col" style="padding-left: 50px;">
-                        <h3>${_article.title}</h3>
+                        <h3 class="article-header">${_article.title}</h3>
                         <button onclick="displayLoadingBar(); toggleWindow('loading'); openCorroborated(${_article.link}, ${settings})" class="accent">View corroborated</button>
                         &nbsp;&nbsp;&nbsp;
-                        <a href="${_article.link}">View original</a><br/><br/>
+                        <a href="${_article.link}">View original <b>(${_article.source.title})</b></a><br/><br/>
                         <p>
-                            Source: ${_article.source.title}<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;${unscrapableWarning}
+                            ${unscrapableWarning}
                         </p>
                     </div>
                 </div>
@@ -104,18 +103,20 @@ function article(_article, fid, authenticated = false) {
     }
 
     return `
-        <div class="row article-thumbnail lighter">
-            <div class="col-3" style="background-color: var(--background-3); background-image: url(${urlToImage});"></div>
-            <div class="col" style="padding-left: 50px;">
-                <h3>${_article.title}</h3>
+        <div class="row article-thumbnail lighter-gradient-fill-right">
+            <div class="col-4 px-0" style="background-color: var(--background-3); background-image: url(${urlToImage});">
+                <div class="w-100 h-100 gradient-fill-right padding">
+                    Source:
+                    <h5>${_article.source.title}</h5>
+                </div>
+            </div>
+            <div class="col padding-2" style="padding-left: 50px;">
+                <h3 class="article-header">${_article.title}</h3>
                 <a href="/corroborate/${btoa(_article.link)}/${btoa('{}')}" class="no-href-decoration">
                     <button onclick="displayLoadingBar(); toggleWindow('loading')" class="accent">View corroborated</button>
                 </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;
-                <a href="${_article.link}">View original</a><br/><br/>
-                <p>
-                    Source: ${_article.source.title}<br/>
-                </p>
+                <a href="${_article.link}">View original <b>(${_article.source.title})</a></b><br/><br/>
             </div>
         </div>`; // ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}
 }

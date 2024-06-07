@@ -16,15 +16,9 @@
     <div class="row">
         <div id="sidebar"></div>
         
-        <div class="col-3">
-            Navbar not loaded...
-        </div>
+        <div class="col-3"></div>
         <div class="col padding">
             <h1>{{title}}</h1><hr>
-            <span id="source" class="grey-text">
-                Sources: <a href="{{url1}}">{{source1}}</a>, 
-                <a href="{{url2}}">{{source2}}</a>
-            </span><br>
             <button class="accent" onclick="navigator.clipboard.writeText(window.location.href);">
                 <i class="bi bi-link-45deg"></i> Copy URL
             </button>
@@ -41,9 +35,22 @@
                 <i class="bi bi-reddit"></i>
             </button>
             <br><hr>
-            <center>
-                <img src="https://www.icegif.com/wp-content/uploads/2022/06/icegif-340.gif" style="width: calc(100% - 200px);">
-            </center>
+            <div class="row w-100" style="background-image: url('https://www.icegif.com/wp-content/uploads/2022/06/icegif-340.gif'); background-size: cover; background-position: center; height: 500px;">
+                <div class="col-4 gradient-fill-right padding">
+                    <h3>Article Info</h3>
+                    <hr>
+                    <h5>Sources</h5>
+                    <ul>
+                        <li><a href="{{url1}}">{{source1}}</a></li>
+                        <li><a href="{{url2}}">{{source2}}</a></li>
+                    </ul>
+                    <hr>
+                    <p>
+                        <b>DISCLAIMER:</b><br>
+                        Our corroborator may make mistakes, please check both original sources to ensure accuracy.
+                    </p>
+                </div>
+            </div>
             <br>
             <span class="article-content">
                 {{content|safe}}
