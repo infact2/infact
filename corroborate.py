@@ -5,6 +5,7 @@ import googlesearchengineapi
 import urllib.parse
 from urllib.parse import urlparse
 from urllib.error import *
+import time
 
 from bs4 import BeautifulSoup
 
@@ -39,6 +40,7 @@ def sameDomain(url1, url2): #checks if urls are the same
 
 
 def corroborate(url1): #feed 1 string and find a similar website to corroborate
+    start_time = time.time()
     print("sigma balls")
     html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr))
     html_parse = BeautifulSoup(html, "html.parser")
@@ -50,31 +52,50 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
 
     source1 = "Source 1"
     source2 = "Source 2"
+    sites_scraped = 1
+    sites_unscrapable = 0
+    sites_omitted = 0
 
     if source_meta:
         source1 = source_meta["content"]
     
     for url in urls:
         if sameDomain(url1, url):
+            sites_omitted += 1
             continue
+        sites_scraped += 1
         try:
-            print("scrape test...")
+            print("st; ", end="")
             html = urllib.request.urlopen(url, headers=hdr)
             html_parse = BeautifulSoup(html, "html.parse")
             source_meta2 = html_parse.find("meta", {"property": "og:site_name"})
-            print("success!")
+            print("s; ", end="")
             url2 = url
             source2 = source_meta2["content"]
             break
         except:
-            print("unscrapable")
+            print("us; ", end="")
+            sites_unscrapable += 1
             continue
 
+    end_time = time.time()
+    helper = corroborateHelper(url1, url2)
+    execution_time = round((end_time - start_time) * 100.0) / 100.0
+    print()
+    print(f"S: {sites_scraped}; US: {sites_unscrapable}; SO: {sites_omitted}; ET: {execution_time}; GT: {helper['execution_time']}")
     return {
         "source1": source1,
         "url2": url2, "source2": source2,
-        "content": corroborateHelper(url1, url2)
-    };
+        "content": helper["content"],
+
+        # stats (for debug)
+        "total_sites": len(urls),
+        "sites_scraped": sites_scraped,
+        "sites_unscrapable": sites_unscrapable,
+        "sites_omitted": sites_omitted,
+        "execution_time": execution_time,
+        "helper_time": helper["execution_time"]
+    }
 
 # prompt sections
 
@@ -86,6 +107,7 @@ formatting = "Note that every paragraph has to be started with \"<p>\" without t
 
 
 def corroborateHelper(url1, url2): # feed strings and returns corroborated version of 1st file
+    start_time = time.time()
     text1 = articletextmanager.extractText(url1) 
     text2 = articletextmanager.extractText(url2)
     prompt = "Article 1: \"" + text1 + "\"\n Article 2: \"" + text2 + "\""
@@ -97,7 +119,11 @@ def corroborateHelper(url1, url2): # feed strings and returns corroborated versi
         ],
         temperature = 0,
     )
-    return completion.choices[0].message.content
+    end_time = time.time()
+    return {
+        "content": completion.choices[0].message.content,
+        "execution_time": round((end_time - start_time) * 100.0) / 100.0
+    }
 
 #corroborate("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
 

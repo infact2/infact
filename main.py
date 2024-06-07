@@ -122,7 +122,9 @@ def _corroborate(url_encoded, settings_json_encoded):
     print("Done corroborating.")
 
     return render_template("corroborate.html",
-        title=html_parse.title.string, url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"])
+        title=html_parse.title.string, url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"],
+        
+        total_sites=raw_content["total_sites"], sites_scraped=raw_content["sites_scraped"], sites_unscrapable=raw_content["sites_unscrapable"], sites_omitted=raw_content["sites_omitted"], execution_time=raw_content["execution_time"], helper_time=raw_content["helper_time"])
 
 @app.route("/isitdown")
 def ping():

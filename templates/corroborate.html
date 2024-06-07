@@ -31,13 +31,22 @@
             <h4>Advanced Info</h4>
             <ul>
                 <li>
-                    Attempted scrapings: NaN sites
+                    <span class="grey-text">Total available sites: </span><b>{{total_sites}} sites</b>
                 </li>
                 <li>
-                    Secondary source search time: NaN seconds
+                    <span class="grey-text">Sites omitted: </span><b>{{sites_omitted}} sites</b>
                 </li>
                 <li>
-                    Generation time: NaN seconds
+                    <span class="grey-text">Attempted scrapings: </span><b>{{sites_scraped}} sites</b>
+                </li>
+                <li>
+                    <span class="grey-text">Unscrapable sites: </span><b>{{sites_unscrapable}} sites</b>
+                </li>
+                <li>
+                    <span class="grey-text">Secondary source search time: </span><b>{{execution_time}} s</b>
+                </li>
+                <li>
+                    <span class="grey-text">Article generation time: </span><b>{{helper_time}} s</b>
                 </li>
                 
             </ul>
