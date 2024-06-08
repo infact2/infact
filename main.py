@@ -121,6 +121,11 @@ def _corroborate(url_encoded, settings_json_encoded):
     raw_content = corroborate(url1)
     print("Done corroborating.")
 
+    # remove ALL html
+    raw_content["content"] = raw_content["content"].replace("<", "").replace(">", "")
+    # readd paragraph elements
+    raw_content["content"] = raw_content["content"].replace("[p]", "<p>").replace("[/p]", "</p>")
+
     return render_template("corroborate.html",
         title=html_parse.title.string, url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"],
         

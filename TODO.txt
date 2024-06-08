@@ -1,14 +1,16 @@
 FRONTEND
 - host on aws (S3)
-- revamp front page layout?
-    - clear categories (just use stuff like world, nation, business or smth)
-    - should allow as much info to be displayed in an area without being too cluttered
+- the url bar :)
+- article saving but thats like not important
 
 BACKEND
-- could use pygooglenews for top headlines, use tanush's google search api to get other links related to article
-- change of scope: InFact should NOT be a place to search for news, but a way to corroborate news
-    - top headlines should just provide insight on what to related
-    
+- speed up article generation? (if possible ofc)
+- cache articles and destroy them when nessecary
+- search for more relevant secondary sources
+    - different enough that it covers points that the main source doesn't?
+- fix security issues
+    - corroboration allows
+
 - figure out what chatgpt api prompt is best
 - media bias json
     - might not be necessary - figure out what we're actually trying to do

@@ -99,11 +99,11 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
 
 # prompt sections
 
-main_instructions = "First, corroborate the news articles provided. You should sound like you are a news article and print out an unbiased version of the information provided in the 2 articles. You need to avoid as much bias as possible and omit extreme opinions. Please leave your response in the form of multiple indented paragraphs. If any recieve article seems to have html in it, ignore the HTML and only take in the text. Cite examples like biased key words or innacurate information. Please do not try to make up new things, and stick to the source material whenver possible. If the two sources seem to be identical, mention that they are after the corroboration."
+main_instructions = "Corroborate the news articles provided. Present an unbiased version of the information in the two articles, avoiding extreme opinions. Structure your response in multiple paragraphs. Cite examples of biased keywords or inaccurate information. Stick to the source material and avoid creating new content. If the two sources are identical, mention this after the corroboration."
 
-language = "Please be sure that this new article is 3-5 paragraphs long, and each paragraph may use information from both articles. Please also be sure to avoid phrasing repetition, construct concise, yet coherent sentences, and write like you are a good journalist from the Associated Press. At the start of a paragraph, please add proper transitions from the previous paragraph (if there is a previous paragraph) to the current."
+language = "Ensure the new article is at least paragraphs long, each using information from both sources. Avoid repetitive phrasing and construct concise, coherent sentences in the style of an Associated Press journalist. Begin each paragraph with proper transitions if there is a previous paragraph"
 
-formatting = "Note that every paragraph has to be started with \"<p>\" without the quotes and end with \"</p>\" without the quotes."
+formatting = "Note that every paragraph has to be started with \"[p]\" without the quotes and end with \"[/p]\" without the quotes."
 
 
 def corroborateHelper(url1, url2): # feed strings and returns corroborated version of 1st file
