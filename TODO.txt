@@ -6,10 +6,11 @@ FRONTEND
 BACKEND
 - speed up article generation? (if possible ofc)
 - cache articles and destroy them when nessecary
+- cache web scrapes to speed up scraping
 - search for more relevant secondary sources
     - different enough that it covers points that the main source doesn't?
 - fix security issues (https://github.com/infact2/infact/security/code-scanning)
-    - ip loggers
+    - ip loggers?
 
 - figure out what chatgpt api prompt is best
 - media bias json

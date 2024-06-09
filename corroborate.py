@@ -1,4 +1,4 @@
-from openai import OpenAI
+from openai import AsyncOpenAI
 from dotenv import load_dotenv
 import articletextmanager
 import googlesearchengineapi
@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 load_dotenv()
 
-client = OpenAI()
+client = AsyncOpenAI()
 
 article1 = articletextmanager.extractText("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
 article2 = articletextmanager.extractText("https://www.aljazeera.com/news/2024/2/7/ukraines-zaluzhny-touts-drones-as-path-to-victory-russia-suffers-strikes")
@@ -33,13 +33,13 @@ def sameDomain(url1, url2): #checks if urls are the same
 
 
 
-def corroborate(url1): #feed 1 string and find a similar website to corroborate
+async def corroborate(url1): #feed 1 string and find a similar website to corroborate
     start_time = time.time()
     print("sigma balls")
     html1 = scraper.scrape(url1)
     if html1 == scraper.DANGEROUS: return scraper.DANGEROUS
-
     html_parse1 = BeautifulSoup(html1, "html.parser")
+    
     title = html_parse1.title.string
     source_meta = html_parse1.find("meta", {"property": "og:site_name"})
     urls = googlesearchengineapi.googleSearchAdvanced(title)
@@ -74,18 +74,17 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
             url2 = url
             source2 = source_meta2["content"]
             break
-        except Exception as e:
-            # print(f"us ({e}); ", end="")
-            print(f"us; ", end="")
+        except:
+            print("us; ", end="")
             sites_unscrapable += 1
             continue
 
     end_time = time.time()
-    helper = corroborateHelper(html_parse1, html_parse2)
+    helper = await corroborateHelper(html_parse1, html_parse2)
     execution_time = round((end_time - start_time) * 100.0) / 100.0
-    print()
-    print(f"S: {sites_scraped}; US: {sites_unscrapable}; SO: {sites_omitted}; ET: {execution_time}; GT: {helper['execution_time']}")
+    print(f"\nS: {sites_scraped}; US: {sites_unscrapable}; SO: {sites_omitted}; ET: {execution_time}; GT: {helper['execution_time']}")
     return {
+        "title": title,
         "source1": source1,
         "url2": url2, "source2": source2,
         "content": helper["content"],
@@ -108,13 +107,13 @@ language = "Ensure the new article is at least paragraphs long, each using infor
 formatting = "Note that every paragraph has to be started with \"[p]\" without the quotes and end with \"[/p]\" without the quotes."
 
 
-def corroborateHelper(html_parse1, html_parse2): # feed strings and returns corroborated version of 1st file
+async def corroborateHelper(html_parse1, html_parse2): # feed strings and returns corroborated version of 1st file
     start_time = time.time()
     # print(f"HP1: {html_parse1}\nHP2: {html_parse2}")
     text1 = articletextmanager.extractTextFromHTML(html_parse1) 
     text2 = articletextmanager.extractTextFromHTML(html_parse2)
     prompt = "Article 1: \"" + text1 + "\"\n Article 2: \"" + text2 + "\""
-    completion = client.chat.completions.create(
+    completion = await client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": main_instructions + language + formatting},

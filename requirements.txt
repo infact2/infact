@@ -2,7 +2,7 @@ bs4
 openai
 python-dotenv
 requests
-Flask
+flask[async]
 waitress
 supabase
 pattern

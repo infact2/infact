@@ -85,38 +85,32 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.route("/")
-def index():
+async def index():
     return send_file("static/index.html")
 
 @app.route("/signup/<redirect>")
-def signup(redirect):
+async def signup(redirect):
     return render_template("signup.html", redirect=decode(redirect), redirect_raw=redirect)
 
 @app.route("/login/<redirect>")
-def login(redirect):
+async def login(redirect):
     return render_template("login.html", redirect=decode(redirect), redirect_raw=redirect)
 
 @app.route("/dashboard")
-def dashboard():
+async def dashboard():
     return send_file("static/dashboard.html")
 
 @app.route("/information")
-def information():
+async def information():
     return send_file("static/information.html")
 
 @app.route("/corroborate/<url_encoded>/<settings_json_encoded>")
-def _corroborate(url_encoded, settings_json_encoded):
+async def _corroborate(url_encoded, settings_json_encoded):
     print("Corroborating...")
     url1 = decode(url_encoded)
-    html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr)) 
-    html_parse = BeautifulSoup(html, "html.parser")
-
     settings = json.loads(decode(settings_json_encoded))
-
-    # implementt a way to get the second link
-    #url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
     
-    raw_content = corroborate(url1)
+    raw_content = await corroborate(url1)
     if raw_content == DANGEROUS:
         print(f"NUH UH ({url1})")
         return send_file("static/stop.html")
@@ -129,16 +123,16 @@ def _corroborate(url_encoded, settings_json_encoded):
     raw_content["content"] = raw_content["content"].replace("[p]", "<p>").replace("[/p]", "</p>")
 
     return render_template("corroborate.html",
-        title=html_parse.title.string, url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"],
+        title=raw_content["title"], url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"],
         
         total_sites=raw_content["total_sites"], sites_scraped=raw_content["sites_scraped"], sites_unscrapable=raw_content["sites_unscrapable"], sites_omitted=raw_content["sites_omitted"], execution_time=raw_content["execution_time"], helper_time=raw_content["helper_time"])
 
 @app.route("/isitdown")
-def ping():
+async def ping():
     return "<h1>No.</h1>"
 
 @app.route("/gimme", methods=["POST", "GET"])
-def gimme():
+async def gimme():
     data = _headlines.getTopHeadlines()["entries"]
     print(type(data))
 
@@ -151,26 +145,26 @@ def gimme():
     return jsonify(data)
 
 @app.route("/getuserdata/<username_encoded>/<password_encoded>", methods=["POST", "GET"])
-def getUserData(username_encoded, password_encoded):
+async def getUserData(username_encoded, password_encoded):
     data = users.authenticate(decode(username_encoded), decode(password_encoded))
     print(data)
     return jsonify(data)
 
 @app.route("/createaccount/<username_encoded>/<password_encoded>", methods=["POST", "GET"])
-def createAccount(username_encoded, password_encoded):
+async def createAccount(username_encoded, password_encoded):
     data = users.createAccount(decode(username_encoded), decode(password_encoded))
     print(data)
     return jsonify(data)
 
 @app.route("/savearticle/<username_encoded>/<password_encoded>/<id>/<title_encoded>", methods=["POST", "GET"])
-def saveArticle(username_encoded, password_encoded, id, title_encoded):
+async def saveArticle(username_encoded, password_encoded, id, title_encoded):
     data = users.saveArticle(decode(username_encoded), decode(password_encoded), id, decode(title_encoded))
     print("ARTIFCLE SAVED")
     print(data)
     return jsonify(data)
 
 @app.route("/<path>")
-def _path(path):
+async def _path(path):
     try:
         return send_file(f"static/{path}")
     except:
@@ -178,11 +172,11 @@ def _path(path):
     return send_file(f"static/404.html")
 
 @app.errorhandler(404)
-def error404(event):
+async def error404(event):
     return send_file("static/404.html")
 
 @app.errorhandler(500)
-def error500(event):
+async def error500(event):
     return send_file("static/500.html")
 
 if __name__ == '__main__':
