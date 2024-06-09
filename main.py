@@ -1,7 +1,4 @@
 import urllib.request
-import re
-import random
-import requests
 from flask import Flask, request, send_file, render_template, jsonify
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
@@ -9,7 +6,7 @@ from openai import OpenAI
 import asyncio
 import base64
 import json
-import articletextmanager
+from scraper import DANGEROUS
 
 from corroborate import corroborate
 
@@ -42,36 +39,37 @@ omitted_paragraph_keywords = ["all rights reserved", "subscribe", "newsletter", 
 
 margin = 2
 
-def extractText(url):
-    html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr))
-    html_parse = BeautifulSoup(html, "html.parser")
+# def extractText(url):
+#     html = urllib.request.urlopen(urllib.request.Request(url, headers=hdr))
+#     html_parse = BeautifulSoup(html, "html.parser")
     
-    text = ""
-    for para in html_parse.find_all("p"): 
-        para_text = para.get_text()
-        para_text_lower = para_text.lower()
+#     text = ""
+#     for para in html_parse.find_all("p"): 
+#         para_text = para.get_text()
+#         para_text_lower = para_text.lower()
         
-        # Omit paragraphs with certain keywords
-        omit = False
-        for word in omitted_paragraph_keywords:
-            if word in para_text_lower:
-                omit = True
-                break
+#         # Omit paragraphs with certain keywords
+#         omit = False
+#         for word in omitted_paragraph_keywords:
+#             if word in para_text_lower:
+#                 omit = True
+#                 break
         
-        if omit: continue
-        text += para_text + "[NEWPARA]"
+#         if omit: continue
+#         text += para_text + "[NEWPARA]"
     
-    # Remove excess newlines
-    text = text.replace("\n", "").replace("[NEWPARA]", "\n\n")
-    # print(text)
+#     # Remove excess newlines
+#     text = text.replace("\n", "").replace("[NEWPARA]", "\n\n")
+#     # print(text)
 
-    return text
+#     return text
 
 def textToHTML(text):
     return text.replace("\n", "<br/>")
 
 def decode(encoded):
     return base64.b64decode(encoded.encode("ascii")).decode("ascii")
+
 
 #print(extractText("https://abcnews.go.com/US/fbi-investigating-south-carolina-couple-accused-harassing-neighbors/story?id=105825286"))
 # corroborate("https://www.newsmax.com/us/joe-biden-impeachment-house/2023/11/29/id/1144091/", "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")
@@ -119,6 +117,10 @@ def _corroborate(url_encoded, settings_json_encoded):
     #url2 = "https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html"
     
     raw_content = corroborate(url1)
+    if raw_content == DANGEROUS:
+        print(f"NUH UH ({url1})")
+        return send_file("static/stop.html")
+        
     print("Done corroborating.")
 
     # remove ALL html

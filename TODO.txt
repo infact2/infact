@@ -8,9 +8,10 @@ BACKEND
 - cache articles and destroy them when nessecary
 - search for more relevant secondary sources
     - different enough that it covers points that the main source doesn't?
-- fix security issues
-    - corroboration allows
+- fix security issues (https://github.com/infact2/infact/security/code-scanning)
+    - ip loggers
 
 - figure out what chatgpt api prompt is best
 - media bias json
     - might not be necessary - figure out what we're actually trying to do
+

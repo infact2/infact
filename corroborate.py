@@ -6,19 +6,13 @@ import urllib.parse
 from urllib.parse import urlparse
 from urllib.error import *
 import time
+import scraper
 
 from bs4 import BeautifulSoup
 
 load_dotenv()
 
 client = OpenAI()
-
-hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
-       'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-       'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-       'Accept-Encoding': 'none',
-       'Accept-Language': 'en-US,en;q=0.8',
-       'Connection': 'keep-alive'}
 
 article1 = articletextmanager.extractText("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
 article2 = articletextmanager.extractText("https://www.aljazeera.com/news/2024/2/7/ukraines-zaluzhny-touts-drones-as-path-to-victory-russia-suffers-strikes")
@@ -42,19 +36,22 @@ def sameDomain(url1, url2): #checks if urls are the same
 def corroborate(url1): #feed 1 string and find a similar website to corroborate
     start_time = time.time()
     print("sigma balls")
-    html = urllib.request.urlopen(urllib.request.Request(url1, headers=hdr))
-    html_parse = BeautifulSoup(html, "html.parser")
-    title = html_parse.title.string
-    source_meta = html_parse.find("meta", {"property": "og:site_name"})
+    html1 = scraper.scrape(url1)
+    if html1 == scraper.DANGEROUS: return scraper.DANGEROUS
+
+    html_parse1 = BeautifulSoup(html1, "html.parser")
+    title = html_parse1.title.string
+    source_meta = html_parse1.find("meta", {"property": "og:site_name"})
     urls = googlesearchengineapi.googleSearchAdvanced(title)
     url2 = urls[0]
-    i = 1
 
     source1 = "Source 1"
     source2 = "Source 2"
     sites_scraped = 1
     sites_unscrapable = 0
     sites_omitted = 0
+
+    html_parse2 = None
 
     if source_meta:
         source1 = source_meta["content"]
@@ -66,20 +63,25 @@ def corroborate(url1): #feed 1 string and find a similar website to corroborate
         sites_scraped += 1
         try:
             print("st; ", end="")
-            html = urllib.request.urlopen(url, headers=hdr)
-            html_parse = BeautifulSoup(html, "html.parse")
-            source_meta2 = html_parse.find("meta", {"property": "og:site_name"})
+            html2 = scraper.scrape(url)
+            if html2 == scraper.DANGEROUS:
+                print("PD; ", end="")
+                raise Exception("Potentially malicious site")
+
+            html_parse2 = BeautifulSoup(html2, "html.parser")
+            source_meta2 = html_parse2.find("meta", {"property": "og:site_name"})
             print("s; ", end="")
             url2 = url
             source2 = source_meta2["content"]
             break
-        except:
-            print("us; ", end="")
+        except Exception as e:
+            # print(f"us ({e}); ", end="")
+            print(f"us; ", end="")
             sites_unscrapable += 1
             continue
 
     end_time = time.time()
-    helper = corroborateHelper(url1, url2)
+    helper = corroborateHelper(html_parse1, html_parse2)
     execution_time = round((end_time - start_time) * 100.0) / 100.0
     print()
     print(f"S: {sites_scraped}; US: {sites_unscrapable}; SO: {sites_omitted}; ET: {execution_time}; GT: {helper['execution_time']}")
@@ -106,10 +108,11 @@ language = "Ensure the new article is at least paragraphs long, each using infor
 formatting = "Note that every paragraph has to be started with \"[p]\" without the quotes and end with \"[/p]\" without the quotes."
 
 
-def corroborateHelper(url1, url2): # feed strings and returns corroborated version of 1st file
+def corroborateHelper(html_parse1, html_parse2): # feed strings and returns corroborated version of 1st file
     start_time = time.time()
-    text1 = articletextmanager.extractText(url1) 
-    text2 = articletextmanager.extractText(url2)
+    # print(f"HP1: {html_parse1}\nHP2: {html_parse2}")
+    text1 = articletextmanager.extractTextFromHTML(html_parse1) 
+    text2 = articletextmanager.extractTextFromHTML(html_parse2)
     prompt = "Article 1: \"" + text1 + "\"\n Article 2: \"" + text2 + "\""
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",

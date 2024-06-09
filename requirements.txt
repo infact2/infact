@@ -10,3 +10,4 @@ feedparser
 dateparser
 spacy
 aiohttp
+validators

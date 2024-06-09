@@ -105,6 +105,16 @@ function savedArticle(_article) {
         </div>`;
 }
 
+function submitCustomCorroborated() {
+    displayLoadingBar();
+    toggleWindow('loading');
+    // openCorroborated(document.getElementById("corroborate-url").value, settings);
+    window.location.href = corroborateUrl(document.getElementById("corroborate-url").value, settings);
+}
+function corroborateUrl(url, settings) {
+    return `/corroborate/${btoa(url)}/${btoa(JSON.stringify(settings))}`;
+}
+
 function article(_article, fid, authenticated = false) {
     // alert(JSON.stringify(Object.keys(_article)))
     // alert(JSON.stringify(_article.link))
@@ -148,7 +158,7 @@ function article(_article, fid, authenticated = false) {
             </div>
             <div class="col padding-2" style="padding-left: 50px;">
                 <h3 class="article-header">${_article.title}</h3>
-                <a href="/corroborate/${btoa(_article.link)}/${btoa('{}')}" class="no-href-decoration">
+                <a href="${corroborateUrl(_article.link, settings)}" class="no-href-decoration">
                     <button onclick="displayLoadingBar(); toggleWindow('loading')" class="accent">View corroborated</button>
                 </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;
