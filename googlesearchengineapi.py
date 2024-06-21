@@ -8,6 +8,14 @@ import os
 
 load_dotenv()
 
+approved_sites = ["https://apnews.com/"]
+query = " "
+for site in approved_sites:
+    if site == approved_sites[-1]: # if last link, don't include "OR"
+        query += f"site:{site}"
+    else:
+        query += f"site:{site} OR "
+
 def appendToStart(original, item):
     resultant = deque(original)
     resultant.appendleft(item)
@@ -15,7 +23,7 @@ def appendToStart(original, item):
 
 def getDaLinks(prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
-    prompt += ' articles'
+    prompt += query
 
     #parameters
     apiKey = os.getenv("GOOGLE_API_KEY")
