@@ -8,13 +8,36 @@ import os
 
 load_dotenv()
 
-approved_sites = ["https://apnews.com/"]
-query = " "
-for site in approved_sites:
-    if site == approved_sites[-1]: # if last link, don't include "OR"
-        query += f"site:{site}"
-    else:
-        query += f"site:{site} OR "
+media_bias_data = {}
+bias_keys = []
+# NOTE: -6 is far left, vice versa
+with open("media_bias.json", "r") as file:
+    media_bias_data = json.load(file)
+    bias_keys = [float(i) for i in media_bias_data.keys()]
+    bias_keys.sort()
+
+def negatingLeaning(article_leaning): # finds the leaning that can be used to search for a second article, preferrably one that has the opposite leaning as the current article
+    leaning_to_use = 0
+    best_difference = 100
+    for i in range(1, len(bias_keys)):
+        previous, cur = bias_keys[i - 1], bias_keys[i]
+        previous_distance, cur_distance = abs(previous + article_leaning), abs(cur + article_leaning)
+        if previous_distance < best_difference:
+            leaning_to_use = previous
+            best_difference = previous_distance
+        elif cur_distance < best_difference:
+            leaning_to_use = cur
+            best_difference = cur_distance
+    return leaning_to_use
+def generateQuery(article_leaning):
+    sources = media_bias_data[str(negatingLeaning(article_leaning))]
+    query = " "
+    for site in sources:
+        if site == sources[-1]: # if last link, don't include "OR"
+            query += f"site:{site}"
+        else:
+            query += f"site:{site} OR "
+    return query
 
 def appendToStart(original, item):
     resultant = deque(original)
@@ -23,7 +46,8 @@ def appendToStart(original, item):
 
 def getDaLinks(prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
-    prompt += query
+    article_leaning = 0 # please figure out a way to get the article's leaning, but for now I will just put this as center
+    prompt += generateQuery(article_leaning)
 
     #parameters
     apiKey = os.getenv("GOOGLE_API_KEY")
