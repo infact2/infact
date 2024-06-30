@@ -28,9 +28,17 @@ def negatingLeaning(article_leaning): # finds the leaning that can be used to se
         elif cur_distance < best_difference:
             leaning_to_use = cur
             best_difference = cur_distance
-    return leaning_to_use
+
+    ret_value = str(leaning_to_use)
+    negative = ret_value[0] == "-"
+    while (not negative and len(ret_value) < 4) or (negative and len(ret_value) < 5):
+        ret_value += "0"
+    return ret_value
 def generateQuery(article_leaning):
-    sources = media_bias_data[str(negatingLeaning(article_leaning))]
+    key = negatingLeaning(article_leaning)
+    # print(bias_keys)
+    # print(f"KEYUYYYY {key}")
+    sources = media_bias_data[key]
     query = " "
     for site in sources:
         if site == sources[-1]: # if last link, don't include "OR"
