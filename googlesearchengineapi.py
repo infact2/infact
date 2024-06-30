@@ -55,7 +55,8 @@ def appendToStart(original, item):
 def getDaLinks(prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
     article_leaning = 0 # please figure out a way to get the article's leaning, but for now I will just put this as center
-    prompt += generateQuery(article_leaning)
+    # prompt += generateQuery(article_leaning)
+    prompt += " article"
 
     #parameters
     apiKey = os.getenv("GOOGLE_API_KEY")
