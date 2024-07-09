@@ -133,8 +133,9 @@ async def ping():
 
 @app.route("/gimme", methods=["POST", "GET"])
 async def gimme():
-    data = _headlines.getTopHeadlines()["entries"]
+    data = _headlines.getTopHeadlines()
     print(type(data))
+    print(data)
 
     # print(data)
 
@@ -183,7 +184,7 @@ if __name__ == '__main__':
 #    app.run(debug = True)
     async def load():
         from waitress import serve
-        await _headlines.setTopHeadlines()
+        _headlines.setTopHeadlines()
         print("Running...")
         serve(app, host="0.0.0.0", port=8000)
     asyncio.run(load())

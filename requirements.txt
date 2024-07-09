@@ -6,8 +6,8 @@ flask[async]
 waitress
 supabase
 pattern
-feedparser
 dateparser
 spacy
 aiohttp
 validators
+newsapi-python

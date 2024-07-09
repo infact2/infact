@@ -119,7 +119,7 @@ function article(_article, fid, authenticated = false) {
     // alert(JSON.stringify(Object.keys(_article)))
     // alert(JSON.stringify(_article.link))
     const urlToImage = _article.urlToImage;
-    const date = new Date(_article.published);
+    const date = new Date(_article.publishedAt);
     const unscrapable = urlToImage == null;
     let saveButton = "";
     if (unscrapable) {
@@ -136,9 +136,9 @@ function article(_article, fid, authenticated = false) {
                 <div class="row article-thumbnail lighter padding-2">
                     <div class="col" style="padding-left: 50px;">
                         <h3 class="article-header">${_article.title}</h3>
-                        <button onclick="displayLoadingBar(); toggleWindow('loading'); openCorroborated(${_article.link}, ${settings})" class="accent">View corroborated</button>
+                        <button onclick="displayLoadingBar(); toggleWindow('loading'); openCorroborated(${_article.url}, ${settings})" class="accent">View corroborated</button>
                         &nbsp;&nbsp;&nbsp;
-                        <a href="${_article.link}">View original <b>(${_article.source.title})</b></a><br/><br/>
+                        <a href="${_article.url}">View original <b>(${_article.source.title})</b></a><br/><br/>
                         <p>
                             ${unscrapableWarning}
                         </p>
@@ -169,6 +169,7 @@ function article(_article, fid, authenticated = false) {
 
 function displayTrendingArticles(data, authenticated = false) {
     const articles = data;
+    console.log(articles)
     // alert(JSON.stringify(articles));
     const _articles = document.querySelector("#articles");
 
