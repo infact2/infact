@@ -1,9 +1,10 @@
 FRONTEND
-- host on aws (S3)
-- the url bar :)
-- article saving but thats like not important
+- improve corroborated article ui
+- host website
 
 BACKEND
+- use newsapi instead of google api for top headlines to make it faster
+- improve corroborating gpt prompt engineering
 - speed up article generation? (if possible ofc)
 - cache articles and destroy them when nessecary
 - cache web scrapes to speed up scraping
@@ -16,3 +17,5 @@ BACKEND
 - media bias json
     - might not be necessary - figure out what we're actually trying to do
 
+More Features
+- bias meter
