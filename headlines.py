@@ -20,7 +20,7 @@ _newsapi = NewsApiClient(api_key=os.getenv("NEWS_API_KEY"))
 
 class Headlines:
     cache = []
-    quota = 8
+    quota = 10
 
     def getTopHeadlines(self):
         return self.cache
