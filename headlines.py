@@ -43,7 +43,7 @@ class Headlines:
                 else: print(f"LOADED: {cur}/{len(articles)} articles SKIPPED")
                 cur += 1
         else:
-            print(f"Error fetching top headlines: {top_headlines["message"]}")
+            print(f"Error fetching top headlines: {top_headlines['message']}")
         self.cache = new_cache
 
     async def interval(self):
