@@ -158,11 +158,11 @@ function article(_article, fid, authenticated = false) {
             </div>
             <div class="col padding-2" style="padding-left: 50px;">
                 <h3 class="article-header">${_article.title}</h3>
-                <a href="${corroborateUrl(_article.link, settings)}" class="no-href-decoration">
+                <a href="${corroborateUrl(_article.url, settings)}" class="no-href-decoration">
                     <button onclick="displayLoadingBar(); toggleWindow('loading')" class="accent">View corroborated</button>
                 </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;
-                <a href="${_article.link}">View original <b>(${_article.source.name})</a></b><br/><br/>
+                <a href="${_article.url}">View original <b>(${_article.source.name})</a></b><br/><br/>
             </div>
         </div>`; // ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}
 }
