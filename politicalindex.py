@@ -1,6 +1,7 @@
 import spacy
 from pattern.text.en import singularize
 import os
+import json
 
 # python -m spacy download en_core_web_sm
 nlp = None
@@ -13,35 +14,43 @@ except:
 allowed_tags = {"NN", "NNP", "NNS", "NNPS"} # "in" in sets is O(1)
 
 def processData():
-    filename = "political_news_titles.txt"
-    document = nlp(open(filename, "r").read())
+    try:
+        with open("political_index.json", "r") as file:
+            political_index_json = set(json.load(file))
+            return political_index_json
+    except:
+        filename = "political_news_titles.txt"
+        document = nlp(open(filename, "r").read())
 
-    political_terms = {}
+        political_terms = {}
 
-    for chunk in document.noun_chunks:
-        pos = chunk.root.pos_
-        term = chunk.root.text.lower()
+        for chunk in document.noun_chunks:
+            pos = chunk.root.pos_
+            term = chunk.root.text.lower()
 
-        if chunk.root.tag_ == "NNS" or chunk.root.tag_ == "NNPS": # If token is plural
-            term = singularize(term)
+            if chunk.root.tag_ == "NNS" or chunk.root.tag_ == "NNPS": # If token is plural
+                term = singularize(term)
 
-        if term in political_terms:
-            political_terms[term] += 1
-        else:
-            political_terms[term] = 1
+            if term in political_terms:
+                political_terms[term] += 1
+            else:
+                political_terms[term] = 1
 
-        # print(f"=================\nT: {chunk.text}\nRT: {chunk.root.text}\nHT: {chunk.root.head.text}")
-        # print(f"RTD: {chunk.root.text.dep_}")
-    
-    political_terms = dict(sorted(political_terms.items(), key=lambda item: item[1], reverse=True))
-    filtered_political_terms = set([])
-
-    for term in political_terms:
-        if political_terms[term] <= 3: break
+            # print(f"=================\nT: {chunk.text}\nRT: {chunk.root.text}\nHT: {chunk.root.head.text}")
+            # print(f"RTD: {chunk.root.text.dep_}")
         
-        filtered_political_terms.add(term)
+        political_terms = dict(sorted(political_terms.items(), key=lambda item: item[1], reverse=True))
+        filtered_political_terms = set([])
 
-    return filtered_political_terms
+        for term in political_terms:
+            if political_terms[term] <= 3: break
+            
+            filtered_political_terms.add(term)
+
+        with open("political_index.json", 'w') as file:
+            json.dump(list(filtered_political_terms), file, indent=4)
+        return filtered_political_terms
+    return {}
 
 political_terms = processData()
 # print(political_terms)

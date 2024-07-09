@@ -135,7 +135,7 @@ async def ping():
 async def gimme():
     data = _headlines.getTopHeadlines()
     print(type(data))
-    print(data)
+    # print(data)
 
     # print(data)
 

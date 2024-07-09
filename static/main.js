@@ -138,7 +138,7 @@ function article(_article, fid, authenticated = false) {
                         <h3 class="article-header">${_article.title}</h3>
                         <button onclick="displayLoadingBar(); toggleWindow('loading'); openCorroborated(${_article.url}, ${settings})" class="accent">View corroborated</button>
                         &nbsp;&nbsp;&nbsp;
-                        <a href="${_article.url}">View original <b>(${_article.source.title})</b></a><br/><br/>
+                        <a href="${_article.url}">View original <b>(${_article.source.name})</b></a><br/><br/>
                         <p>
                             ${unscrapableWarning}
                         </p>
@@ -153,7 +153,7 @@ function article(_article, fid, authenticated = false) {
             <div class="col-4 px-0" style="background-color: var(--background-3); background-image: url(${urlToImage});">
                 <div class="w-100 h-100 gradient-fill-right padding">
                     Source:
-                    <h5>${_article.source.title}</h5>
+                    <h5>${_article.source.name}</h5>
                 </div>
             </div>
             <div class="col padding-2" style="padding-left: 50px;">
@@ -162,7 +162,7 @@ function article(_article, fid, authenticated = false) {
                     <button onclick="displayLoadingBar(); toggleWindow('loading')" class="accent">View corroborated</button>
                 </a>${saveButton}
                 &nbsp;&nbsp;&nbsp;
-                <a href="${_article.link}">View original <b>(${_article.source.title})</a></b><br/><br/>
+                <a href="${_article.link}">View original <b>(${_article.source.name})</a></b><br/><br/>
             </div>
         </div>`; // ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}
 }
@@ -177,6 +177,9 @@ function displayTrendingArticles(data, authenticated = false) {
         if (articles[i].title == "[Removed]") continue;
         _articles.innerHTML += article(articles[i], i, authenticated);
     }
+    const loading = document.querySelector("#articles center");
+    console.log(loading)
+    loading.remove();
 }
 
 function getTrendingArticles() {
