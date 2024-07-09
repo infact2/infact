@@ -17,8 +17,10 @@ def processData():
     try:
         with open("political_index.json", "r") as file:
             political_index_json = set(json.load(file))
+            print("cache used")
             return political_index_json
     except:
+        print("no json detected, making new version")
         filename = "political_news_titles.txt"
         document = nlp(open(filename, "r").read())
 
