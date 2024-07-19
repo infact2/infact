@@ -35,7 +35,7 @@ def sameDomain(url1, url2): #checks if urls are the same
 
 async def corroborate(url1): #feed 1 string and find a similar website to corroborate
     start_time = time.time()
-    print("sigma balls")
+    print("Corroboration start")
     html1 = scraper.scrape(url1)
     if html1 == scraper.DANGEROUS: return scraper.DANGEROUS
     html_parse1 = BeautifulSoup(html1, "html.parser")
@@ -56,6 +56,7 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
     if source_meta:
         source1 = source_meta["content"]
     
+    print(f"Iterations queued: {len(urls)}")
     for url in urls:
         if sameDomain(url1, url):
             sites_omitted += 1
@@ -80,6 +81,7 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
             continue
 
     end_time = time.time()
+    print(f"hp1: {html_parse1 != None}; hp2: {html_parse2 != None}")
     helper = await corroborateHelper(html_parse1, html_parse2)
     execution_time = round((end_time - start_time) * 100.0) / 100.0
     print(f"\nS: {sites_scraped}; US: {sites_unscrapable}; SO: {sites_omitted}; ET: {execution_time}; GT: {helper['execution_time']}")
@@ -108,6 +110,7 @@ formatting = "Note that every paragraph has to be started with \"[p]\" without t
 
 
 async def corroborateHelper(html_parse1, html_parse2): # feed strings and returns corroborated version of 1st file
+    print("Generating article...")
     start_time = time.time()
     # print(f"HP1: {html_parse1}\nHP2: {html_parse2}")
     text1 = articletextmanager.extractTextFromHTML(html_parse1) 

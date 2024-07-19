@@ -32,6 +32,7 @@ class Headlines:
         unskipped_articles = 0
         page = 1
         while unskipped_articles < self.quota:
+            print("NEW ITER")
             try:
                 top_headlines = _newsapi.get_top_headlines(page=page)
             except:
