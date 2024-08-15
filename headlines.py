@@ -6,6 +6,7 @@ import aiohttp
 import base64
 from dotenv import load_dotenv
 from politicalindex import isPolitical
+from sourcenamehandler import getSourceNamesQuery
 # from newsapi.newsapi_client import NewsApiClient
 from newsapi import NewsApiClient
 from bs4 import BeautifulSoup
@@ -34,7 +35,7 @@ class Headlines:
         while unskipped_articles < self.quota:
             print("NEW ITER")
             try:
-                top_headlines = _newsapi.get_top_headlines(page=page)
+                top_headlines = _newsapi.get_top_headlines(page=page, sources=getSourceNamesQuery())
             except:
                 print("results limited")
                 break
@@ -52,7 +53,8 @@ class Headlines:
                         new_cache.append(article)
                         unskipped_articles += 1
                         print(f"LOADED: {cur}/{len(articles)} articles (t: {unskipped_articles})")
-                    else: print(f"LOADED: {cur}/{len(articles)} articles (t: {unskipped_articles}) [SKIPPED]")
+                    else:
+                        print(f"LOADED: {cur}/{len(articles)} articles (t: {unskipped_articles}) [SKIPPED] ({article['title']})")
                     cur += 1
             else:
                 print(f"Error fetching top headlines: {top_headlines['message']}")
