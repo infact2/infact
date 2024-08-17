@@ -47,6 +47,16 @@ code {
     border-radius: 5px;
     padding: 3px;
 }
+.quote {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 3px;
+    cursor: help;
+    transition: 100ms;
+}
+.quote:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
 .hidden {
     display: none;
 }

@@ -121,6 +121,9 @@ async def _corroborate(url_encoded, settings_json_encoded):
     raw_content["content"] = raw_content["content"].replace("<", "").replace(">", "")
     # readd paragraph elements
     raw_content["content"] = raw_content["content"].replace("[p]", "<p>").replace("[/p]", "</p>")
+    raw_content["content"] = raw_content["content"].replace("[quote]", "<span class='quote'>").replace("[/quote]", "</span>")
+    # add source links lol
+    raw_content["content"] = raw_content["content"].replace("[SOURCE 1]", f"<a class='source-note' href='{url1}'>[1]</a>").replace("[SOURCE 2]", f"<a class='source-note' href='{raw_content["url2"]}'>[2]</a>")
 
     return render_template("corroborate.html",
         title=raw_content["title"], url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"],

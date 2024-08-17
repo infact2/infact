@@ -42,7 +42,24 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
     
     title = html_parse1.title.string
     source_meta = html_parse1.find("meta", {"property": "og:site_name"})
-    urls = googlesearchengineapi.googleSearchAdvanced(title)
+    urls = googlesearchengineapi.googleSearchAdvanced(url1, title)
+
+    if len(urls) == 0:
+        return {
+            "title": "Missing Source 2",
+            "source1": "Error",
+            "url2": "", "source2": "Error",
+            "content": "Sorry, we were unable to find a second article to corroborate. Please try again later",
+
+            # stats (for debug)
+            "total_sites": len(urls),
+            "sites_scraped": 0,
+            "sites_unscrapable": 0,
+            "sites_omitted": 0,
+            "execution_time": 0,
+            "helper_time": 0
+        }
+
     url2 = urls[0]
 
     source1 = "Source 1"
@@ -102,9 +119,16 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
 
 # prompt sections
 
-main_instructions = "Corroborate the news articles provided. Present an unbiased version of the information in the two articles, avoiding extreme opinions. Structure your response in multiple paragraphs. Cite examples of biased keywords or inaccurate information. Stick to the source material and avoid creating new content. If the two sources are identical, mention this after the corroboration."
+main_instructions = """
+* Corroborate news articles provied; MUST USE INFORMATION FROM BOTH ARTICLES
+* Present an unbiased version of the information in the two articles, avoiding extreme opinions
+* Structure your response in multiple paragraphs
+* Each paragraph must have at least two quotes from the provided articles and cite them. Add "[quote]" at the beginning of the quote and "[/quote]" at the end; each quote must have [SOURCE 1] or [SOURCE 2] at the end depending on which source they come from
+* Stick to the source material and avoid creating new content (if something is unknown, just say it's unknown)
+* If the two sources are identical, mention this after the corroboration.
+"""
 
-language = "Ensure the new article is at least paragraphs long, each using information from both sources. Avoid repetitive phrasing and construct concise, coherent sentences in the style of an Associated Press journalist. Begin each paragraph with proper transitions if there is a previous paragraph"
+language = "Ensure the new article is at least 3 paragraphs long, each using information from both sources. Avoid repetitive phrasing and construct concise, coherent sentences in the style of an Associated Press journalist. Begin each paragraph with proper transitions if there is a previous paragraph"
 
 formatting = "Note that every paragraph has to be started with \"[p]\" without the quotes and end with \"[/p]\" without the quotes."
 

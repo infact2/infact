@@ -16,6 +16,26 @@ with open("media_bias.json", "r") as file:
     bias_keys = [float(i) for i in media_bias_data.keys()]
     bias_keys.sort()
 
+def websiteLeaning(url): # note: should return as an actual number, instead of a string to use as a key
+    # we want to make sure that (for example) if the article is a part of "https://apnews.com/hub/" it doesn't get recognized as a part of "https://apnews.com/." idk if i worded that well but yeah
+    largest_base = ""
+    leaning_to_use = 0
+    for key in media_bias_data:
+        for source in media_bias_data[key]:
+            filtered_url = url.replace("http://", "").replace("https://", "")
+            filtered_source_url = source["url"].replace("http://", "").replace("https://", "")
+            if filtered_url.startswith(filtered_source_url) and len(filtered_source_url) > len(largest_base):
+
+                largest_base = filtered_source_url
+                leaning_to_use = float(key)
+    return leaning_to_use
+
+def leaningKeyToString(number):
+    ret_value = str(number)
+    negative = ret_value[0] == "-"
+    while (not negative and len(ret_value) < 4) or (negative and len(ret_value) < 5):
+        ret_value += "0"
+    return ret_value
 def negatingLeaning(article_leaning): # finds the leaning that can be used to search for a second article, preferrably one that has the opposite leaning as the current article
     leaning_to_use = 0
     best_difference = 100
@@ -29,22 +49,20 @@ def negatingLeaning(article_leaning): # finds the leaning that can be used to se
             leaning_to_use = cur
             best_difference = cur_distance
 
-    ret_value = str(leaning_to_use)
-    negative = ret_value[0] == "-"
-    while (not negative and len(ret_value) < 4) or (negative and len(ret_value) < 5):
-        ret_value += "0"
-    return ret_value
+    
+    return leaningKeyToString(leaning_to_use)
+
 def generateQuery(article_leaning):
     key = negatingLeaning(article_leaning)
     # print(bias_keys)
     # print(f"KEYUYYYY {key}")
     sources = media_bias_data[key]
     query = " "
-    for site in sources:
-        if site == sources[-1]: # if last link, don't include "OR"
-            query += f"site:{site}"
+    for source in sources:
+        if source == sources[-1]: # if last link, don't include "OR"
+            query += f"site:{source["url"]}"
         else:
-            query += f"site:{site} OR "
+            query += f"site:{source["url"]} OR "
     return query
 
 def appendToStart(original, item):
@@ -52,11 +70,13 @@ def appendToStart(original, item):
     resultant.appendleft(item)
     return list(resultant)
 
-def getDaLinks(prompt, as_array = True, restrict_political = False):
+def getDaLinks(original_url, prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
-    article_leaning = 0 # please figure out a way to get the article's leaning, but for now I will just put this as center
-    # prompt += generateQuery(article_leaning)
-    prompt += " article"
+    article_leaning = websiteLeaning(original_url)
+    query = generateQuery(article_leaning)
+    prompt += query
+    print(f"GEN INFO\nLEAN1: {article_leaning}\nQUERY: {query}")
+    # prompt += " article"
 
     #parameters
     apiKey = os.getenv("GOOGLE_API_KEY")
@@ -133,12 +153,12 @@ def getDaLinks(prompt, as_array = True, restrict_political = False):
 
 def getTopHeadlines(category = "world"):
     return getDaLinks(category, False, True)
-def googleSearchBasic(prompt):
-    return getDaLinks(prompt, True, True)
-def googleSearchAdvanced(prompt):
-    return getDaLinks(prompt)
+def googleSearchBasic(original_url, prompt):
+    return getDaLinks(original_url, prompt, True, True)
+def googleSearchAdvanced(original_url, prompt):
+    return getDaLinks(original_url, prompt)
 #getDaLinks("ivf")
 
-#googleSearchBasic("The new TikTok ban bill, explained: When it could take effect, why lawmakers want to pass it and more")
+# googleSearchBasic("https://apnews.com/peepeepoopoo", "Israel Gaza")
 #getLinks(["San", "Diego", "homeless"])
 #test push 3
