@@ -141,7 +141,7 @@ async def corroborateHelper(html_parse1, html_parse2): # feed strings and return
     text2 = articletextmanager.extractTextFromHTML(html_parse2)
     prompt = "Article 1: \"" + text1 + "\"\n Article 2: \"" + text2 + "\""
     completion = await client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4-turbo",
         messages=[
             {"role": "system", "content": main_instructions + language + formatting},
             {"role": "user", "content": prompt}
