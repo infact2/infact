@@ -5,6 +5,9 @@ from urllib.parse import urlparse
 from collections import deque
 from politicalindex import isPolitical
 import os
+import spacy
+
+nlp = spacy.load("en_core_web_sm")
 
 load_dotenv()
 
@@ -70,10 +73,20 @@ def appendToStart(original, item):
     resultant.appendleft(item)
     return list(resultant)
 
-def getDaLinks(original_url, prompt, as_array = True, restrict_political = False):
+def getDaLinks(original_url, raw_prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
     article_leaning = websiteLeaning(original_url)
     query = generateQuery(article_leaning)
+
+    # encoded_prompt = str(raw_prompt.encode('utf-8'))
+    encoded_prompt = str(raw_prompt)
+    print(f"EP: {encoded_prompt}")
+    doc = nlp(encoded_prompt)
+
+    prompt = ""
+    for keyword in doc.ents:
+        prompt += f"{keyword} "
+    print(f"QLP: {prompt}")
     prompt += query
     print(f"GEN INFO\nLEAN1: {article_leaning}\nQUERY: {query}")
     # prompt += " article"

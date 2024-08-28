@@ -33,6 +33,9 @@ def extractText(url): #takes in link (string) and returns filtered text
     return text
 
 def extractTextFromHTML(html_parse): #takes in link (string) and returns filtered text
+
+    print(f"----- IUGUYUYGUYUIGYUGIGIUIUGY ${html_parse == None}")
+
     text = ""
     for para in html_parse.find_all("p"): 
         para_text = para.get_text()

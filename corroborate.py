@@ -87,6 +87,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
                 raise Exception("Potentially malicious site")
 
             html_parse2 = BeautifulSoup(html2, "html.parser")
+            if html_parse2 == None: raise Exception("NOOOOOO")
+
             source_meta2 = html_parse2.find("meta", {"property": "og:site_name"})
             print("s; ", end="")
             url2 = url
@@ -123,7 +125,7 @@ main_instructions = """
 * Corroborate news articles provied; MUST USE INFORMATION FROM BOTH ARTICLES
 * Present an unbiased version of the information in the two articles, avoiding extreme opinions
 * Structure your response in multiple paragraphs
-* Each paragraph must have at least two quotes from the provided articles and cite them. Add "[quote]" at the beginning of the quote and "[/quote]" at the end; each quote must have [SOURCE 1] or [SOURCE 2] at the end depending on which source they come from
+* Each paragraph must have at least two quotes from the provided articles and cite them. Add "[q]" at the beginning of the quote and "[/q]" at the end; each quote must have [SOURCE 1] or [SOURCE 2] at the end depending on which source they come from
 * Stick to the source material and avoid creating new content (if something is unknown, just say it's unknown)
 * If the two sources are identical, mention this after the corroboration.
 """
@@ -138,6 +140,7 @@ async def corroborateHelper(html_parse1, html_parse2): # feed strings and return
     start_time = time.time()
     # print(f"HP1: {html_parse1}\nHP2: {html_parse2}")
     text1 = articletextmanager.extractTextFromHTML(html_parse1) 
+    print(f"IUGUYUYGUYUIGYUGIGIUIUGY ${html_parse2 == None}")
     text2 = articletextmanager.extractTextFromHTML(html_parse2)
     prompt = "Article 1: \"" + text1 + "\"\n Article 2: \"" + text2 + "\""
     completion = await client.chat.completions.create(

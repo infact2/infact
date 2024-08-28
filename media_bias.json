@@ -1,1 +1,367 @@
-{"-2.40": [{"name": "ABC News (Online)", "url": "http://abcnews.go.com/"}, {"name": "Bloomberg", "url": "http://www.bloomberg.com/"}], "-4.50": [{"name": "AlterNet", "url": "http://www.alternet.org/"}], "-1.30": [{"name": "Associated Press", "url": "https://apnews.com/"}, {"name": "CNN Digital", "url": "http://www.cnn.com"}], "-2.00": [{"name": "Associated Press Fact Check", "url": "https://apnews.com/hub/"}, {"name": "NPR (Online News)", "url": "http://www.npr.org/"}], "-1.70": [{"name": "Axios", "url": "https://www.axios.com/"}], "-0.80": [{"name": "BBC News", "url": "http://www.bbc.com/"}], "5.00": [{"name": "Breitbart News", "url": "http://www.breitbart.com/"}], "-2.60": [{"name": "Business Insider", "url": "https://www.insider.com/"}], "-4.00": [{"name": "BuzzFeed News", "url": "http://buzzfeednews.com"}, {"name": "Democracy Now!", "url": "http://www.democracynow.org/"}, {"name": "Mother Jones", "url": "http://www.motherjones.com/"}], "-1.50": [{"name": "CBS News (Online)", "url": "http://www.cbsnews.com/"}], "-0.30": [{"name": "Christian Science Monitor", "url": "http://www.csmonitor.com/"}], "-4.10": [{"name": "Daily Beast", "url": "http://www.thedailybeast.com/"}], "4.00": [{"name": "Daily Mail", "url": "http://dailymail.co.uk"}], "-0.50": [{"name": "Forbes", "url": "http://www.forbes.com/"}], "3.88": [{"name": "Fox News Digital", "url": "http://www.foxnews.com/"}], "-4.30": [{"name": "HuffPost", "url": "https://www.huffpost.com/"}], "-3.71": [{"name": "MSNBC", "url": "http://www.msnbc.com/"}], "2.50": [{"name": "National Review (News)", "url": "https://www.nationalreview.com/"}], "-1.80": [{"name": "NBC News Digital", "url": "http://www.nbcnews.com"}], "2.93": [{"name": "New York Post (News)", "url": "http://www.nypost.com/"}], "-2.20": [{"name": "New York Times (News)", "url": "http://www.nytimes.com/"}], "3.28": [{"name": "Newsmax (News)", "url": "http://www.newsmax.com/"}], "0.37": [{"name": "NewsNation", "url": "https://www.newsnationnow.com/"}], "-0.45": [{"name": "Newsweek", "url": "https://www.newsweek.com/"}]}
+{
+    "-2.00": [
+        {
+            "name": "ABC News",
+            "url": "http://abcnews.go.com/",
+            "newsapi": "abc-news"
+        },
+        {
+            "name": "Chicago Sun-Times",
+            "url": "http://chicago.suntimes.com/",
+            "newsapi": "chicago-sun-times"
+        },
+        {
+            "name": "CNN (Web News)",
+            "url": "http://www.cnn.com",
+            "newsapi": "cnn"
+        },
+        {
+            "name": "Damon Linker",
+            "url": "http://theweek.com/authors/damon-linker",
+            "newsapi": "damon-linker"
+        },
+        {
+            "name": "NBCNews.com",
+            "url": "http://www.nbcnews.com",
+            "newsapi": "nbcnews.com"
+        },
+        {
+            "name": "New York Times - News",
+            "url": "http://www.nytimes.com/",
+            "newsapi": "new-york-times---news"
+        },
+        {
+            "name": "Newsweek",
+            "url": "https://www.newsweek.com/",
+            "newsapi": "newsweek"
+        },
+        {
+            "name": "Politico",
+            "url": "http://www.politico.com/",
+            "newsapi": "politico"
+        },
+        {
+            "name": "The Boston Globe",
+            "url": "http://www.bostonglobe.com/",
+            "newsapi": "the-boston-globe"
+        },
+        {
+            "name": "The Guardian",
+            "url": "https://www.theguardian.com",
+            "newsapi": "the-guardian"
+        },
+        {
+            "name": "Washington Post",
+            "url": "https://www.washingtonpost.com/",
+            "newsapi": "washington-post"
+        }
+    ],
+    "4.50": [
+        {
+            "name": "Accuracy in Media",
+            "url": "http://www.aim.org",
+            "newsapi": "accuracy-in-media"
+        },
+        {
+            "name": "American Spectator",
+            "url": "http://spectator.org/",
+            "newsapi": "american-spectator"
+        },
+        {
+            "name": "American Thinker",
+            "url": "http://www.americanthinker.com/",
+            "newsapi": "american-thinker"
+        },
+        {
+            "name": "Ann Coulter",
+            "url": "http://www.anncoulter.com/",
+            "newsapi": "ann-coulter"
+        },
+        {
+            "name": "Atlas Network",
+            "url": "https://www.atlasnetwork.org/",
+            "newsapi": "atlas-network"
+        },
+        {
+            "name": "Bearing Drift",
+            "url": "http://www.bearingdrift.com",
+            "newsapi": "bearing-drift"
+        },
+        {
+            "name": "Breitbart News",
+            "url": "http://www.breitbart.com/",
+            "newsapi": "breitbart-news"
+        },
+        {
+            "name": "Brent Bozell",
+            "url": "http://www.mrc.org/bozells-column",
+            "newsapi": "brent-bozell"
+        },
+        {
+            "name": "CBN",
+            "url": "http://www1.cbn.com",
+            "newsapi": "cbn"
+        },
+        {
+            "name": "Daily Mail",
+            "url": "http://dailymail.co.uk",
+            "newsapi": "daily-mail"
+        },
+        {
+            "name": "FrontPage Magazine",
+            "url": "http://frontpagemag.com/",
+            "newsapi": "frontpage-magazine"
+        },
+        {
+            "name": "Heather Mac Donald",
+            "url": "https://www.manhattan-institute.org/expert/heather-mac-donald",
+            "newsapi": "heather-mac-donald"
+        },
+        {
+            "name": "National Review",
+            "url": "https://www.nationalreview.com/news/",
+            "newsapi": "national-review"
+        },
+        {
+            "name": "Newsmax",
+            "url": "http://www.newsmax.com/",
+            "newsapi": "newsmax"
+        },
+        {
+            "name": "Ralph Benko",
+            "url": "https://ralphbenko.com",
+            "newsapi": "ralph-benko"
+        },
+        {
+            "name": "Right Wing News",
+            "url": "https://rightwingnews.com/",
+            "newsapi": "right-wing-news"
+        },
+        {
+            "name": "The Daily Caller",
+            "url": "http://dailycaller.com/",
+            "newsapi": "the-daily-caller"
+        },
+        {
+            "name": "The Daily Wire",
+            "url": "http://www.dailywire.com/",
+            "newsapi": "the-daily-wire"
+        },
+        {
+            "name": "The Epoch Times",
+            "url": "https://www.theepochtimes.com",
+            "newsapi": "the-epoch-times"
+        },
+        {
+            "name": "The Weekly Standard",
+            "url": "http://www.weeklystandard.com/",
+            "newsapi": "the-weekly-standard"
+        },
+        {
+            "name": "TheBlaze.com",
+            "url": "http://www.theblaze.com/",
+            "newsapi": "theblaze.com"
+        },
+        {
+            "name": "Townhall",
+            "url": "http://townhall.com/",
+            "newsapi": "townhall"
+        },
+        {
+            "name": "Tucker Carlson",
+            "url": "https://tuckercarlson.com/",
+            "newsapi": "tucker-carlson"
+        },
+        {
+            "name": "Western Journalism",
+            "url": "http://www.westernjournalism.com/",
+            "newsapi": "western-journalism"
+        },
+        {
+            "name": "WND.com",
+            "url": "http://www.wnd.com/",
+            "newsapi": "wnd.com"
+        }
+    ],
+    "-4.50": [
+        {
+            "name": "AlterNet",
+            "url": "http://www.alternet.org/",
+            "newsapi": "alternet"
+        },
+        {
+            "name": "BuzzFeed News",
+            "url": "http://buzzfeednews.com",
+            "newsapi": "buzzfeed-news"
+        },
+        {
+            "name": "CNN - Editorial",
+            "url": "https://www.cnn.com/opinions",
+            "newsapi": "cnn---editorial"
+        },
+        {
+            "name": "HuffPost",
+            "url": "https://www.huffpost.com/",
+            "newsapi": "huffpost"
+        },
+        {
+            "name": "Michael Kinsley",
+            "url": "http://www.vanityfair.com/contributor/michael-kinsley",
+            "newsapi": "michael-kinsley"
+        },
+        {
+            "name": "MSNBC",
+            "url": "http://www.msnbc.com/",
+            "newsapi": "msnbc"
+        },
+        {
+            "name": "Paul Krugman",
+            "url": "https://www.nytimes.com/column/paul-krugman",
+            "newsapi": "paul-krugman"
+        },
+        {
+            "name": "Salon",
+            "url": "http://www.salon.com/",
+            "newsapi": "salon"
+        },
+        {
+            "name": "The Canyon County Zephyr",
+            "url": "http://www.canyoncountryzephyr.com/",
+            "newsapi": "the-canyon-county-zephyr"
+        },
+        {
+            "name": "Vox",
+            "url": "http://www.vox.com",
+            "newsapi": "vox"
+        }
+    ],
+    "0.00": [
+        {
+            "name": "Associated Press",
+            "url": "https://apnews.com/",
+            "newsapi": "associated-press"
+        },
+        {
+            "name": "BBC News",
+            "url": "http://www.bbc.com/",
+            "newsapi": "bbc-news"
+        },
+        {
+            "name": "Bloomberg",
+            "url": "http://www.bloomberg.com/",
+            "newsapi": "bloomberg"
+        },
+        {
+            "name": "C-SPAN",
+            "url": "http://www.c-span.org/",
+            "newsapi": "c-span"
+        },
+        {
+            "name": "CalWatchdog",
+            "url": "http://www.calwatchdog.com/",
+            "newsapi": "calwatchdog"
+        },
+        {
+            "name": "Christian Science Monitor",
+            "url": "http://www.csmonitor.com/",
+            "newsapi": "christian-science-monitor"
+        },
+        {
+            "name": "Countable",
+            "url": "https://www.countable.us",
+            "newsapi": "countable"
+        },
+        {
+            "name": "Diplomatic Courier",
+            "url": "http://www.diplomaticourier.com/",
+            "newsapi": "diplomatic-courier"
+        },
+        {
+            "name": "How Do We Fix It?",
+            "url": "https://www.howdowefixit.me/",
+            "newsapi": "how-do-we-fix-it?"
+        },
+        {
+            "name": "IVN",
+            "url": "http://www.ivn.us",
+            "newsapi": "ivn"
+        },
+        {
+            "name": "NPR Online News",
+            "url": "http://www.npr.org/",
+            "newsapi": "npr-online-news"
+        },
+        {
+            "name": "Portland Press Herald",
+            "url": "http://www.pressherald.com/",
+            "newsapi": "portland-press-herald"
+        },
+        {
+            "name": "Tim Pool",
+            "url": "https://timcast.com/",
+            "newsapi": "tim-pool"
+        },
+        {
+            "name": "USA TODAY",
+            "url": "https://www.usatoday.com/",
+            "newsapi": "usa-today"
+        },
+        {
+            "name": "Wall Street Journal - News",
+            "url": "http://wsj.com/",
+            "newsapi": "wall-street-journal---news"
+        }
+    ],
+    "2.00": [
+        {
+            "name": "AtlasOne",
+            "url": "http://atlasone.org/",
+            "newsapi": "atlasone"
+        },
+        {
+            "name": "David Brooks",
+            "url": "http://topics.nytimes.com/top/opinion/editorialsandoped/oped/columnists/davidbrooks/index.html",
+            "newsapi": "david-brooks"
+        },
+        {
+            "name": "Drudge Report",
+            "url": "https://drudgereport.com",
+            "newsapi": "drudge-report"
+        },
+        {
+            "name": "Fox Online News",
+            "url": "http://www.foxnews.com/",
+            "newsapi": "fox-online-news"
+        },
+        {
+            "name": "Independent Institute",
+            "url": "http://www.independent.org",
+            "newsapi": "independent-institute"
+        },
+        {
+            "name": "Independent Journal Review",
+            "url": "https://ijr.com/",
+            "newsapi": "independent-journal-review"
+        },
+        {
+            "name": "John Stossel",
+            "url": "http://www.foxbusiness.com/person/s/john-stossel.html",
+            "newsapi": "john-stossel"
+        },
+        {
+            "name": "Peter Roff",
+            "url": "https://www.newsweek.com/authors/peter-roff",
+            "newsapi": "peter-roff"
+        },
+        {
+            "name": "Washington Examiner",
+            "url": "http://washingtonexaminer.com/",
+            "newsapi": "washington-examiner"
+        },
+        {
+            "name": "Washington Times",
+            "url": "http://www.washingtontimes.com/",
+            "newsapi": "washington-times"
+        }
+    ]
+}

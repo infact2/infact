@@ -31,4 +31,4 @@ def getSourceNamesQuery():
 
     return result[:-1]
 
-print(getSourceNamesQuery())
+# print(getSourceNamesQuery())
