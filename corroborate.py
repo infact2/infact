@@ -65,7 +65,10 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
     
     title = html_parse1.title.string
     source_meta = html_parse1.find("meta", {"property": "og:site_name"})
-    urls = googlesearchengineapi.googleSearchAdvanced(url1, title)
+    url_data = googlesearchengineapi.googleSearchAdvanced(url1, title)
+    urls = url_data["entries"]
+    lean1 = url_data["lean1"]
+    lean2 = url_data["lean2"]
 
     if len(urls) == 0:
         return {
@@ -73,6 +76,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
             "source1": "Error",
             "url2": "", "source2": "Error",
             "content": "Sorry, we were unable to find a second article to corroborate. Please try again later",
+
+            "lean1": "nf", "lean2": "nf",
 
             # stats (for debug)
             "total_sites": len(urls),
@@ -83,7 +88,7 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
             "helper_time": 0
         }
 
-    url2 = urls[0]
+    url2 = urls[0]["link"]
 
     source1 = "Source 1"
     source2 = "Source 2"
@@ -97,7 +102,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
         source1 = source_meta["content"]
     
     print(f"Iterations queued: {len(urls)}")
-    for url in urls:
+    for url_data in urls:
+        url = url_data["link"]
         if sameDomain(url1, url):
             sites_omitted += 1
             continue
@@ -132,6 +138,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
         "source1": source1,
         "url2": url2, "source2": source2,
         "content": helper["content"],
+
+        "lean1": lean1, "lean2": lean2,
 
         # stats (for debug)
         "total_sites": len(urls),
@@ -179,7 +187,7 @@ async def corroborateHelper(html_parse1, html_parse2): # feed strings and return
     end_time = time.time()
     return {
         "content": completion.choices[0].message.content,
-        "execution_time": round((end_time - start_time) * 100.0) / 100.0
+        "execution_time": round((end_time - start_time) * 100.0) / 100.0,
     }
 
 #corroborate("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")

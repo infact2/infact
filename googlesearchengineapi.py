@@ -31,7 +31,10 @@ def websiteLeaning(url): # note: should return as an actual number, instead of a
 
                 largest_base = filtered_source_url
                 leaning_to_use = float(key)
-    return leaning_to_use
+    return {
+        "leaning": leaning_to_use,
+        "generalized": generalizeLeaning(leaning_to_use)
+    }
 
 def leaningKeyToString(number):
     ret_value = str(number)
@@ -55,6 +58,14 @@ def negatingLeaning(article_leaning): # finds the leaning that can be used to se
     
     return leaningKeyToString(leaning_to_use)
 
+def generalizeLeaning(leaning):
+    leaning_num = float(leaning)
+    if leaning_num <= -3: return "fl"
+    elif leaning_num <= -1: return "l"
+    elif leaning_num < 1: return "c"
+    elif leaning_num < 3: return "r"
+    else: return "fr"
+
 def generateQuery(article_leaning):
     key = negatingLeaning(article_leaning)
     # print(bias_keys)
@@ -66,7 +77,10 @@ def generateQuery(article_leaning):
             query += f"site:{source["url"]}"
         else:
             query += f"site:{source["url"]} OR "
-    return query
+    return {
+        "query": query,
+        "generalized": generalizeLeaning(key)
+    }
 
 def appendToStart(original, item):
     resultant = deque(original)
@@ -75,8 +89,15 @@ def appendToStart(original, item):
 
 def getDaLinks(original_url, raw_prompt, as_array = True, restrict_political = False):
     #print("Given Prompt: " + prompt + "\n")
-    article_leaning = websiteLeaning(original_url)
-    query = generateQuery(article_leaning)
+    article_leaning_data = websiteLeaning(original_url)
+
+    article_leaning = article_leaning_data["leaning"]
+    query_data = generateQuery(article_leaning)
+    query = query_data["query"]
+
+    # 
+    lean1 = article_leaning_data["generalized"]
+    lean2 = query_data["generalized"]
 
     # encoded_prompt = str(raw_prompt.encode('utf-8'))
     encoded_prompt = str(raw_prompt)
@@ -108,7 +129,8 @@ def getDaLinks(original_url, raw_prompt, as_array = True, restrict_political = F
     if as_array:
         requested_urls = []
     else:
-        requested_urls = {"count": 0, "entries": []}
+        print("stage not as_array")
+        requested_urls = {"count": 0, "entries": [], "lean1": lean1, "lean2": lean2}
     
     # get the result items
     search_items = response.get("items")
@@ -158,19 +180,19 @@ def getDaLinks(original_url, raw_prompt, as_array = True, restrict_political = F
                     }
                 })
                 requested_urls["count"] += 1
-        
         return requested_urls
     else:  
         print("provide a different prompt, this had no results")
         if as_array: return []
-        return {"count": 0, "entries": []}
+        return {"count": 0, "entries": [], "lean1": "nf", "lean2": "nf"}
 
 def getTopHeadlines(category = "world"):
     return getDaLinks(category, False, True)
 def googleSearchBasic(original_url, prompt):
     return getDaLinks(original_url, prompt, True, True)
 def googleSearchAdvanced(original_url, prompt):
-    return getDaLinks(original_url, prompt)
+    a = getDaLinks(original_url, prompt, False)
+    return a
 #getDaLinks("ivf")
 
 # googleSearchBasic("https://apnews.com/peepeepoopoo", "Israel Gaza")
