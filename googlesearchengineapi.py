@@ -85,6 +85,7 @@ def getDaLinks(original_url, raw_prompt, as_array = True, restrict_political = F
 
     prompt = ""
     for keyword in doc.ents:
+        if "news" in keyword.text.lower(): continue
         prompt += f"{keyword} "
     print(f"QLP: {prompt}")
     prompt += query

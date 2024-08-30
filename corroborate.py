@@ -14,11 +14,34 @@ load_dotenv()
 
 client = AsyncOpenAI()
 
-article1 = articletextmanager.extractText("https://www.aljazeera.com/news/liveblog/2024/2/7/russia-ukraine-war-live-news-at-least-3-dead-as-russia-attacks-ukraine")
-article2 = articletextmanager.extractText("https://www.aljazeera.com/news/2024/2/7/ukraines-zaluzhny-touts-drones-as-path-to-victory-russia-suffers-strikes")
-text = "Article 1: " + article1 + " Article 2:" + article2
-#print(text)
-#text = "poopy monkey fart"
+def add_quote(quote, source_number):
+    return f"[q]{quote}[/q][SOURCE {source_number}]"
+
+tools = [
+    {
+        "type": "function",
+        "function": {
+            "name": "add_quote",
+            "description": "Call this function whenever you would like to use a quote from any of the two sources given.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "quote": {
+                        "type": "string",
+                        "description": "The quote you are using"
+                    },
+                    "source_number": {
+                        "type": "number",
+                        "description": "The number of the source",
+                    },
+                },
+                "required": ["quote", "source_number"],
+                "additionalProperties": False,
+            },
+        }
+    }
+]
+
 
 def sameDomain(url1, url2): #checks if urls are the same
     # Parse the URLs
@@ -125,12 +148,12 @@ main_instructions = """
 * Corroborate news articles provied; MUST USE INFORMATION FROM BOTH ARTICLES
 * Present an unbiased version of the information in the two articles, avoiding extreme opinions
 * Structure your response in multiple paragraphs
-* Each paragraph must have at least two quotes from the provided articles and cite them. Add "[q]" at the beginning of the quote and "[/q]" at the end; each quote must have [SOURCE 1] or [SOURCE 2] at the end depending on which source they come from
-* Stick to the source material and avoid creating new content (if something is unknown, just say it's unknown)
+* Each paragraph must have at least two quotes from the provided articles; wrap these quotes with "[q]" at the start and "[/q]" at the end without the quotes, and refer to these quotes with [SOURCE 1] at the end if it came from source 1, and [SOURCE 2] for source 2
+* Stick to the source material and avoid creating new content
 * If the two sources are identical, mention this after the corroboration.
 """
 
-language = "Ensure the new article is at least 3 paragraphs long, each using information from both sources. Avoid repetitive phrasing and construct concise, coherent sentences in the style of an Associated Press journalist. Begin each paragraph with proper transitions if there is a previous paragraph"
+language = "Ensure the new article is at least 3 paragraphs long, each using information from both sources. Avoid repetitive phrasing and construct concise, coherent sentences in the style of an Associated Press journalist. Begin each paragraph with proper transitions if there is a previous paragraph. "
 
 formatting = "Note that every paragraph has to be started with \"[p]\" without the quotes and end with \"[/p]\" without the quotes."
 
@@ -150,6 +173,8 @@ async def corroborateHelper(html_parse1, html_parse2): # feed strings and return
             {"role": "user", "content": prompt}
         ],
         temperature = 0,
+        # tools=tools,
+        # tool_choice="auto"
     )
     end_time = time.time()
     return {
