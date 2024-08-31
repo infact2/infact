@@ -1,20 +1,22 @@
-import requests
-import threading
-import asyncio
-import aiohttp
-import base64
-from bs4 import BeautifulSoup
+import spacy
 
+# Load the spaCy model
+nlp = spacy.load("en_core_web_sm")
 
-async def test():
-    async with aiohttp.ClientSession() as session:
-        response = await session.get("https://www.aljazeera.com/news/2024/3/27/most-americans-disapprove-of-israels-actions-in-gaza-poll", allow_redirects=True)
+def isNewsOrganization(text):
+    # Create a dummy text with the token
+    doc = nlp(text)
+    
+    # Iterate through the recognized entities
+    for ent in doc.ents:
+        # Check if the entity is recognized as an ORG (organization)
+        if ent.label_ == "ORG" and ent.text == text:
+            return True
+    
+    return False
 
-        html = await response.text()
-        html_parse = BeautifulSoup(html, "html.parser")
-
-        # print(html_parse.find("meta", {"property": "content"}))
-        print([i["content"] for i in html_parse.findAll("meta")])
-
-asyncio.run(test())
-
+samples = [
+    "CNN", "Peter Griffin News", "Breitbart News", "Bread", "FOX News", "Tucker Carlson", "Microsoft"
+]
+for i in samples:
+    print(f"{i} -> {isNewsOrganization(i)}")

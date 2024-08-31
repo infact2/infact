@@ -5,7 +5,6 @@ requests
 flask[async]
 waitress
 supabase
-pattern
 dateparser
 spacy
 aiohttp

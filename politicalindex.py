@@ -1,5 +1,4 @@
 import spacy
-from pattern.text.en import singularize
 import os
 import json
 
@@ -12,6 +11,10 @@ except:
     nlp = spacy.load("en_core_web_sm")
 
 allowed_tags = {"NN", "NNP", "NNS", "NNPS"} # "in" in sets is O(1)
+
+def singularize(word):
+    doc = nlp(word)
+    return doc[0].lemma_
 
 def processData():
     try:
