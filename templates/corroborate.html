@@ -74,42 +74,50 @@
                 <div class="col-6 gradient-fill-right padding">
                     <h3>Article Info</h3>
                     <hr>
-                    <h5>Sources</h5>
-                    <ul>
-                        <li>
-                            <img src="/static/leanings/{{lean1}}.png" style="height: 2em">
-                            &nbsp;&nbsp;
-                            <a href="{{url1}}">{{source1}}</a>
-                        </li>
-                        <li>
-                            <img src="/static/leanings/{{lean2}}.png" style="height: 2em">
-                            &nbsp;&nbsp;
-                            <a href="{{url2}}">{{source2}}</a>
-                        </li>
-                    </ul>
-                    <hr>
                     <p>
+                        <b>Corroborated from {{source1}} & {{source2}}</b><hr>
                         <i class='bi bi-exclamation-circle-fill danger'> </i><b>DISCLAIMER:</b><br>
-                        Our corroborator may make mistakes, please check both original sources to ensure accuracy.
+                        Our corroborator may make mistakes.
                     </p>
                 </div>
             </div>
             <br>
+
             <br>
             <span class="article-content">
                 {{content|safe}}
             </span>
+            <br>
+            <hr>
+            <br>
+            <h5>Sources</h5>
+            <div class="row">
+                <a href="{{url1}}" class="block col">
+                    <div class="source w-100">
+                        AllSides Leaning: <img src="/static/leanings/{{lean1}}.png" style="height: 2em">&nbsp;&nbsp;<hr> [1]
+                        <h5>{{title1}}</h5>
+                        {{source1}}
+                    </div>
+                </a>
+                <a href="{{url2}}" class="block col">
+                    <div class="source w-100">
+                        AllSides Leaning: <img src="/static/leanings/{{lean2}}.png" style="height: 2em">&nbsp;&nbsp;<hr> [2]
+                        <h5>{{title2}}</h5>
+                        {{source2}}
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
 
-    <div class="notice-bg">
+    <!-- <div class="notice-bg">
         <div style="width: 100vw; height: 100vh; top: 0px; bottom: 0px; position: fixed;" onclick="toggleWindow()"></div>
         <div class="notice-div">
             <h2>Please Fact Check</h2>
             <p>AI may be <b>inaccurate</b>. Please fact check and please review both original sources to <b>ensure</b> accuracy.</p>
             <button onclick="toggleWindow()">Got it</button>
         </div>
-    </div>
+    </div> -->
 </body>
 </html>

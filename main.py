@@ -127,6 +127,7 @@ async def _corroborate(url_encoded, settings_json_encoded):
 
     return render_template("corroborate.html",
         title=raw_content["title"], url1=url1, url2=raw_content["url2"], source1=raw_content["source1"], source2=raw_content["source2"], content=raw_content["content"],
+        title1=raw_content["title1"], title2=raw_content["title2"],
 
         lean1=raw_content["lean1"], lean2=raw_content["lean2"],
         

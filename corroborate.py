@@ -73,8 +73,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
     if len(urls) == 0:
         return {
             "title": "Missing Source 2",
-            "source1": "Error",
-            "url2": "", "source2": "Error",
+            "source1": "Error", "title1": "",
+            "url2": "", "source2": "Error", "title2": "",
             "content": "Sorry, we were unable to find a second article to corroborate. Please try again later",
 
             "lean1": "nf", "lean2": "nf",
@@ -92,6 +92,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
 
     source1 = "Source 1"
     source2 = "Source 2"
+    title1 = html_parse1.title.string
+    title2 = "you shouldnt be seeing this lol"
     sites_scraped = 1
     sites_unscrapable = 0
     sites_omitted = 0
@@ -116,6 +118,7 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
                 raise Exception("Potentially malicious site")
 
             html_parse2 = BeautifulSoup(html2, "html.parser")
+            title2 = html_parse2.title.string
             if html_parse2 == None: raise Exception("NOOOOOO")
 
             source_meta2 = html_parse2.find("meta", {"property": "og:site_name"})
@@ -135,8 +138,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
     print(f"\nS: {sites_scraped}; US: {sites_unscrapable}; SO: {sites_omitted}; ET: {execution_time}; GT: {helper['execution_time']}")
     return {
         "title": title,
-        "source1": source1,
-        "url2": url2, "source2": source2,
+        "source1": source1, "title1": title1,
+        "url2": url2, "source2": source2, "title2": title2,
         "content": helper["content"],
 
         "lean1": lean1, "lean2": lean2,
@@ -153,15 +156,11 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
 # prompt sections
 
 main_instructions = """
-* Corroborate news articles provied; MUST USE INFORMATION FROM BOTH ARTICLES
-* Present an unbiased version of the information in the two articles, avoiding extreme opinions
-* Structure your response in multiple paragraphs
-* Each paragraph must have at least two quotes from the provided articles; wrap these quotes with "[q]" at the start and "[/q]" at the end without the quotes, and refer to these quotes with [SOURCE 1] at the end if it came from source 1, and [SOURCE 2] for source 2
-* Stick to the source material and avoid creating new content
-* If the two sources are identical, mention this after the corroboration.
+* Corroborate news articles provided in an unbiased manner; MUST USE INFORMATION FROM BOTH ARTICLES and DO NOT CREATE NEW CONTENT
+* Structure your response in multiple paragraphs, which must have at least two quotes from the provided articles; wrap these quotes with "[q]" at the start and "[/q]" at the end without the quotes, and refer to these quotes with [SOURCE 1] at the end if it came from source 1, and [SOURCE 2] for source 2
 """
 
-language = "Ensure the new article is at least 3 paragraphs long, each using information from both sources. Avoid repetitive phrasing and construct concise, coherent sentences in the style of an Associated Press journalist. Begin each paragraph with proper transitions if there is a previous paragraph. "
+language = "You are an Associated Press journalist; create a 3 paragraph concise article, add proper transitions between paragraphs."
 
 formatting = "Note that every paragraph has to be started with \"[p]\" without the quotes and end with \"[/p]\" without the quotes."
 

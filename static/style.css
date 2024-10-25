@@ -118,11 +118,9 @@ a {
     color: #27d4ff !important;
     text-decoration: none !important;
     cursor: pointer;
-    transition: 200ms;
 }
 a:hover {
-    border-bottom: 5px solid #27d4ff;
-    margin-bottom: -5px !important;
+    text-decoration-line: wavy;
 }
 
 @keyframes loading-bar {
@@ -306,4 +304,16 @@ nav {
     position: fixed;
     z-index: 300;
     backdrop-filter: blur(8px);
+}
+.source {
+    color: var(--text-color);
+    text-decoration: none !important;
+    padding: 25px;
+    margin: 3px;
+    background: var(--background-2);
+    border-radius: 10px;
+    transition: 70ms;
+}
+.source:hover {
+    filter: brightness(110%);
 }
