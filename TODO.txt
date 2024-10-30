@@ -3,7 +3,7 @@ FRONTEND
 
 BACKEND
 - generate top headlines corroborated versions automatically when running main.py
-- improve corroborating gpt prompt engineering
+- improve corr/oborating gpt prompt engineering
 - speed up article generation? (if possible ofc)
 - cache articles and destroy them when nessecary
 - cache web scrapes to speed up scraping

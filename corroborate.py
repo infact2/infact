@@ -63,9 +63,12 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
     if html1 == scraper.DANGEROUS: return scraper.DANGEROUS
     html_parse1 = BeautifulSoup(html1, "html.parser")
     
-    title = html_parse1.title.string
+    title1 = html_parse1.title.string
     source_meta = html_parse1.find("meta", {"property": "og:site_name"})
-    url_data = googlesearchengineapi.googleSearchAdvanced(url1, title)
+
+    query = title1
+
+    url_data = googlesearchengineapi.googleSearchAdvanced(url1, query)
     urls = url_data["entries"]
     lean1 = url_data["lean1"]
     lean2 = url_data["lean2"]
@@ -85,14 +88,14 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
             "sites_unscrapable": 0,
             "sites_omitted": 0,
             "execution_time": 0,
-            "helper_time": 0
+            "helper_time": 0,
+            "query": query
         }
 
     url2 = urls[0]["link"]
 
     source1 = "Source 1"
     source2 = "Source 2"
-    title1 = html_parse1.title.string
     title2 = "you shouldnt be seeing this lol"
     sites_scraped = 1
     sites_unscrapable = 0
@@ -137,7 +140,7 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
     execution_time = round((end_time - start_time) * 100.0) / 100.0
     print(f"\nS: {sites_scraped}; US: {sites_unscrapable}; SO: {sites_omitted}; ET: {execution_time}; GT: {helper['execution_time']}")
     return {
-        "title": title,
+        "title": title1,
         "source1": source1, "title1": title1,
         "url2": url2, "source2": source2, "title2": title2,
         "content": helper["content"],
@@ -150,7 +153,8 @@ async def corroborate(url1): #feed 1 string and find a similar website to corrob
         "sites_unscrapable": sites_unscrapable,
         "sites_omitted": sites_omitted,
         "execution_time": execution_time,
-        "helper_time": helper["execution_time"]
+        "helper_time": helper["execution_time"],
+        "query": query
     }
 
 # prompt sections

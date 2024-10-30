@@ -131,7 +131,7 @@ async def _corroborate(url_encoded, settings_json_encoded):
 
         lean1=raw_content["lean1"], lean2=raw_content["lean2"],
         
-        total_sites=raw_content["total_sites"], sites_scraped=raw_content["sites_scraped"], sites_unscrapable=raw_content["sites_unscrapable"], sites_omitted=raw_content["sites_omitted"], execution_time=raw_content["execution_time"], helper_time=raw_content["helper_time"])
+        total_sites=raw_content["total_sites"], sites_scraped=raw_content["sites_scraped"], sites_unscrapable=raw_content["sites_unscrapable"], sites_omitted=raw_content["sites_omitted"], execution_time=raw_content["execution_time"], helper_time=raw_content["helper_time"], query=raw_content["query"])
 
 @app.route("/isitdown")
 async def ping():

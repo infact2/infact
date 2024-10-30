@@ -16,31 +16,12 @@
     <div class="big-loading-bar hidden"></div>
     <div class="row">
         <div class="col">
-            <form onsubmit="submitCustomCorroborated(); return false;" class="default row padding-big">
-                <h1>Corroborate</h1>
-                <p>Enter URL below to corroborate news article.</p>
+            <form onsubmit="submitCustomCorroborated(); return false;" class="default row p-3 py-5">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-9">
                         <input placeholder="Enter aricle URL..." class="w-100" id="corroborate-url">
                     </div>
                     <div class="col"><button class="accent w-100" type="submit"><i class="bi bi-newspaper"></i> Corroborate</button></div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        <button class="w-100" onclick="document.getElementById('settings').classList.toggle('hidden');" type="button">
-                            <i class="bi bi-gear"></i> Advanced
-                        </button>
-                    </div>
-                    <div class="col">
-                        <span class="grey-text">These settings will apply for all articles you corroboratee</span>
-                    </div>
-                    <div id="settings" class="lightest hidden">
-                        <h3>Corroborator Settings</h3>
-                        <p>Work in progress</p>
-                        <h5>Advanced</h5>
-                        <p>You probably won't have to worry about these...</p>
-                        <span>Temperature:</span> <input type="number" value="0">
-                    </div>
                 </div>
             </form>
             <div class="padding">

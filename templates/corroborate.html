@@ -14,46 +14,10 @@
 </head>
 <body onload="load();" onerror="alert(event)">
     <div class="row">
-        <div class="col-3 lighter padding">
-            <p>
-                <i class='bi bi-exclamation-circle-fill danger'> </i><b>WARNING:</b><br>
-                Your article will be destroyed (idk) time after generation. Please log in or create an account to save.
-            </p>
-            <p class="grey-text">
-                You must be logged in to use this feature...
-            </p>
-            <p>
-                it doesn't work. <b class="danger">DO NOT PRESS THE BUTTON DO NOT PRESS THE BUTTON DO NOT PRESS THE BUTTON DO NOT PRESS THE BUTTON</b>
-            </p>
-            <button class="w-100"><i class="bi bi-floppy2-fill"></i>&nbsp;&nbsp;Save article</button>
-            <br>
-            <hr>
-            <h4>Advanced Info</h4>
-            <ul>
-                <li>
-                    <span class="grey-text">Total available sites: </span><b>{{total_sites}} sites</b>
-                </li>
-                <li>
-                    <span class="grey-text">Sites omitted: </span><b>{{sites_omitted}} sites</b>
-                </li>
-                <li>
-                    <span class="grey-text">Attempted scrapings: </span><b>{{sites_scraped}} sites</b>
-                </li>
-                <li>
-                    <span class="grey-text">Unscrapable sites: </span><b>{{sites_unscrapable}} sites</b>
-                </li>
-                <li>
-                    <span class="grey-text">Secondary source search time: </span><b>{{execution_time}} s</b>
-                </li>
-                <li>
-                    <span class="grey-text">Article generation time: </span><b>{{helper_time}} s</b>
-                </li>
-                
-            </ul>
-        </div>
-        <div class="col padding-big">
+        <div class="col"></div>
+        <div class="col-9 padding">
             <h6 class="danger">CORROBORATED ARTICLE</h6><br>
-            <h1>{{title}}</h1><br><hr>
+            <h2>{{title}}</h2><br><hr>
             <button class="accent" onclick="navigator.clipboard.writeText(window.location.href);">
                 <i class="bi bi-link-45deg"></i> Copy URL
             </button>
@@ -70,12 +34,12 @@
                 <i class="bi bi-reddit"></i>
             </button>
             <br><br>
-            <div class="row w-100" style="background-image: url('https://www.icegif.com/wp-content/uploads/2022/06/icegif-340.gif'); background-size: cover; background-position: center; height: 385px;">
+            <div class="row w-100" style="background-image: url('https://www.icegif.com/wp-content/uploads/2022/06/icegif-340.gif'); background-size: cover; background-position: center; height: 325px;">
                 <div class="col-6 gradient-fill-right padding">
                     <h3>Article Info</h3>
                     <hr>
                     <p>
-                        <b>Corroborated from {{source1}} & {{source2}}</b><hr>
+                        <span class="greyed-text">Corroborated from </span><b>{{source1}} & {{source2}}</b><hr>
                         <i class='bi bi-exclamation-circle-fill danger'> </i><b>DISCLAIMER:</b><br>
                         Our corroborator may make mistakes.
                     </p>
@@ -96,18 +60,44 @@
                     <div class="source w-100">
                         AllSides Leaning: <img src="/static/leanings/{{lean1}}.png" style="height: 2em">&nbsp;&nbsp;<hr> [1]
                         <h5>{{title1}}</h5>
-                        {{source1}}
+                        By {{source1}}
                     </div>
                 </a>
                 <a href="{{url2}}" class="block col">
                     <div class="source w-100">
                         AllSides Leaning: <img src="/static/leanings/{{lean2}}.png" style="height: 2em">&nbsp;&nbsp;<hr> [2]
                         <h5>{{title2}}</h5>
-                        {{source2}}
+                        By {{source2}}
                     </div>
                 </a>
             </div>
+            <br>
+            <h4>Advanced Info</h4>
+            <ul>
+                <li>
+                    <span class="grey-text">Total available sites: </span><b>{{total_sites}} sites</b>
+                </li>
+                <li>
+                    <span class="grey-text">Sites omitted: </span><b>{{sites_omitted}} sites</b>
+                </li>
+                <li>
+                    <span class="grey-text">Attempted scrapings: </span><b>{{sites_scraped}} sites</b>
+                </li>
+                <li>
+                    <span class="grey-text">Unscrapable sites: </span><b>{{sites_unscrapable}} sites</b>
+                </li>
+                <li>
+                    <span class="grey-text">Secondary source search time: </span><b>{{execution_time}} s</b>
+                </li>
+                <li>
+                    <span class="grey-text">Article generation time: </span><b>{{helper_time}} s</b>
+                </li>
+                <li>
+                    <span class="grey-text">Search query: </span><b>"{{query}}"</b>
+                </li>
+            </ul>
         </div>
+        <div class="col"></div>
     </div>
 
 
