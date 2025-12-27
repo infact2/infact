@@ -54,10 +54,10 @@ Extract text from a news article provided in the URL parameter
 `extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")`
 
 #### Returns
-A `string` containing all the content of the news article. May not always be accurate
+A `string` containing all the content of the news article. May not always be 100% accurate
 
 #### Parameters
-url `string` - The URL you dipshit
+url `string` - The URL
 
 ### `corroborate(url1, url2)`
 Corroborate two news sources with the two URLs provided
@@ -69,7 +69,7 @@ Corroborate two news sources with the two URLs provided
 A `string` containing the corroborated content, may take a while to finish.
 
 #### Parameters
-url1, url2 `string` - The URL you dipshit
+url1, url2 `string` - The URL
 
 ### `textToHTML(text)`
 Edits text for HTML support
@@ -81,4 +81,4 @@ Edits text for HTML support
 A `string` containing HTML-ified stuff.
 
 #### Parameters
-text `string` - A string of stuff to convereturttttt
+text `string` - A string of stuff to convert
