@@ -1,84 +1,80 @@
 # InFact
 
-Repo to get news from NewsAPI and corroborate it using openai API
+InFact is a news corroboration platform that fights media bias. Give it a news article URL and it finds a story covering the same event from an outlet with an opposing political lean, then uses GPT-4 to synthesize an unbiased summary with direct quotes from both sources.
 
-> [!NOTE]
-> If you are not using docker please follow the next section.
-## Docker Related Instructions
+## Setup
 
-### To kill
-run `sudo docker stop --signal SIGKILL infact`
+1. Clone the repo and `cd infact`
+2. Create a `.env` file with the following keys:
 
-### Prepare files for docker to builf
-1. Obtain the repo `git clone https://github.com/infact2/infact`
-2. `cd infact`
-3. Insert your tokens in .env
+```
+SUPABASE_URL=
+SUPABASE_KEY=
+NEWS_API_KEY=
+GOOGLE_API_KEY=
+OPENAI_API_KEY=
+```
 
-### Building the image
-4. Build the docker image by using `sudo docker build -t infact . `
+## Running
 
-### Local debugging instructions
-5. Run the image `sudo docker run --name infact -it -p 8000:8000 infact`
-6. To stop the program run `sudo docker stop --signal SIGKILL infact`
+**Docker (recommended):**
 
-### Server Deployment Instructions
-7. Run the image `sudo docker run --name infact -d -p 8000:8000 infact`
-8. To stop the program run `sudo docker stop --signal SIGKILL infact`
+```bash
+# Build
+docker build -t infact .
 
+# Run (detached / server)
+docker run --name infact -d -p 8000:8000 infact
 
-## Legacy Instructions (Still supported)
+# Run (interactive / local debug)
+docker run --name infact -it -p 8000:8000 infact
 
-### To Kill
-**IMPORTANT**: In case the Flask server is still up, but you cant Ctrl+C out of it, please follow the instructions or you will die.
-1. Run `sudo ps -a` for a list of processes
-2. Find the PID of python
-3. `sudo kill {the PID you found above}`
+# Stop
+docker stop --signal SIGKILL infact
+```
 
-### Install requirements
-Have docker and see Deploy Server for instructions
-`pip install -r requirements.txt`
+**Without Docker:**
 
-### Install requirements
-Have docker and see Deploy Server for instructions
-`pip install -r requirements.txt`
+```bash
+pip install -r requirements.txt
+python main.py
+```
 
-### Deploy server
-`python main.py` or`python3 main.py`
+App runs at `http://localhost:8000`.
 
-## Documentation
+## How It Works
+
+1. A user submits a news article URL.
+2. InFact determines the political bias of the source using AllSides data.
+3. It searches Google for coverage of the same story from an outlet with the opposite bias.
+4. Both articles are sent to GPT-4-turbo, which writes a 3-paragraph corroboration with quotes attributed to each source.
+5. The result is displayed alongside political lean indicators for both outlets.
+
+## API Reference
 
 ### `extractText(url)`
-Extract text from a news article provided in the URL parameter
 
-#### Usage
-`extractText("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html")`
+Extracts the body text of a news article.
 
-#### Returns
-A `string` containing all the content of the news article. May not always be 100% accurate
-
-#### Parameters
-url `string` - The URL
+```python
+extractText("https://example.com/article")
+# Returns: plain text string of article content
+```
 
 ### `corroborate(url1, url2)`
-Corroborate two news sources with the two URLs provided
 
-#### Usage
-`corroborate("https://www.cnn.com/2023/11/29/politics/vivek-ramaswamy-aide-trump-campaign/index.html", "https://abcnews.go.com/US/fbi-investigating-south-carolina-couple-accused-harassing-neighbors/story?id=105825286")`
+Corroborates two news articles into a single synthesis.
 
-#### Returns
-A `string` containing the corroborated content, may take a while to finish.
-
-#### Parameters
-url1, url2 `string` - The URL
+```python
+corroborate("https://cnn.com/...", "https://abcnews.go.com/...")
+# Returns: corroborated string (may take several seconds)
+```
 
 ### `textToHTML(text)`
-Edits text for HTML support
 
-#### Usage
-`textToHTML("There is a newline\n\nCrazy.") # Returns "There is a newline<br><br>Crazy."`
+Converts newlines to `<br>` tags for HTML rendering.
 
-#### Returns
-A `string` containing HTML-ified stuff.
-
-#### Parameters
-text `string` - A string of stuff to convert
+```python
+textToHTML("Line one\n\nLine two")
+# Returns: "Line one<br><br>Line two"
+```
